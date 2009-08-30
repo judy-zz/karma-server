@@ -1,11 +1,8 @@
+= Karma Server
 
-== Karma
+Customer: Marine Biological Laboratory / Encyclopedia of Life
 
-Customer: 
+Basecamp: http://westarete.projectpath.com/projects/3622221
 
-Basecamp: 
-
-Highrise: 
-
-Describe the project here.
-
+A web service provider for tracking "karma" points of users who are
+distributed across several separate web applications.
