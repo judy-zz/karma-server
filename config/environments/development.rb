@@ -15,3 +15,14 @@ config.action_controller.perform_caching             = false
 
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
+
+# Specify gems that this application depends on and have them installed with rake gems:install
+
+# Annotate model comments with database table descriptions.
+config.gem 'annotate', :version => '2.0.2'
+
+# Performance analysis. Visit http://localhost:3000/newrelic
+config.gem "newrelic_rpm", :version => '2.9.4'
+
+# Capistrano deployment helpers to keep our recipe simple.
+config.gem 'westarete-capistrano-helpers', :lib => false, :version => '0.0.2', :source => 'http://gems.github.com'
