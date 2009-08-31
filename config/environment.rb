@@ -22,6 +22,9 @@ Rails::Initializer.run do |config|
   # A more efficient way of creating forms.
   config.gem "justinfrench-formtastic", :version => '0.2.2', :lib => 'formtastic', :source  => 'http://gems.github.com'
 
+  # Efficient RESTful controllers.
+  config.gem "josevalim-inherited_resources", :version => '0.9.0', :lib => 'inherited_resources', :source  => 'http://gems.github.com'
+
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
