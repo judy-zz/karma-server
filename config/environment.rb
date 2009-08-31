@@ -19,6 +19,9 @@ Rails::Initializer.run do |config|
   # Haml view templates are an alternative to erb.
   config.gem 'haml', :version => '2.2.2'
 
+  # A more efficient way of creating forms.
+  config.gem "justinfrench-formtastic", :version => '0.2.2', :lib => 'formtastic', :source  => 'http://gems.github.com'
+
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
