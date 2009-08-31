@@ -17,7 +17,7 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on and have them installed with rake gems:install
 
   # Haml view templates are an alternative to erb.
-  config.gem 'haml', :version => '2.2.2'
+  config.gem 'haml', :version => '2.2.3'
 
   # A more efficient way of creating forms.
   config.gem "justinfrench-formtastic", :version => '0.2.2', :lib => 'formtastic', :source  => 'http://gems.github.com'
