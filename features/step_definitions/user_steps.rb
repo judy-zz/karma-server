@@ -1,14 +1,11 @@
-Given /^the following users:$/ do |users|
-  User.create!(users.hashes)
+When /^I POST to '(.*).json' with body '(.*)'$/ do |path, body|
+  post "#{path}.json", body, :content_type => 'application/json'
 end
 
-When /^I delete the (\d+)(?:st|nd|rd|th) user$/ do |pos|
-  visit users_url
-  within("table > tr:nth-child(#{pos.to_i+1})") do
-    click_link "Destroy"
-  end
+Then /^I should get a (\d+) ([\w\s]+) response$/ do |code, name|
+  @response.code.should == code
 end
 
-Then /^I should see the following users:$/ do |expected_users_table|
-  expected_users_table.diff!(table_at('table').to_a)
+Then /^the '(.*)' header should be '(.*)'$/ do |header_name, expected_value|
+  @response.headers[header_name].should == expected_value
 end

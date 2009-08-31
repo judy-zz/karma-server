@@ -4,8 +4,8 @@ Feature: Users via JSON
   I want to be able to create, read, update, and delete User objects via JSON.
   
   Scenario: Create a user
-    When I POST '{"user": {"token": "bob"}}' to '/users'
+    When I POST to '/users.json' with body '{"user": {"token": "bob"}}'
     Then I should get a 201 Created response
-    And the Location header should be 'http://localhost:3000/users/bob'
+    And the 'Location' header should be 'http://www.example.com/users/bob'
 
   
