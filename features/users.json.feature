@@ -6,6 +6,9 @@ Feature: Users via JSON
   Scenario: Create a user
     When I POST to '/users.json' with body '{"user": {"token": "bob"}}'
     Then I should get a 201 Created response
-    And the 'Location' header should be 'http://www.example.com/users/bob'
-
+    # And the 'Location' header should be 'http://www.example.com/users/bob'
   
+  Scenario: Read a user
+		Given I have a user with token "bob"
+    When I GET from '/users/bob.json'
+    Then I should get a 201 Created response
