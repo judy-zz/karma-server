@@ -1,6 +1,8 @@
 %h1 New User
 
-- semantic_form_for @user do |form|
-  = form.inputs
-  = form.buttons
+- form_for :user, @user, :html => {:method => :put} do |f|
+  = f.label :permalink
+  = f.text_field :permalink
+  
+  = f.submit "Save User"
   

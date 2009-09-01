@@ -5,7 +5,6 @@ Feature: Users via HTML
   
   Scenario: Create a user
     Given I am on the new user page
-    When I fill in "Token" with "bob"
-    And I press "Create"
+    When I fill in "Permalink" with "bob"
+    And I press "Save User"
     Then I should see "bob"
-

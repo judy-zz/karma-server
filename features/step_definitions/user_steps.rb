@@ -1,3 +1,3 @@
-Given /^I have a user with token "([^\"]*)"$/ do |arg1|
-  User.create(:token => arg1)
+Given /^I have a user with permalink "([^\"]*)"$/ do |arg1|
+  User.create(:permalink => arg1)
 end
