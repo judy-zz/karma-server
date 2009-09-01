@@ -18,4 +18,10 @@ config.action_mailer.delivery_method = :test
 config.gem 'cucumber',    :lib => false,        :version => '0.3.98'
 config.gem 'webrat',      :lib => false,        :version => '0.5.3' 
 config.gem 'rspec',       :lib => false,        :version => '1.2.8' 
-config.gem 'rspec-rails', :lib => 'spec/rails', :version => '1.2.7.1' 
+config.gem 'rspec-rails', :lib => 'spec/rails', :version => '1.2.7.1'
+                                                                    
+# Replacement for fixtures
+config.gem 'notahat-machinist', :lib => 'machinist', :version => '1.0.3'
+
+# Generate fake test data
+config.gem 'faker', :version => '0.3.1'

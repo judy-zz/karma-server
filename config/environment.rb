@@ -18,6 +18,15 @@ Rails::Initializer.run do |config|
 
   # Haml view templates are an alternative to erb.
   config.gem 'haml', :version => '2.2.3'
+<<<<<<< HEAD:config/environment.rb
+=======
+
+  # A more efficient way of creating forms.
+  config.gem "justinfrench-formtastic", :version => '0.2.2', :lib => 'formtastic', :source  => 'http://gems.github.com'
+
+  # Efficient RESTful controllers.
+  config.gem "josevalim-inherited_resources", :version => '0.9.0', :lib => 'inherited_resources', :source  => 'http://gems.github.com'
+>>>>>>> users:config/environment.rb
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

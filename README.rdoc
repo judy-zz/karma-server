@@ -6,3 +6,41 @@ Basecamp: http://westarete.projectpath.com/projects/3622221
 
 A web service provider for tracking "karma" points of users who are
 distributed across several separate web applications.
+
+== Potential Features
+
+
+  # These can go in when we start to implement buckets
+
+  Scenario: Add karma to an existing user and bucket
+    Given an existing user '/users/bob'
+    Given an existing bucket '/buckets/plants'
+    When I POST to '/users/bob/buckets/plants/adjustments' with params 'value=1'
+    Then I should get a 201 Created response
+  
+  Scenario: Add karma to a non-existing user
+    Given an existing bucket '/buckets/plants'
+    When I POST to '/users/not-there/buckets/plants/adjustments' with params 'value=1'
+    Then I should get a 404 Not Found response
+
+  Scenario: Add karma to a non-existing bucket
+    Given an existing user '/users/bob'
+    When I POST to '/users/bob/buckets/not-there/adjustments' with params 'value=1'
+    Then I should get a 404 Not Found response
+  
+  # A guess on what the REST API might look like for totals
+
+  Scenario: Get the history of adjustments for a user
+    Given an existing user '/users/bob'
+    When I GET '/users/bob/adjustments'
+    Then I should get a 200 OK response
+    And the body should contain all the adjustments in chronological order
+
+  Scenario: Get the total for a user's overall karma
+    Given an existing user '/users/bob'
+    When I GET '/users/bob/adjustments/total'
+    Then I should get a 200 OK response
+    And the body should contain the total
+  
+
+
