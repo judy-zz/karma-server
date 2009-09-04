@@ -12,6 +12,8 @@ module NavigationHelpers
       '/'
     when /the new user page/
       new_user_path
+    when /the new bucket page/
+      new_bucket_path
 
     
     # Add more mappings here.
