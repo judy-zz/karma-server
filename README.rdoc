@@ -2,10 +2,70 @@
 
 Customer: Marine Biological Laboratory / Encyclopedia of Life
 
-Basecamp: http://westarete.projectpath.com/projects/3622221
+Basecamp: http://westarete.basecamphq.com/projects/3622221
 
 A web service provider for tracking "karma" points of users who are
 distributed across several separate web applications.
+
+== API Description
+
+== Mime Types
+
+Each resource can be accessed via HTML, JSON, or XML. To control the format, 
+the Accept header can be set to the desired mime type, or a file extension
+can be appended to any URL. For example, to get the history of bob's karma in
+JSON format, you can issue a GET request to +/users/bob/adjustments.json+. The
+default format is HTML.
+
+=== Users
+
+  PUT /users/bob
+  
+Create a new user "bob". You will automatically be able to access the value
+of bob's buckets -- you do not need to create the buckets individually.
+
+  DELETE /users/bob
+  
+Delete user "bob", along with all of his karma and karma history.
+
+=== Buckets
+
+  PUT /buckets/plants
+  
+Create a new bucket "plants". Each user in the system will automatically get 
+"plants" bucket.
+
+  DELETE /buckets/plants
+  
+Destroy the plants bucket. This will remove the plants bucket for each 
+user in the system, along with all karma associated with that bucket.
+
+=== Adjustments
+
+  POST /users/bob/buckets/plants/adjustments?value=3
+
+Increment the karma in bob's plant bucket by three points. The "Location"
+header of the response redirects the client to the new adjustment.  
+
+  POST /users/bob/buckets/plants/adjustments?value=-1
+  
+Decrement the karma in bob's plant bucket by one point. The "Location"
+header of the response redirects the client to the new adjustment.
+
+  GET /users/bob/buckets/plants/adjustments/245
+  
+Get the details for one particular adjustment from user Bob.
+
+  GET /users/bob/adjustments
+
+Returns a history of all karma adjustments for user "bob".
+
+  GET /users/bob/buckets/plants/adjustments
+  
+Returns a history of all karma adjustments for bob's "plants" bucket.
+
+
+
 
 == Potential Features
 
