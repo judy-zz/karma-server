@@ -9,7 +9,7 @@ distributed across several separate web applications.
 
 == API Description
 
-== Mime Types
+=== Mime Types
 
 Each resource can be accessed via HTML, JSON, or XML. To control the format, 
 the Accept header can be set to the desired mime type, or a file extension
@@ -22,7 +22,13 @@ default format is HTML.
   PUT /users/bob
   
 Create a new user "bob". You will automatically be able to access the value
-of bob's buckets -- you do not need to create the buckets individually.
+of bob's buckets -- you do not need to create the buckets individually. If
+the user already exists, then this request will have no effect.
+
+  GET /users/bob
+  
+Get information about user bob. This would include the creation time, bob's
+karma score, latest activity, etc.
 
   DELETE /users/bob
   
@@ -32,13 +38,21 @@ Delete user "bob", along with all of his karma and karma history.
 
   PUT /buckets/plants
   
-Create a new bucket "plants". Each user in the system will automatically get 
-"plants" bucket.
+Create a new bucket "plants". Each user in the system will automatically get
+"plants" bucket. If the bucket already exists, then this request will have
+no effect.
 
   DELETE /buckets/plants
   
 Destroy the plants bucket. This will remove the plants bucket for each 
 user in the system, along with all karma associated with that bucket.
+
+  GET /users/bob/buckets
+  
+Return details about bob's total karma score. Two versions are returned -- one
+that includes the ability for points to go negative, and the other that only
+allows points to go down to zero. Also included are the total positive and 
+negative points that have been accumulated.
 
 === Adjustments
 
@@ -63,44 +77,3 @@ Returns a history of all karma adjustments for user "bob".
   GET /users/bob/buckets/plants/adjustments
   
 Returns a history of all karma adjustments for bob's "plants" bucket.
-
-
-
-
-== Potential Features
-
-
-  # These can go in when we start to implement buckets
-
-  Scenario: Add karma to an existing user and bucket
-    Given an existing user '/users/bob'
-    Given an existing bucket '/buckets/plants'
-    When I POST to '/users/bob/buckets/plants/adjustments' with params 'value=1'
-    Then I should get a 201 Created response
-  
-  Scenario: Add karma to a non-existing user
-    Given an existing bucket '/buckets/plants'
-    When I POST to '/users/not-there/buckets/plants/adjustments' with params 'value=1'
-    Then I should get a 404 Not Found response
-
-  Scenario: Add karma to a non-existing bucket
-    Given an existing user '/users/bob'
-    When I POST to '/users/bob/buckets/not-there/adjustments' with params 'value=1'
-    Then I should get a 404 Not Found response
-  
-  # A guess on what the REST API might look like for totals
-
-  Scenario: Get the history of adjustments for a user
-    Given an existing user '/users/bob'
-    When I GET '/users/bob/adjustments'
-    Then I should get a 200 OK response
-    And the body should contain all the adjustments in chronological order
-
-  Scenario: Get the total for a user's overall karma
-    Given an existing user '/users/bob'
-    When I GET '/users/bob/adjustments/total'
-    Then I should get a 200 OK response
-    And the body should contain the total
-  
-
-
