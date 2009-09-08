@@ -11,8 +11,5 @@
         %td= link_to bucket.name, bucket
         %td= link_to "Edit", edit_bucket_path(bucket)
         %td= link_to "Delete", bucket, :confirm => "Are you sure?", :method => :delete
-    - unless Bucket.deleted.empty?
-      %tr
-        %th{ :colspan => 3 }= link_to "Restore Deleted Buckets", deleted_buckets_path
 - else
   = link_to "There are no buckets, click here to create the first one.", new_bucket_path

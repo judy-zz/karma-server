@@ -1,18 +1,10 @@
 class Bucket < ActiveRecord::Base
   validates_presence_of   :name
   validates_uniqueness_of :name
+  default_scope :order => :name
   
-  def self.deleted
-    all(:conditions => ["deleted_at is not ?", nil])
+  def to_param
+    name
   end
   
-  def destroy
-    self.deleted_at = Time.now
-    save
-  end
-  
-  def destroy!
-    destroy
-    save!
-  end
 end

@@ -17,7 +17,7 @@ Feature: Buckets via HTML
     
     Scenario: Edit a bucket
       Given I am on the buckets page
-      And I press "Edit" next to the "Animals" bucket
+      And I click "Edit" next to the "Animals" bucket
       When I fill in "Name" with "Animals1"
       And I press "Update Bucket"
       Then I should be on the "Animals1" bucket page
@@ -35,18 +35,9 @@ Feature: Buckets via HTML
       Then I should be on the "Animals" bucket page
       And I should see the "Animals" bucket
     
-    Scenario: Delete a bucket
+    Scenario: Destroy a bucket
       Given I am on the buckets page
-      When I press "Delete" next to the "Animals" bucket
+      When I press "Destroy" next to the "Animals" bucket
       Then I should be on the buckets page
       And I should see "Bucket was successfully destroyed."
-      And I should not see the "Animals" bucket
-    
-    Scenario: Restore a bucket
-      Given I delete the "Animals" bucket
-      And I am on the buckets page
-      When I press "Restore Deleted Buckets"
-      And I press "Restore" next to the "Animals" bucket
-      Then I should be on the deleted buckets page
-      And I should see "Bucket was successfully restored."
       And I should not see the "Animals" bucket

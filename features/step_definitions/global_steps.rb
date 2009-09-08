@@ -6,6 +6,7 @@ Given /^I have a ([^\"]*) with ([^\"]*) "([^\"]*)" and ([^\"]*) "([^\"]*)"$/ do 
   eval("#{klass.camelize}.create(:#{method} => '#{value}', :#{method2} => #{value2})")
 end
 
+# JSON steps
 When /^I POST to "(.*).json" with body "(.*)"$/ do |path, body|
   post "#{path}.json", body, :content_type => 'application/json'
 end
@@ -24,4 +25,46 @@ end
 
 Then /^the "(.*)" header should be "(.*)"$/ do |header_name, expected_value|
   @response.headers[header_name].should == expected_value
+end
+
+Then /^I should not see a "([^\"]*)" link$/ do |name|
+   response.should_not have_tag("a", name)
+end
+
+Then /^I should see a "([^\"]*)" link$/ do |name|
+ response.should have_tag("a", name)
+end
+
+When /^I click "([^\"]*)"$/ do |link_name|
+  click_link link_name
+end
+
+Then /^I should see an error message$/ do
+  flash[:failure].should_not be_nil
+end
+
+Then /^there should be no errors$/ do
+  flash[:failure].should be_nil
+end
+
+Then /^I should see a success message$/ do
+  flash[:success].should_not be_nil
+end
+
+When /^I select "([^\"]*)"$/ do |value|
+  select(value)
+end
+
+Then /^I should (still )?see "([^\"]*)" in "([^\"]*)"$/ do |still, value, field|
+  field_labeled(field).value.should == value
+end
+
+Then /^I should not see "([^\"]*)" in "([^\"]*)"$/ do |value, field|
+  field_labeled(field).value.should_not == value
+end
+
+
+# Some people ENJOY fixing bugs.
+When /^I debug$/ do
+  save_and_open_page
 end
