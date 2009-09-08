@@ -13,9 +13,10 @@ class UsersController < ApplicationController
       format.html do
         @user = User.new(params[:user])
         if @user.save
-          flash[:notice] = "User was successfully Created."
+          flash[:success] = "User was successfully Created."
           redirect_to user_path(@user)
         else
+          flash[:failure] = "User could Not be Created."
           render :action => :new
         end
       end

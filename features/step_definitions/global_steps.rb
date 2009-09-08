@@ -43,6 +43,10 @@ Then /^I should see an error message$/ do
   flash[:failure].should_not be_nil
 end
 
+Then /^I should see an error explanation$/ do
+  flash[:failure].should_not be_nil
+end
+
 Then /^there should be no errors$/ do
   flash[:failure].should be_nil
 end

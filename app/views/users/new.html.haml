@@ -1,6 +1,7 @@
 %h1 New User
 
 - form_for :user, @user, :html => {:method => :put} do |f|
+  = f.error_messages
   = f.label :permalink
   = f.text_field :permalink
   

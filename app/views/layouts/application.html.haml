@@ -1,5 +1,9 @@
 .flash
-  - if flash
-    = flash[:notice]
+  - if flash[:notice]
+    .notice= flash[:notice]
+  - if flash[:success]
+    .success= flash[:success]
+  - if flash[:failure]
+    .failure= flash[:failure]
 .content
   = yield
