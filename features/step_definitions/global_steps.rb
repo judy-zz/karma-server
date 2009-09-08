@@ -1,9 +1,15 @@
-Given /^I have a ([^\"]*) with ([^\"]*) "([^\"]*)"$/ do |klass, method, value|
+Given /^I have a ([^\"]*) with attribute ([^\"]*) "([^\"]*)"$/ do |klass, method, value|
   eval("#{klass.camelize}.create(:#{method} => '#{value}')")
 end
 
-Given /^I have a ([^\"]*) with ([^\"]*) "([^\"]*)" and ([^\"]*) "([^\"]*)"$/ do |klass, method, value, method2, value2|
-  eval("#{klass.camelize}.create(:#{method} => '#{value}', :#{method2} => #{value2})")
+Given /^I have a ([^\"]*) with attributes ([^\"]*) "([^\"]*)" and ([^\"]*) "([^\"]*)"$/ do |klass, method, value, method2, value2|
+  eval("#{klass.camelize}.create(:#{method} => '#{value}', :#{method2} => '#{value2}')")
+end
+
+When /^I edit the ([^\"]*) with ([^\"]*) "([^\"]*)"$/ do |klass, method, value|
+  string_to_eval = "#{klass}.find(:first, :conditions => ['#{method} = ?','#{value}'])"
+  class_object = eval(string_to_eval)
+  visit "#{klass.pluralize.underscore}/#{value}/edit"
 end
 
 # JSON steps

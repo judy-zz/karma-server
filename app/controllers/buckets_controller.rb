@@ -44,9 +44,9 @@ class BucketsController < ApplicationController
   def destroy
     @bucket = Bucket.find_by_name params[:id]
     if @bucket.destroy
-      flash[:success] = "Bucket was successfully deleted."
+      flash[:success] = "Bucket was successfully destroyed."
     else
-      flash[:failure] = "Bucket could not be deleted."
+      flash[:failure] = "Bucket could not be destroyed."
     end
     redirect_to buckets_path
   end

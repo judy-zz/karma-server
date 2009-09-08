@@ -10,6 +10,6 @@
       %tr
         %td= link_to bucket.name, bucket
         %td= link_to "Edit", edit_bucket_path(bucket)
-        %td= link_to "Delete", bucket, :confirm => "Are you sure?", :method => :delete
+        %td= link_to "Destroy", bucket, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{bucket.name} Bucket"
 - else
   = link_to "There are no buckets, click here to create the first one.", new_bucket_path
