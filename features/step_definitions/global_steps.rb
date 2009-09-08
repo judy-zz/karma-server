@@ -17,3 +17,10 @@ end
 Then /^the '(.*)' header should be '(.*)'$/ do |header_name, expected_value|
   @response.headers[header_name].should == expected_value
 end
+
+Then /^I should get a JSON response body like:$/ do |string|
+  expected = ActiveSupport::JSON.decode(string)
+  actual   = ActiveSupport::JSON.decode(@response.body)
+  actual.should == expected
+end
+
