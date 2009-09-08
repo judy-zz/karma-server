@@ -1,5 +1,8 @@
 class BucketsController < ApplicationController
   
+  # GET /buckets
+  # GET /buckets.json
+  # GET /buckets.xml
   def index
     @buckets = Bucket.all
     respond_to do |format|
@@ -9,14 +12,17 @@ class BucketsController < ApplicationController
     end
   end
   
+  # GET /buckets/Animals
   def show
     @bucket = Bucket.find_by_name params[:id]
   end
   
+  # GET /buckets/Animals/edit
   def edit
     @bucket = Bucket.find_by_name params[:id]
   end
   
+  # PUT /buckets/Animals
   def update
     @bucket = Bucket.find_by_name params[:id]
     if @bucket.update_attributes(params[:bucket])
@@ -27,10 +33,12 @@ class BucketsController < ApplicationController
     end
   end
   
+  # GET /buckets/new
   def new
     @bucket = Bucket.new
   end
   
+  # POST /buckets
   def create
     @bucket = Bucket.new params[:bucket]
     if @bucket.save
@@ -41,6 +49,7 @@ class BucketsController < ApplicationController
     end
   end
   
+  # DELETE /buckets/Animals
   def destroy
     @bucket = Bucket.find_by_name params[:id]
     if @bucket.destroy
