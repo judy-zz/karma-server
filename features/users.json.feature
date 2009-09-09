@@ -16,7 +16,7 @@ Feature: Users via JSON
     Given I have a user with permalink "bob"
     When I GET from '/users/bob.json'
     Then I should get a 200 OK response
-    And I should get a response body
+    And I should get a JSON response body like:
     """
       {
         user: {
