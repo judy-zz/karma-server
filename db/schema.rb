@@ -9,7 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090908153551) do
+ActiveRecord::Schema.define(:version => 20090910112222) do
+
+  create_table "adjustments", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "bucket_id",  :null => false
+    t.integer  "value",      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "buckets", :force => true do |t|
     t.string   "name"
