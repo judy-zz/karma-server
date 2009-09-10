@@ -22,4 +22,6 @@ class Adjustment < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :bucket
+  
+  attr_accessible :value
 end
