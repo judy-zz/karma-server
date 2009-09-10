@@ -8,23 +8,29 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
     
-    when /the homepage/
-      '/'
-    when /the new user page/
-      new_user_path
-
-    
-    # Add more mappings here.
-    # Here is a more fancy example:
-    #
-    #   when /^(.*)'s profile page$/i
-    #     user_profile_path(User.find_by_login($1))
-
+    when /the home page/
+      root_path   
+    # Add more page name => path mappings here
+    when /^the "(.*)" bucket page$/i
+      bucket_path(Bucket.find_by_name($1))
+    when /^the edit "(.*)" bucket page$/i
+      edit_bucket_path(Bucket.find_by_name($1))
     else
-      raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
-        "Now, go and add a mapping in #{__FILE__}"
+      if path = match_rails_path_for(page_name) 
+        path
+      else 
+        raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
+        "Now, go and add a mapping in features/support/paths.rb"
+      end
     end
   end
+
+  def match_rails_path_for(page_name)
+    if page_name.match(/the (.*) page/)
+      return send "#{$1.gsub(" ", "_")}_path" rescue nil
+    end
+  end
+
 end
 
 World(NavigationHelpers)

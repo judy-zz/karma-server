@@ -1,0 +1,15 @@
+%h2 Buckets
+
+- unless @buckets.empty?
+  %h4= link_to "Create New Bucket", new_bucket_path
+  %table
+    %tr
+      %th Bucket
+      %th{ :colspan => 2 } Actions
+    - @buckets.each do |bucket| 
+      %tr
+        %td= link_to bucket.name, bucket
+        %td= link_to "Edit", edit_bucket_path(bucket)
+        %td= link_to "Destroy", bucket, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{bucket.name} Bucket"
+- else
+  = link_to "There are no buckets, click here to create the first one.", new_bucket_path
