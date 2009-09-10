@@ -13,7 +13,8 @@ Feature: Adjustments via HTML
     And I fill in "value" with "-1"
     And I press "Save"
     Then I should be on the adjustments page for bob's plants bucket
-    And I should see "4"
+    And I should see "5"
+    And I should see "-1"
     
   
   
