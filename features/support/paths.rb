@@ -15,6 +15,10 @@ module NavigationHelpers
       bucket_path(Bucket.find_by_name($1))
     when /^the edit "(.*)" bucket page$/i
       edit_bucket_path(Bucket.find_by_name($1))
+    when /^the new adjustment page for (.*)'s (.*) bucket$/
+      new_user_bucket_adjustment_path(:user_permalink => $1, :bucket_permalink => $2)
+    when /^the adjustments page for (.*)'s (.*) bucket$/
+      user_bucket_adjustments_path(:user_permalink => $1, :bucket_permalink => $2)
     else
       if path = match_rails_path_for(page_name) 
         path

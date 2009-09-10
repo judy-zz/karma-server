@@ -33,6 +33,22 @@ Then /^the "(.*)" header should be "(.*)"$/ do |header_name, expected_value|
   @response.headers[header_name].should == expected_value
 end
 
+Then /^I should get an? (HTML|JSON|XML) response$/i do |format|
+  content_type = case format.downcase
+  when 'html' then 'text/html'
+  when 'json' then 'application/json'
+  when 'xml'  then 'application/xml'
+  end
+  @response.content_type.should == content_type
+end
+
+Then /^I should get a JSON response body like:$/ do |string|
+  @response.content_type.should == 'application/json'
+  expected = ActiveSupport::JSON.decode(string)
+  actual   = ActiveSupport::JSON.decode(@response.body)
+  actual.should == expected
+end
+
 Then /^I should not see a "([^\"]*)" link$/ do |name|
    response.should_not have_tag("a", name)
 end

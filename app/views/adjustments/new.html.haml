@@ -1,0 +1,7 @@
+%h1 New Adjustment
+
+- form_for @adjustment, :url => user_bucket_adjustments_path(@adjustment.user, @adjustment.bucket) do |f|
+  = f.label :value
+  = f.text_field :value
+  = f.submit 'Save'
+  
