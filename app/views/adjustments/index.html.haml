@@ -1,0 +1,11 @@
+%h1 Adjustments
+
+%table
+  %tr
+    %th Date/Time
+    %th Value
+  - for adjustment in @adjustments
+    %tr
+      %td= adjustment.created_at
+      %td= adjustment.value
+  
