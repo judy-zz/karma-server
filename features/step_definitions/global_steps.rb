@@ -1,4 +1,4 @@
-Given /^I have a ([^\"]*) with attribute ([^\"]*) "([^\"]*)"$/ do |klass, method, value|
+iven /^I have a ([^\"]*) with attribute ([^\"]*) "([^\"]*)"$/ do |klass, method, value|
   eval("#{klass.camelize}.create(:#{method} => '#{value}')")
 end
 
@@ -12,17 +12,8 @@ When /^I edit the ([^\"]*) with ([^\"]*) "([^\"]*)"$/ do |klass, method, value|
   visit "#{klass.pluralize.underscore}/#{value}/edit"
 end
 
-# JSON steps
-When /^I POST to "(.*).json" with body "(.*)"$/ do |path, body|
-  post "#{path}.json", body, :content_type => 'application/json'
-end
-
-When /^I PUT to "(.*).json" with body "(.*)"$/ do |path, body|
-  put "#{path}.json", body, :content_type => 'application/json'
-end
-
-When /^I GET from "(.*).json"$/ do |path|
-  get "#{path}.json", :content_type => 'application/json'
+When /^I (GET|PUT|POST|DELETE|HEAD|OPTIONS|PROPFIND|TRACE) "([^\"]*)"( with body "(.*)")?$/ do |verb, path, clause, body|
+  send verb.downcase.to_sym, path, body
 end
 
 Then /^I should get a (\d+) ([\w\s]+) response$/ do |code, name|
@@ -49,11 +40,20 @@ Then /^I should get a JSON response body like:$/ do |string|
   actual.should == expected
 end
 
+Then /^I should get an XML response body like:$/ do |string|
+  @response.content_type.should == 'application/xml'
+  expected = Hash.from_xml(string)
+  actual   = Hash.from_xml(@response.body)
+  actual.should == expected
+end
+
 Given /^the following (\w+):$/ do |table_name, table|
   klass = table_name.classify.constantize
   table.hashes.each do |hash|
-    object = klass.new(hash)
-    object.id = hash[:id]   # Must explicitly set the id to override it.
+    object = klass.new
+    hash.each do |key, value|
+      object[key] = value   # Must explicitly set the id to override it.
+    end
     object.save!
   end
 end
