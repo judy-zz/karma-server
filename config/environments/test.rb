@@ -30,8 +30,8 @@ config.action_mailer.delivery_method = :test
 # Specify gems that this application depends on and have them installed with rake gems:install
 
 # Rspec testing framework.
-config.gem 'rspec',       :lib => false, :version => '1.2.6'
-config.gem 'rspec-rails', :lib => false, :version => '1.2.6'
+config.gem 'rspec',       :lib => false, :version => '1.2.8'
+config.gem 'rspec-rails', :lib => false, :version => '1.2.7.1'
 
 # Replacement for fixtures
 config.gem 'notahat-machinist', :lib => 'machinist', :version => '1.0.3'
