@@ -15,6 +15,10 @@ class BucketsController < ApplicationController
   # GET /buckets/Animals
   def show
     @bucket = Bucket.find_by_name params[:id]
+    respond_to do |format|
+      format.html
+      format.json{ render :json => @bucket }
+    end
   end
   
   # GET /buckets/Animals/edit

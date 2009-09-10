@@ -1,5 +1,5 @@
 Feature: Users via JSON
-  In order manage the representation of users of the web applications,
+  In order to manage the representation of users of the web applications,
   As a client
   I want to be able to create, read, update, and delete User objects via JSON.
   
