@@ -4,17 +4,17 @@ Feature: Users via JSON
   I want to be able to create, read, update, and delete User objects via JSON.
   
   Scenario: Create a user
-    When I PUT to '/users/bob.json' with body ''
+    When I PUT to "/users/bob.json" with body ""
     Then I should get a 201 Created response
 
   Scenario: Recreate a user
-    Given I have a user with permalink "bob"
-    When I PUT to '/users/bob.json' with body ''
+    Given I have a user with attribute permalink "bob"
+    When I PUT to "/users/bob.json" with body ""
     Then I should get a 200 OK response
 
   Scenario: Read a user
-    Given I have a user with permalink "bob"
-    When I GET from '/users/bob.json'
+    Given I have a user with attribute permalink "bob"
+    When I GET from "/users/bob.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
     """
@@ -29,6 +29,6 @@ Feature: Users via JSON
     """
 
   Scenario: Get a non-existent user
-    Given I have a user with permalink "bob"
-    When I GET from '/users/not-there.json'
+    Given I have a user with attribute permalink "bob"
+    When I GET from "/users/not-there.json"
     Then I should get a 404 Not Found response

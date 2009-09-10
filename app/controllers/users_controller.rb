@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+  
+  def index
+    @users = User.all
+  end
+  
   def new
     @user = User.new
   end
@@ -6,8 +11,14 @@ class UsersController < ApplicationController
   def create
     respond_to do |format|
       format.html do
-        @user = User.create!(params[:user])
-        redirect_to user_path(@user)
+        @user = User.new(params[:user])
+        if @user.save
+          flash[:success] = "User was successfully Created."
+          redirect_to user_path(@user)
+        else
+          flash[:failure] = "User could Not be Created."
+          render :action => :new
+        end
       end
       format.json do
         if @user = User.find_by_permalink(params[:permalink])
