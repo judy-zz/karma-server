@@ -43,6 +43,7 @@ Then /^I should get an? (HTML|JSON|XML) response$/i do |format|
 end
 
 Then /^I should get a JSON response body like:$/ do |string|
+  @response.content_type.should == 'application/json'
   expected = ActiveSupport::JSON.decode(string)
   actual   = ActiveSupport::JSON.decode(@response.body)
   actual.should == expected
