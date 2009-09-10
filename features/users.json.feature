@@ -13,17 +13,20 @@ Feature: Users via JSON
     Then I should get a 200 OK response
 
   Scenario: Read a user
-    Given a user "bob"
+    Given the following users exist:
+      | id | permalink | created_at          | updated_at          |
+      | 1  | bob       | 2009-10-01 12:00:00 | 2009-10-01 12:00:00 | 
+      | 2  | harry     | 2009-10-01 12:00:00 | 2009-10-01 12:00:00 | 
     When I GET from "/users/bob.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
     """
       {
         user: {
-          permalink: bob, 
-          positive_points: 12, 
-          negative_points: 3, 
-          total_points: 36
+          id: 1,
+          permalink: bob,
+          created_at: "2009-10-01T12:00:00Z",
+          updated_at: "2009-10-01T12:00:00Z"
         }
       }
     """
