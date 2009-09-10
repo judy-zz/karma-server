@@ -49,6 +49,15 @@ Then /^I should get a JSON response body like:$/ do |string|
   actual.should == expected
 end
 
+Given /^the following (\w+):$/ do |table_name, table|
+  klass = table_name.classify.constantize
+  table.hashes.each do |hash|
+    object = klass.new(hash)
+    object.id = hash[:id]   # Must explicitly set the id to override it.
+    object.save!
+  end
+end
+
 Then /^I should not see a "([^\"]*)" link$/ do |name|
    response.should_not have_tag("a", name)
 end

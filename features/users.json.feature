@@ -13,7 +13,7 @@ Feature: Users via JSON
     Then I should get a 200 OK response
 
   Scenario: Read a user
-    Given the following users exist:
+    Given the following users:
       | id | permalink | created_at          | updated_at          |
       | 1  | bob       | 2009-10-01 12:00:00 | 2009-10-01 12:00:00 | 
       | 2  | harry     | 2009-10-01 12:00:00 | 2009-10-01 12:00:00 | 
