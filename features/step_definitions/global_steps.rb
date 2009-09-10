@@ -12,17 +12,8 @@ When /^I edit the ([^\"]*) with ([^\"]*) "([^\"]*)"$/ do |klass, method, value|
   visit "#{klass.pluralize.underscore}/#{value}/edit"
 end
 
-# JSON steps
-When /^I POST to "(.*).json" with body "(.*)"$/ do |path, body|
-  post "#{path}.json", body, :content_type => 'application/json'
-end
-
-When /^I PUT to "(.*).json" with body "(.*)"$/ do |path, body|
-  put "#{path}.json", body, :content_type => 'application/json'
-end
-
-When /^I GET from "(.*).json"$/ do |path|
-  get "#{path}.json", :content_type => 'application/json'
+When /^I (GET|PUT|POST|DELETE|HEAD|OPTIONS|PROPFIND|TRACE) "([^\"]*)"( with body "(.*)")?$/ do |verb, path, clause, body|
+  send verb.downcase.to_sym, path, body
 end
 
 Then /^I should get a (\d+) ([\w\s]+) response$/ do |code, name|
