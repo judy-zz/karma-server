@@ -26,20 +26,29 @@ class BucketsController < ApplicationController
     @bucket = Bucket.find_by_name params[:id]
   end
   
-  # PUT /buckets/Animals
-  def update
-    @bucket = Bucket.find_by_name params[:id]
-    if @bucket.update_attributes(params[:bucket])
-      flash[:success] = "Bucket was successfully updated."
-      redirect_to @bucket
-    else
-      render :action => :edit
-    end
-  end
-  
   # GET /buckets/new
   def new
     @bucket = Bucket.new
+    respond_to do |format|
+      format.html
+      format.json{ render :json => @bucket } 
+    end
+  end
+  
+  # PUT /buckets/Animals
+  def update
+    @bucket = Bucket.find_or_create_by_name params[:id]
+    if @bucket.update_attributes(params[:bucket])
+      respond_to do |format|
+        format.html do
+          flash[:success] = "Bucket was successfully updated."
+          redirect_to @bucket
+        end
+        format.json { render :json => '', :status => 204 }
+      end
+    else
+      render :action => :edit
+    end
   end
   
   # POST /buckets

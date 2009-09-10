@@ -27,7 +27,7 @@ module NavigationHelpers
 
   def match_rails_path_for(page_name)
     if page_name.match(/the (.*) page/)
-      return send "#{$1.gsub(" ", "_")}_path" rescue nil
+      return send("#{$1.gsub(" ", "_")}_path") rescue nil
     end
   end
 

@@ -12,17 +12,8 @@ When /^I edit the ([^\"]*) with ([^\"]*) "([^\"]*)"$/ do |klass, method, value|
   visit "#{klass.pluralize.underscore}/#{value}/edit"
 end
 
-# JSON steps
-When /^I POST to "(.*).json" with body "(.*)"$/ do |path, body|
-  post "#{path}.json", body, :content_type => 'application/json'
-end
-
-When /^I PUT to "(.*).json" with body "(.*)"$/ do |path, body|
-  put "#{path}.json", body, :content_type => 'application/json'
-end
-
-When /^I GET from "(.*).json"$/ do |path|
-  get "#{path}.json", :content_type => 'application/json'
+When /^I (GET|PUT|POST|DELETE|HEAD|OPTIONS|PROPFIND|TRACE) "([^\"]*)"( with body "(.*)")?$/ do |verb, path, clause, body|
+  send verb.downcase.to_sym, path, body
 end
 
 Then /^I should get a (\d+) ([\w\s]+) response$/ do |code, name|
@@ -31,6 +22,44 @@ end
 
 Then /^the "(.*)" header should be "(.*)"$/ do |header_name, expected_value|
   @response.headers[header_name].should == expected_value
+end
+
+Then /^I should get an? (HTML|JSON|XML) response$/i do |format|
+  content_type = case format.downcase
+  when 'html' then 'text/html'
+  when 'json' then 'application/json'
+  when 'xml'  then 'application/xml'
+  end
+  @response.content_type.should == content_type
+end
+
+Then /^I should get a JSON response body like:$/ do |string|
+  @response.content_type.should == 'application/json'
+  expected = ActiveSupport::JSON.decode(string)
+  actual   = ActiveSupport::JSON.decode(@response.body)
+  actual.should == expected
+end
+
+Then /^I should get an XML response body like:$/ do |string|
+  @response.content_type.should == 'application/xml'
+  expected = Hash.from_xml(string)
+  actual   = Hash.from_xml(@response.body)
+  actual.should == expected
+end
+
+Then /^I should get a blank response body$/ do
+  response.should be_empty
+end
+
+Given /^the following (\w+):$/ do |table_name, table|
+  klass = table_name.classify.constantize
+  table.hashes.each do |hash|
+    object = klass.new
+    hash.each do |key, value|
+      object[key] = value   # Must explicitly set the id to override it.
+    end
+    object.save!
+  end
 end
 
 Then /^I should not see a "([^\"]*)" link$/ do |name|
@@ -49,7 +78,7 @@ Then /^I should see an error message$/ do
   flash[:failure].should_not be_nil
 end
 
-Then /^I should see an error explanation$/ do
+Then /^I should see an error explanation/ do
   flash[:failure].should_not be_nil
 end
 

@@ -1,6 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
   
   map.resources :buckets
+  map.with_options :controller => :buckets do |bucket|
+    bucket.connect '/buckets/:name', :action => :create, :conditions => { :method => :put }
+  end
   
   map.with_options :controller => :users do |user|
     user.new_user '/users/new', :action => :new, :conditions => { :method => :get }
