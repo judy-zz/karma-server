@@ -23,7 +23,7 @@ class AdjustmentsController < ApplicationController
     @adjustments = Adjustment.find(:all, :conditions => {:user_id => @user.id, :bucket_id => @bucket.id})
     respond_to do |format|
       format.html
-      format.xml { render :xml => @adjustments.to_xml }
+      format.xml { render :xml => @adjustments }
     end
   end
 
