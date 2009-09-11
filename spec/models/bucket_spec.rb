@@ -15,7 +15,7 @@ describe Bucket do
     @bucket = Bucket.make
   end
 
-  it { should validate_presence_of(:name) }
-  it { should validate_uniqueness_of(:name) }
+  it { should validate_presence_of(:permalink) }
+  it { should validate_uniqueness_of(:permalink) }
 
 end

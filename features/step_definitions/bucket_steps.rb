@@ -1,3 +1,3 @@
 Given /^a bucket "([^\"]*)"$/ do |permalink|
-  Bucket.create(:name => permalink)
+  Bucket.create(:permalink => permalink)
 end

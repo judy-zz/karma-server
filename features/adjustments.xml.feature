@@ -9,7 +9,7 @@ Feature: Adjustments via XML
       | 1   | bob            | 2009-09-10 19:55:35 UTC | 2009-09-10 19:55:35 UTC |
       | 2   | harry          | 2009-09-10 13:57:01 UTC | 2009-09-10 13:57:01 UTC |
     And the following buckets:
-      | id | name       | created_at              | updated_at              |
+      | id | permalink  | created_at              | updated_at              |
       | 3  | plants     | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
       | 4  | animals    | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
     And the following adjustments:
