@@ -29,7 +29,7 @@ Feature: Buckets via JSON
       | 2  | Plants   | 2009-10-02 12:00:00 | 2009-10-02 12:00:00 | 
     And I have a user with attributes permalink "bob" and id "1"
 
-  Scenario: Read a list of buckets
+  Scenario: Read list of buckets
     When I GET "/buckets.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
@@ -64,6 +64,11 @@ Feature: Buckets via JSON
         }
       }
     """
+    
+  Scenario: Read a non-existing bucket
+    When I GET "/buckets/bugs.json"
+    Then I should get a 500 Internal Server Error response
+    And I should get a blank response body
      
   Scenario: Request a new bucket
     When I GET "/buckets/new.json"
@@ -79,7 +84,22 @@ Feature: Buckets via JSON
       }
     """
   
-  Scenario: Create a new bucket via put
+  Scenario: Create a bucket
     When I PUT "/buckets/dinosaurs.json"
-    Then I should get a 204 Created response
+    Then I should get a 201 Created response
     And I should get a blank response body
+  
+  Scenario: Update a bucket
+    When I PUT "/buckets/Animals.json" with body "bucket[name]=Nice Animals&bucket[updated_at]=2009-10-11 00:00:00"
+    Then I should get a 200 OK response
+  #   And I should get a JSON response body like:
+  #   """
+  #     {
+  #       bucket:{
+  #         id: 1,
+  #         name: "Nice Animals",
+  #         created_at: "2009-10-01T12:00:00Z",
+  #         updated_at: "2009-09-11???:??:???"
+  #       }
+  #     }
+  #   """
