@@ -24,7 +24,7 @@ Feature: Buckets via JSON
   
   Background:
     Given the following buckets:
-      | id | name     | created_at          | updated_at          |
+      | id | permalink     | created_at          | updated_at          |
       | 1  | Animals  | 2009-10-01 12:00:00 | 2009-10-01 12:00:00 | 
       | 2  | Plants   | 2009-10-02 12:00:00 | 2009-10-02 12:00:00 | 
     And I have a user with attributes permalink "bob" and id "1"
@@ -37,13 +37,13 @@ Feature: Buckets via JSON
       [{
         bucket: {
           id: 1,
-          name: Animals,
+          permalink: Animals,
           created_at: "2009-10-01T12:00:00Z",
           updated_at: "2009-10-01T12:00:00Z"
         }},
         {bucket: {
           id: 2,
-          name: Plants,
+          permalink: Plants,
           created_at: "2009-10-02T12:00:00Z",
           updated_at: "2009-10-02T12:00:00Z"
         }
@@ -58,7 +58,7 @@ Feature: Buckets via JSON
       {
         bucket: {
           id: 2,
-          name: Plants,
+          permalink: Plants,
           created_at: "2009-10-02T12:00:00Z",
           updated_at: "2009-10-02T12:00:00Z"
         }
@@ -77,7 +77,7 @@ Feature: Buckets via JSON
     """
       {
         "bucket":{
-          "name":null,
+          "permalink":null,
           "updated_at":null,
           "created_at":null
         }
@@ -90,14 +90,14 @@ Feature: Buckets via JSON
     And I should get a blank response body
   
   Scenario: Update a bucket
-    When I PUT "/buckets/Animals.json" with body "bucket[name]=Nice Animals&bucket[updated_at]=2009-10-11 00:00:00"
+    When I PUT "/buckets/Animals.json" with body "bucket[permalink]=Nice Animals&bucket[updated_at]=2009-10-11 00:00:00"
     Then I should get a 200 OK response
   #   And I should get a JSON response body like:
   #   """
   #     {
   #       bucket:{
   #         id: 1,
-  #         name: "Nice Animals",
+  #         permalink: "Nice Animals",
   #         created_at: "2009-10-01T12:00:00Z",
   #         updated_at: "2009-09-11???:??:???"
   #       }

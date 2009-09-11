@@ -15,7 +15,7 @@ class BucketsController < ApplicationController
   # GET /buckets/Animals
   # GET /buckets/Animals.json
   def show
-    @bucket = Bucket.find_by_name params[:id]
+    @bucket = Bucket.find_by_permalink params[:id]
     if @bucket
       respond_to do |format|
         format.html
@@ -31,7 +31,7 @@ class BucketsController < ApplicationController
   
   # GET /buckets/Animals/edit
   def edit
-    @bucket = Bucket.find_by_name params[:id]
+    @bucket = Bucket.find_by_permalink params[:id]
   end
   
   # GET /buckets/new
@@ -51,7 +51,7 @@ class BucketsController < ApplicationController
   # view the features located at /features/buckets.*.feature
   # for details on the design of this method.
   def update
-    @bucket = Bucket.find_or_new_by_name params[:id]
+    @bucket = Bucket.find_or_new_by_permalink params[:id]
     if @bucket.new_record?
       if @bucket.save
         respond_to do |format|
@@ -99,7 +99,7 @@ class BucketsController < ApplicationController
   # DELETE /buckets/Animals
   # DELETE /buckets/Animals.json
   def destroy
-    @bucket = Bucket.find_by_name params[:id]
+    @bucket = Bucket.find_by_permalink params[:id]
     if @bucket.destroy
       flash[:success] = "Bucket was successfully destroyed."
     else

@@ -31,7 +31,7 @@ class AdjustmentsController < ApplicationController
   
   def find_user_and_bucket
     @user = User.find_by_permalink!(params[:user_permalink])
-    @bucket = Bucket.find_by_name!(params[:bucket_permalink])
+    @bucket = Bucket.find_by_permalink!(params[:bucket_permalink])
   end
 
 end

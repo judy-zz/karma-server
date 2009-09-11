@@ -5,7 +5,7 @@ require "machinist/active_record"
 Sham.permalink { Faker::Name.name.gsub(/[^\w]+/, '-') }
 
 Bucket.blueprint do
-  name { Sham.permalink }
+  permalink { Sham.permalink }
 end
 
 User.blueprint do
