@@ -17,7 +17,7 @@ class Bucket < ActiveRecord::Base
     name
   end
 
-  def self.find_or_new_by_name name
+  def self.find_or_new_by_name name = ''
     found = find_by_name name
     found ? found : new(:name => name)
   end
