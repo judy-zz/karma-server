@@ -10,7 +10,7 @@ Feature: Buckets via JSON
     # And I have an adjustment with value "5" and bucket_id "1" and user_id "1"
 
   Scenario: Get a list of buckets
-    When I GET from "/buckets.json"
+    When I GET "/buckets.json"
     Then I should get a 200 OK response
 
   # TODO: Cannot implement until after adjustments are implemented
