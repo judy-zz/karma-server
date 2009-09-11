@@ -29,7 +29,11 @@ Feature: Buckets via JSON
       | 2  | Plants   | 2009-10-02 12:00:00 | 2009-10-02 12:00:00 | 
     And I have a user with attributes permalink "bob" and id "1"
 
+<<<<<<< HEAD
+  Scenario: Get a list of buckets
+=======
   Scenario: Read list of buckets
+>>>>>>> buckets
     When I GET "/buckets.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:

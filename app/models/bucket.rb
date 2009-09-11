@@ -16,5 +16,10 @@ class Bucket < ActiveRecord::Base
   def to_param
     name
   end
+
+  def self.find_or_new_by_name name
+    found = find_by_name name
+    found ? found : new(:name => name)
+  end
   
 end
