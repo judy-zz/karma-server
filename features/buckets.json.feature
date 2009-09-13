@@ -24,9 +24,9 @@ Feature: Buckets via JSON
   
   Background:
     Given the following buckets:
-      | id | permalink     | created_at          | updated_at          |
-      | 1  | Animals  | 2009-10-01 12:00:00 | 2009-10-01 12:00:00 | 
-      | 2  | Plants   | 2009-10-02 12:00:00 | 2009-10-02 12:00:00 | 
+      | id | permalink | created_at          | updated_at          |
+      | 1  | Animals   | 2009-10-01 12:00:00 | 2009-10-01 12:00:00 | 
+      | 2  | Plants    | 2009-10-02 12:00:00 | 2009-10-02 12:00:00 | 
     And I have a user with attributes permalink "bob" and id "1"
 
   Scenario: Read list of buckets
