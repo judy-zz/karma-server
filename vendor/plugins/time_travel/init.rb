@@ -1,1 +1,1 @@
-require 'time_travel' if ENV["RAILS_ENV"] == "test"
+require 'time_travel' if ENV["RAILS_ENV"] == "test" || ENV["RAILS_ENV"] == "cucumber"
