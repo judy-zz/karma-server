@@ -90,16 +90,16 @@ Feature: Buckets via JSON
     And I should get a blank response body
   
   Scenario: Update a bucket
-    When I PUT "/buckets/Animals.json" with body "bucket[permalink]=Nice Animals&bucket[updated_at]=2009-10-11 00:00:00"
+    When I PUT "/buckets/Animals.json" with body "bucket[permalink]=Nice Animals"
     Then I should get a 200 OK response
-  #   And I should get a JSON response body like:
-  #   """
-  #     {
-  #       bucket:{
-  #         id: 1,
-  #         permalink: "Nice Animals",
-  #         created_at: "2009-10-01T12:00:00Z",
-  #         updated_at: "2009-09-11???:??:???"
-  #       }
-  #     }
-  #   """
+    And I should get a JSON response body like:
+    """
+      {
+        bucket:{
+          id: 1,
+          permalink: "Nice Animals",
+          created_at: "2009-10-01T12:00:00Z",
+          updated_at: "2009-09-09T12:00:00Z"
+        }
+      }
+    """
