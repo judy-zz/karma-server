@@ -1,26 +1,7 @@
-# View list of buckets (:action => :index)
-#   Method: GET
-#   Action: index               
-#     /buckets.json                         Green
-#
-# View the "plants" bucket
-#   Method: GET      
-#   Action: show       
-#     /buckets/plants.json                  Green
-#
-# New bucket           
-#   Method: GET      
-#   Action: new        
-#     /buckets/new.json                     Green
-#
-# Create or Update the "plants" bucket
-#   Method: PUT             
-#   Action: update          
-#     /buckets/plants.json                  Not Implemented
 Feature: Buckets via JSON
-  In order to manage buckets for the web applications,
+  In order to query and manage buckets,
   As a client
-  I want to be able to read Bucket objects and adjustments by buckets via JSON.
+  I want to be able to read and modify bucket resources via JSON.
   
   Background:
     Given the following buckets:
