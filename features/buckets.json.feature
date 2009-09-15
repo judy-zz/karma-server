@@ -17,6 +17,9 @@
 #   Method: PUT             
 #   Action: update          
 #     /buckets/plants.json                  Not Implemented
+#   Method: POST
+#   Action: create                          Not Implemented
+#
 Feature: Buckets via JSON
   In order to manage buckets for the web applications,
   As a client
