@@ -9,12 +9,17 @@
 #
 
 class Bucket < ActiveRecord::Base
-  validates_presence_of   :name
-  validates_uniqueness_of :name
-  default_scope :order => :name
+  validates_presence_of   :permalink
+  validates_uniqueness_of :permalink
+  default_scope :order => :permalink
   
   def to_param
-    name
+    permalink
+  end
+
+  def self.find_or_new_by_permalink permalink = ''
+    found = find_by_permalink permalink
+    found ? found : new(:permalink => permalink)
   end
   
 end

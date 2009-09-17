@@ -1,4 +1,4 @@
-iven /^I have a ([^\"]*) with attribute ([^\"]*) "([^\"]*)"$/ do |klass, method, value|
+Given /^I have a ([^\"]*) with attribute ([^\"]*) "([^\"]*)"$/ do |klass, method, value|
   eval("#{klass.camelize}.create(:#{method} => '#{value}')")
 end
 
@@ -13,7 +13,11 @@ When /^I edit the ([^\"]*) with ([^\"]*) "([^\"]*)"$/ do |klass, method, value|
 end
 
 When /^I (GET|PUT|POST|DELETE|HEAD|OPTIONS|PROPFIND|TRACE) "([^\"]*)"( with body "(.*)")?$/ do |verb, path, clause, body|
-  send verb.downcase.to_sym, path, body
+  # Perform the action at a precise time, so we can anticipate the resulting
+  # ActiveRecord timestamps.
+  at_time(Time.utc(2009,9,9, 12,0,0)) do
+    send verb.downcase.to_sym, path, body
+  end
 end
 
 Then /^I should get a (\d+) ([\w\s]+) response$/ do |code, name|
@@ -46,6 +50,9 @@ Then /^I should get an XML response body like:$/ do |string|
   actual   = Hash.from_xml(@response.body)
   actual.should == expected
 end
+Then /^I should get a blank response body$/ do
+  response.should be_empty
+end
 
 Given /^the following (\w+):$/ do |table_name, table|
   klass = table_name.classify.constantize
@@ -74,7 +81,7 @@ Then /^I should see an error message$/ do
   flash[:failure].should_not be_nil
 end
 
-Then /^I should see an error explanation$/ do
+Then /^I should see an error explanation/ do
   flash[:failure].should_not be_nil
 end
 

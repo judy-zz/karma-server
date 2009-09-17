@@ -7,23 +7,38 @@ Basecamp: http://westarete.basecamphq.com/projects/3622221
 A web service provider for tracking "karma" points of users who are
 distributed across several separate web applications.
 
-== API Description
-
-=== Mime Types
+== Mime Types
 
 Each resource can be accessed via HTML, JSON, or XML. To control the format, 
 the Accept header can be set to the desired mime type, or a file extension
 can be appended to any URL. For example, to get the history of bob's karma in
-JSON format, you can issue a GET request to +/users/bob/adjustments.json+. The
-default format is HTML.
+JSON format, you can issue a GET request to +/users/bob/adjustments.json+. 
+
+The default format is HTML.
+
+== Resources
 
 === Users
+
+Users in this system represent the users of the web application. They have no
+ability to authenticate to the Karma server. Users are uniquely identified by
+their URI. 
+
+Users only have one real attribute: their permalink. This is the last path
+segment of the URI that identifies the user. The permalink is set and chosen
+by the client.
 
   PUT /users/bob
   
 Create a new user "bob". You will automatically be able to access the value
 of bob's buckets -- you do not need to create the buckets individually. If
 the user already exists, then this request will have no effect.
+
+  PUT /users/bob?permalink=bobby
+  
+Rename the "bob" user to "bobby". The resource will now only be accessible as
++/users/bobby+ (and likewise for any other place that this bucket is
+referenced). All data associated with the user is still intact.
 
   GET /users/bob
   
@@ -36,11 +51,26 @@ Delete user "bob", along with all of his karma and karma history.
 
 === Buckets
 
+Buckets are the containers that are used to hold karma points. The client 
+defines one or more unique buckets, and these buckets are then available to
+all users for storing points. 
+
+Like users, buckets only have one real attribute: their permalink. This is the
+last path segment of the URI that identifies the bucket. The permalink is set
+and chosen by the client.
+
   PUT /buckets/plants
   
 Create a new bucket "plants". Each user in the system will automatically get
 "plants" bucket. If the bucket already exists, then this request will have
 no effect.
+
+  PUT /buckets/plants?permalink=flowers
+  
+Change the name of the plants bucket to "flowers". The resource will now only
+be accessible as +/buckets/flowers+ (and likewise for any other place that 
+this bucket is referenced). All data associated with the bucket is
+still intact.
 
   DELETE /buckets/plants
   
@@ -55,6 +85,12 @@ allows points to go down to zero. Also included are the total positive and
 negative points that have been accumulated.
 
 === Adjustments
+
+Adjustments represent a change in karma for a given user, for a given bucket.
+
+They differ from buckets and users in the way that they're created and
+referenced; they're not named explicitly by the client. Instead, they're 
+assigned an integer identifier by the karma server when they're created.
 
   POST /users/bob/buckets/plants/adjustments?value=3
 
@@ -77,3 +113,11 @@ Returns a history of all karma adjustments for user "bob".
   GET /users/bob/buckets/plants/adjustments
   
 Returns a history of all karma adjustments for bob's "plants" bucket.
+
+  PUT /users/bob/buckets/plants/adjustments/245
+  
+Modify the details for one particular adjustment from user Bob.
+
+  DELETE /users/bob/buckets/plants/adjustments/245
+  
+Remove (undo) one particular adjustment for user Bob.

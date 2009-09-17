@@ -21,13 +21,17 @@ class AdjustmentsController < ApplicationController
 
   def index
     @adjustments = Adjustment.find(:all, :conditions => {:user_id => @user.id, :bucket_id => @bucket.id})
+    respond_to do |format|
+      format.html
+      format.xml { render :xml => @adjustments }
+    end
   end
 
   private
   
   def find_user_and_bucket
     @user = User.find_by_permalink!(params[:user_permalink])
-    @bucket = Bucket.find_by_name!(params[:bucket_permalink])
+    @bucket = Bucket.find_by_permalink!(params[:bucket_permalink])
   end
 
 end

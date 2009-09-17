@@ -12,9 +12,9 @@ module NavigationHelpers
       root_path   
     # Add more page name => path mappings here
     when /^the "(.*)" bucket page$/i
-      bucket_path(Bucket.find_by_name($1))
+      bucket_path(Bucket.find_by_permalink($1))
     when /^the edit "(.*)" bucket page$/i
-      edit_bucket_path(Bucket.find_by_name($1))
+      edit_bucket_path(Bucket.find_by_permalink($1))
     when /^the new adjustment page for (.*)'s (.*) bucket$/
       new_user_bucket_adjustment_path(:user_permalink => $1, :bucket_permalink => $2)
     when /^the adjustments page for (.*)'s (.*) bucket$/
@@ -31,7 +31,7 @@ module NavigationHelpers
 
   def match_rails_path_for(page_name)
     if page_name.match(/the (.*) page/)
-      return send "#{$1.gsub(" ", "_")}_path" rescue nil
+      return send("#{$1.gsub(" ", "_")}_path") rescue nil
     end
   end
 
