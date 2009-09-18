@@ -15,7 +15,7 @@ set :application, "karma"
 set :scm, "git"
 
 # Location of the source code.
-set :repository,  "git@github.com:westarete/karma.git"
+set :repository,  "git@github.com:westarete/karma-server.git"
 
 # Non-standard ssh port.
 ssh_options[:port] = 22222
