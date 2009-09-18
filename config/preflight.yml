@@ -1,0 +1,6 @@
+# Questions that must be answered "yes" before a deploy is allowed to proceed.
+- Does cruise control show all tests passing?
+- Do the staging and production servers have the required gems installed?
+- Are you prepared to run migrations on the remote server?
+- Have you tagged this release?
+- Have you pushed the tags to github?
