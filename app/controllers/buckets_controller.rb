@@ -89,10 +89,10 @@ class BucketsController < ApplicationController
   def create
     @bucket = Bucket.new params[:bucket]
     if @bucket.save
-      debugger
       flash[:success] = "Bucket was successfully created."
       redirect_to @bucket
     else
+      flash[:failure] = "Bucket could not be created."
       render :action => :new
     end
   end

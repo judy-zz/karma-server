@@ -14,6 +14,30 @@ Feature: Buckets via HTML
     And I press "Create Bucket"
     Then I should be on the "Bugs" bucket page
     And I should see "Bucket was successfully created."
+  
+  Scenario: Attempt to Create a bucket with a period
+    Given I am on the new bucket page
+    When I fill in "Permalink" with "Bugs.Bar"
+    And I press "Create Bucket"
+    Then I should see "New Bucket"
+    And I should see an error message
+    And I should see "Permalink cannot contain a period or a slash"
+  
+  Scenario: Attempt to Create a bucket with a slash
+    Given I am on the new bucket page
+    When I fill in "Permalink" with "Bugs/foo"
+    And I press "Create Bucket"
+    Then I should see "New Bucket"
+    And I should see an error message
+    And I should see "Permalink cannot contain a period or a slash"
+  
+  Scenario: Attempt to Create a bucket with a slash and a period
+    Given I am on the new bucket page
+    When I fill in "Permalink" with "Bugs/foo.bar"
+    And I press "Create Bucket"
+    Then I should see "New Bucket"
+    And I should see an error message
+    And I should see "Permalink cannot contain a period or a slash"
     
   Scenario: Edit a bucket
     Given I am on the edit "Animals" bucket page
