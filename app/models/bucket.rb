@@ -12,7 +12,7 @@ class Bucket < ActiveRecord::Base
   validates_presence_of   :permalink
   validates_uniqueness_of :permalink
   default_scope :order => :permalink
-  
+  validate :valid_permalink
   
   
   def to_param
@@ -24,4 +24,11 @@ class Bucket < ActiveRecord::Base
     found ? found : new(:permalink => permalink)
   end
   
+  private
+  def valid_permalink
+    if self.permalink.include?(".") or self.permalink.include?("/")
+      errors.add(:name, "cannot contain a period or a slash")
+    end
+  end
+
 end
