@@ -14,7 +14,8 @@ describe User do
   before(:each) do
     @user = User.make
   end
+  
+  it { should validate_presence_of(:permalink) }
+  it { should validate_uniqueness_of(:permalink) }
 
-  it "should create a new instance" do
-  end
 end
