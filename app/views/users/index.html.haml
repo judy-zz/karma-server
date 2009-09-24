@@ -1,11 +1,15 @@
 %h2 Users
 
 - unless @users.empty?
+  %h4= link_to "Create User", new_user_path
   %table
     %tr
-      %th Permalink
+      %th User
+      %th{ :colspan => 2 } Actions
     - @users.each do |user| 
       %tr
-        %td= user.permalink
+        %td= link_to user.permalink, user
+        %td= link_to "Edit", edit_user_path(user)
+        %td= link_to "Destroy", user, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{user.permalink} User"
 - else
   = link_to "There are no users, click here to create the first one.", new_user_path

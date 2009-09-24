@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   #   GET /users/:permalink.json
   #   GET /users/:permalink.xml
   def show
-    @user = User.find_by_permalink!(params[:permalink])
+    @user = User.find_by_permalink!(params[:id])
     respond_to do |format|
       format.html
       format.json { render :json => @user }
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
   #   GET /users/:permalink/edit.json
   #   GET /users/:permalink/edit.xml
   def edit
-    @user = User.find_by_permalink!(params[:permalink])
+    @user = User.find_by_permalink!(params[:id])
     respond_to do |format|
       format.html
       format.json { render :json => @user }
@@ -85,7 +85,7 @@ class UsersController < ApplicationController
   # updated, the URI of the resource will have changed, and a Location: header
   # will be returned with the location of the new resource.
   def update
-    @user = User.find_or_initialize_by_permalink(params[:permalink])
+    @user = User.find_or_initialize_by_permalink(params[:id])
     @user.attributes = params[:user]
     new_record = @user.new_record?
     permalink_changed = @user.changed.include?('permalink') && !new_record
@@ -133,30 +133,21 @@ class UsersController < ApplicationController
   
   # Delete a particular user from the database.
   #
-  #   DELETE /users/:permalink.html
+  #   DELETE /users/:permalink
   #   DELETE /users/:permalink.json
   #   DELETE /users/:permalink.xml
   def destroy
-    @user = User.find_by_permalink!(params[:permalink])
-    @user.destroy
+    @user = User.find_by_permalink!(params[:id])
+    if @user.destroy
+      flash[:success] = "User was successfully destroyed."
+    else
+      flash[:failure] = "User could not be destroyed."
+    end
     respond_to do |format|
       format.html { redirect_to users_path }
       format.json { render :json => @user }
       format.xml  { render :xml  => @user }
     end    
   end
-  
-  private
-  
-  # Find the user identified by the permalink in the params, and save it to
-  # the @user instance variable. 
-  def find_user
-  rescue ActiveRecord::RecordNotFound
-    respond_to do |format|
-      format.html { raise }
-      format.json { render :nothing => true, :status => :not_found }
-      format.xml  { render :nothing => true, :status => :not_found }
-    end
-  end
-  
+    
 end

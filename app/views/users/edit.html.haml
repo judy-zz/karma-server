@@ -1,9 +1,10 @@
-%h1 New User
+%h1 Edit User
+%h3= @user.permalink
 
 - form_for @user do |f|
   = f.error_messages
   = f.label :permalink
   = f.text_field :permalink
   
-  = f.submit "Create User"
+  = f.submit "Update User"
   

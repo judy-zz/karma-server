@@ -15,6 +15,10 @@ module NavigationHelpers
       bucket_path(Bucket.find_by_permalink($1))
     when /^the edit "(.*)" bucket page$/i
       edit_bucket_path(Bucket.find_by_permalink($1))
+    when /^the "(.*)" user page$/i
+      user_path(User.find_by_permalink($1))
+    when /^the edit "(.*)" user page$/i
+      edit_user_path(User.find_by_permalink($1))
     when /^the new adjustment page for (.*)'s (.*) bucket$/
       new_user_bucket_adjustment_path(:user_permalink => $1, :bucket_permalink => $2)
     when /^the adjustments page for (.*)'s (.*) bucket$/
