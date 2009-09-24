@@ -10,6 +10,7 @@ ActionController::Routing::Routes.draw do |map|
     m.connect             '/users/:user_permalink/buckets/:bucket_permalink/adjustments.:format',     :action => :create, :conditions => { :method => :post }
     m.adjustments         '/users/:user_permalink/buckets/:bucket_permalink/adjustments.:format',     :action => :index,  :conditions => { :method => :get }
     m.new_user_adjustment '/users/:user_permalink/adjustments/new',                                   :action => :new,    :conditions => { :method => :get }
+    m.user_adjustments    '/users/:user_permalink/adjustments',                                       :action => :create, :conditions => { :method => :post }
   end
   
   map.with_options :controller => :dashboards do |d|

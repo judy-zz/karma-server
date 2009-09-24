@@ -18,6 +18,7 @@
 
 class Adjustment < ActiveRecord::Base
   validates_presence_of :user_id, :bucket_id, :value
+  validates_numericality_of :value
   default_scope :order => :created_at
   
   belongs_to :user

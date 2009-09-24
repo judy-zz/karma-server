@@ -1,6 +1,0 @@
-= f.label :value
-= f.text_field :value
-- unless @bucket
-  = f.label :bucket
-  = f.collection_select :bucket_id, Bucket.all, :id, :permalink
-= f.submit 'Save'

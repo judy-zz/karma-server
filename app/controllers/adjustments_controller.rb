@@ -16,8 +16,10 @@ class AdjustmentsController < ApplicationController
     end
     @adjustment.bucket = @bucket
     if @adjustment.update_attributes(params[:adjustment])
+      flash[:success] = "Karma was successfully adjusted"
       redirect_to adjustments_path(@user, @bucket)
     else
+      flash[:failure] = "Karma failed to be adjusted"
       render :new
     end      
   end

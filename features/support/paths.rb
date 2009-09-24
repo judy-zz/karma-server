@@ -20,9 +20,11 @@ module NavigationHelpers
     when /^the edit "(.*)" user page$/i
       edit_user_path(User.find_by_permalink($1))
     when /^the new adjustment page for (.*)'s (.*) bucket$/
-      new_user_bucket_adjustment_path(:user_permalink => $1, :bucket_permalink => $2)
+      new_adjustment_path(:user_permalink => $1, :bucket_permalink => $2)
     when /^the adjustments page for (.*)'s (.*) bucket$/
-      user_bucket_adjustments_path(:user_permalink => $1, :bucket_permalink => $2)
+      adjustments_path(:user_permalink => $1, :bucket_permalink => $2)
+    when /^the new adjustment page for user (.*)$/
+      new_user_adjustment_path(:user_permalink => $1)
     else
       if path = match_rails_path_for(page_name) 
         path
