@@ -30,8 +30,9 @@ Feature: Users via JSON
         }
       }
     """
-
+    
   Scenario: Get a non-existent user
     Given a user "bob"
     When I GET "/users/not-there.json"
     Then I should get a 404 Not Found response
+    
