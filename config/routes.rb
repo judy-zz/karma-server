@@ -11,5 +11,9 @@ ActionController::Routing::Routes.draw do |map|
     m.user_bucket_adjustments    '/users/:user_permalink/buckets/:bucket_permalink/adjustments.:format',     :action => :index,  :conditions => { :method => :get }
   end
   
+  map.with_options :controller => :dashboard do |d|
+    d.home '/', :action => :home, :conditions => { :method => :get }
+  end
+  
   map.resources :users
 end
