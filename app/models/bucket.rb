@@ -13,6 +13,8 @@ class Bucket < ActiveRecord::Base
   validates_uniqueness_of :permalink
   default_scope :order => :permalink
   
+  
+  
   def to_param
     permalink
   end
