@@ -105,8 +105,6 @@ Then /^I should not see "([^\"]*)" in "([^\"]*)"$/ do |value, field|
   field_labeled(field).value.should_not == value
 end
 
-
-# Some people ENJOY fixing bugs.
 When /^I debug$/ do
   save_and_open_page
 end

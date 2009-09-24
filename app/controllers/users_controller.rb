@@ -41,6 +41,7 @@ class UsersController < ApplicationController
       flash[:success] = "User was successfully created."
       redirect_to @user
     else
+      flash[:failure] = "User could not be created."
       render :action => :new
     end    
   end

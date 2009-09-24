@@ -12,5 +12,5 @@ Feature: Users via HTML
   Scenario: Attempt to create a user without a permalink
     Given I am on the new user page
     When I press "Create User"
-    Then I should see an error explanation
+    Then I should see an error message
     And I should see "Permalink can't be blank"

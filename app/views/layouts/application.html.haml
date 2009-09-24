@@ -1,9 +1,13 @@
-.flash
-  - if flash[:notice]
-    .notice= flash[:notice]
-  - if flash[:success]
-    .success= flash[:success]
-  - if flash[:failure]
-    .failure= flash[:failure]
-.content
-  = yield
+!!!
+%html
+  %head
+  %body
+    .flash
+      - if flash[:notice]
+        .notice= flash[:notice]
+      - if flash[:success]
+        .success= flash[:success]
+      - if flash[:failure]
+        .failure= flash[:failure]
+    .content
+      = yield
