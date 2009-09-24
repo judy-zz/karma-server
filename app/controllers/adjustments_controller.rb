@@ -11,9 +11,12 @@ class AdjustmentsController < ApplicationController
   def create
     @adjustment = Adjustment.new
     @adjustment.user = @user
+    if params[:adjustment][:bucket_id]
+      @bucket = Bucket.find(params[:adjustment][:bucket_id])
+    end
     @adjustment.bucket = @bucket
     if @adjustment.update_attributes(params[:adjustment])
-      redirect_to user_bucket_adjustments_path(@user, @bucket)
+      redirect_to adjustments_path(@user, @bucket)
     else
       render :new
     end      
@@ -31,7 +34,7 @@ class AdjustmentsController < ApplicationController
   
   def find_user_and_bucket
     @user = User.find_by_permalink!(params[:user_permalink])
-    @bucket = Bucket.find_by_permalink!(params[:bucket_permalink])
+    @bucket = Bucket.find_by_permalink(params[:bucket_permalink])
   end
 
 end

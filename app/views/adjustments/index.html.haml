@@ -2,10 +2,10 @@
 
 %table
   %tr
-    %th Date/Time
+    %th Date &amp; Time
     %th Value
   - for adjustment in @adjustments
     %tr
-      %td= adjustment.created_at
+      %td= adjustment.created_at.to_s :date_time12
       %td= adjustment.value
-  
+= link_to "Make Adjustment", new_adjustment_path(@user, @bucket)

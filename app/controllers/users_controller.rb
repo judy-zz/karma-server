@@ -53,6 +53,7 @@ class UsersController < ApplicationController
   #   GET /users/:permalink.xml
   def show
     @user = User.find_by_permalink!(params[:id])
+    @buckets = Bucket.all
     respond_to do |format|
       format.html
       format.json { render :json => @user }

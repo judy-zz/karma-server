@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   
   protected
   
-  def rescue_action(exception)
+  def rescue_action_for_public(exception)
     case exception
     when ActiveRecord::RecordNotFound
       render_404
