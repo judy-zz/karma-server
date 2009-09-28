@@ -17,4 +17,16 @@ class User < ActiveRecord::Base
   def to_param
     permalink
   end
+  
+  # Return the total karma value for a given bucket for this user
+  def karma_for(bucket)
+    Adjustment.sum('value', :conditions => ["user_id = ? and bucket_id = ?", id, bucket.id])
+  end
+  
+  # Return the total adjustment value for this user
+  # described as the user's total karma
+  def karma
+    Adjustment.sum('value', :conditions => ["user_id = ?", id])
+  end
+  
 end
