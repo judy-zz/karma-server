@@ -1,25 +1,3 @@
-# View list of buckets (:action => :index)
-#   Method: GET
-#   Action: index               
-#     /buckets.json                         Green
-#
-# View the "plants" bucket
-#   Method: GET      
-#   Action: show       
-#     /buckets/plants.json                  Green
-#
-# New bucket           
-#   Method: GET      
-#   Action: new        
-#     /buckets/new.json                     Green
-#
-# Create or Update the "plants" bucket
-#   Method: PUT             
-#   Action: update          
-#     /buckets/plants.json                  Not Implemented
-#   Method: POST
-#   Action: create                          Not Implemented
-#
 Feature: Buckets via JSON
   In order to query and manage buckets,
   As a client
