@@ -45,19 +45,19 @@ Feature: Users via JSON
     And I should get a JSON response body like:
     """
       {
-        user: bob
-        user_url: /users/bob.json
+        user: bob,
+        user_path: /users/bob.json,
         total: 0,
         buckets: {
           plants: {
             total: 0,
-            bucket_url: /buckets/plants.json
-            adjustments_url: /users/bob/buckets/plants/adjustments.json
+            bucket_path: /buckets/plants.json,
+            adjustments_path: /users/bob/buckets/plants/adjustments.json
           },
           animals: {
             total: 0,
-            bucket_url: /buckets/animals.json
-            adjustments_url: /users/bob/buckets/animals/adjustments.json
+            bucket_path: /buckets/animals.json,
+            adjustments_path: /users/bob/buckets/animals/adjustments.json
           }
         }
       }

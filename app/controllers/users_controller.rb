@@ -61,6 +61,32 @@ class UsersController < ApplicationController
     end    
   end
   
+  # Show the karma summary for a user and the user's buckets
+  #
+  #   GET /users/:permalink/karma.json
+  def karma
+    @user = User.find_by_permalink!(params[:id])
+    buckets_karma = {}
+    Bucket.all.each do |bucket|
+      buckets_karma[bucket.permalink] = {
+        :bucket_path => bucket_path(bucket, :format => :json),
+        :adjustments_path => adjustments_path(@user, bucket, :format => :json),
+        :total => @user.karma_for(bucket)
+      }
+    end
+    @karma = {
+      :user => @user.permalink,
+      :user_path => user_path(@user, :format => :json),
+      :total => @user.karma,
+      :buckets => buckets_karma
+    }
+    respond_to do |format|
+      format.json do
+        render :json => @karma
+      end
+    end
+  end
+  
   # Display the template for editing an existing user.
   #
   #   GET /users/:permalink/edit.html
