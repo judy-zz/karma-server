@@ -1,11 +1,13 @@
 = render :partial => "/shared/header", :locals => { :title => "Adjustments", :subtitle => subtitle, :flash => flash }
 
-%table
-  %tr
-    %th Date &amp; Time
-    %th Value
-  - for adjustment in @adjustments
+#content
+  %table
     %tr
-      %td= adjustment.created_at.to_s :date_time12
-      %td= adjustment.value
-= link_to "Make Adjustment", new_adjustment_path(@user, @bucket)
+      %th Date &amp; Time
+      %th Value
+    - for adjustment in @adjustments
+      %tr
+        %td= adjustment.created_at.to_s :date_time12
+        %td= adjustment.value
+  .button_row
+    = link_to "Make an Adjustment", new_adjustment_path(@user, @bucket), :class => "button"

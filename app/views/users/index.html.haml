@@ -1,15 +1,17 @@
 = render :partial => "/shared/header", :locals => { :title => "Users", :subtitle => "", :flash => flash }
 
-- unless @users.empty?
-  %h4= link_to "Create User", new_user_path
-  %table
-    %tr
-      %th User
-      %th{ :colspan => 2 } Actions
-    - @users.each do |user| 
+#content
+  - unless @users.empty?
+    %h4= link_to "Create User", new_user_path
+    %table
       %tr
-        %td= link_to user.permalink, user
-        %td= link_to "Edit", edit_user_path(user), :class => "button"
-        %td= link_to "Destroy", user, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{user.permalink} User", :class => "button"
-- else
-  = link_to "There are no users, click here to create the first one.", new_user_path
+        %th User
+        %th{ :colspan => 2 } Actions
+      - @users.each do |user| 
+        %tr
+          %td= link_to user.permalink, user
+          %td= link_to "#{image_tag 'edit.png'}Edit", edit_user_path(user), :class => "button"
+          %td= link_to "#{image_tag 'delete.png'}Destroy", user, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{user.permalink} User", :class => "button"
+  - else
+    = link_to "There are no users, click here to create the first one.", new_user_path
+    
