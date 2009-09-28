@@ -9,7 +9,7 @@
     - @users.each do |user| 
       %tr
         %td= link_to user.permalink, user
-        %td= link_to "Edit", edit_user_path(user)
-        %td= link_to "Destroy", user, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{user.permalink} User"
+        %td= link_to "Edit", edit_user_path(user), :class => "button"
+        %td= link_to "Destroy", user, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{user.permalink} User", :class => "button"
 - else
   = link_to "There are no users, click here to create the first one.", new_user_path

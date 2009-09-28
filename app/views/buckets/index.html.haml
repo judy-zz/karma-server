@@ -9,7 +9,7 @@
     - @buckets.each do |bucket| 
       %tr
         %td= link_to bucket.permalink, bucket
-        %td= link_to "Edit", edit_bucket_path(bucket)
-        %td= link_to "Destroy", bucket, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{bucket.permalink} Bucket"
+        %td= link_to "Edit", edit_bucket_path(bucket), :class => "button"
+        %td= link_to "Destroy", bucket, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{bucket.permalink} Bucket", :class => "button"
 - else
   = link_to "There are no buckets, click here to create the first one.", new_bucket_path

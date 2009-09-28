@@ -4,6 +4,4 @@
 - @buckets.each do |bucket|
   = link_to bucket.permalink, adjustments_path(@user, bucket)
   
-%h3= link_to "Make an Adjustment", new_user_adjustment_path(@user)
-
-= link_to "Back to Users Page", users_path
+= link_to "Make an Adjustment", new_user_adjustment_path(@user), :class => "button"
