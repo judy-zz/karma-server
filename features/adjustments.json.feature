@@ -28,9 +28,9 @@ Feature: Adjustments via JSON
       [
         {
           adjustment: {
-            bucket_id: 4
-            created_at: 2009-09-10T15:06:32Z,
-            updated_at: 2009-09-10T15:06:32Z,
+            bucket_id: 4,
+            created_at: "2009-09-10T15:06:32Z",
+            updated_at: "2009-09-10T15:06:32Z",
             id: 8,
             user_id: 2,
             value: 4
@@ -38,9 +38,9 @@ Feature: Adjustments via JSON
         },
         {
           adjustment: {
-            bucket_id: 4
-            created_at: 2009-09-10T15:06:32Z,
-            updated_at: 2009-09-10T15:06:32Z,
+            bucket_id: 4,
+            created_at: "2009-09-10T15:06:32Z",
+            updated_at: "2009-09-10T15:06:32Z",
             id: 9,
             user_id: 2,
             value: -1            
