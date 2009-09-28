@@ -1,5 +1,3 @@
-%h2= @bucket.permalink
+= render :partial => "/shared/header", :locals => { :title => @bucket.permalink }
 
-%br
-%br
 = link_to "Edit Bucket", edit_bucket_path(@bucket), :class => "button"

@@ -7,17 +7,7 @@
     /[if IE]
       = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
   %body
-    .flash
-      - if flash[:notice]
-        .notice= flash[:notice]
-      - if flash[:success]
-        .success= flash[:success]
-      - if flash[:failure]
-        .failure= flash[:failure]
-    .content
+    #main
       = yield
       
-    #footer
-      = link_to "Home", home_path, :class => "button"
-      = link_to "Users", users_path, :class => "button"
-      = link_to "Buckets", buckets_path, :class => "button"
+      = render :partial => "/shared/footer"
