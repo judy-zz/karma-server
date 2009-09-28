@@ -1,4 +1,4 @@
-= render :partial => "/shared/header", :locals => { :title => "Buckets" }
+= render :partial => "/shared/header", :locals => { :title => "Buckets", :subtitle => "", :flash => flash }
 
 - if ! @buckets.empty?
   %h4= link_to "Create New Bucket", new_bucket_path

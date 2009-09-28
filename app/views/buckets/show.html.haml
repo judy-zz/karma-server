@@ -1,3 +1,4 @@
-= render :partial => "/shared/header", :locals => { :title => @bucket.permalink }
+= render :partial => "/shared/header", :locals => { :title => @bucket.permalink, :subtitle => "", :flash => flash }
 
-= link_to "Edit Bucket", edit_bucket_path(@bucket), :class => "button"
+.button_row
+  = link_to "Edit Bucket", edit_bucket_path(@bucket), :class => "button"

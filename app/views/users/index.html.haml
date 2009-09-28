@@ -1,4 +1,4 @@
-%h2 Users
+= render :partial => "/shared/header", :locals => { :title => "Users", :subtitle => "", :flash => flash }
 
 - unless @users.empty?
   %h4= link_to "Create User", new_user_path
