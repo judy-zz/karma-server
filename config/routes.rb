@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
     m.adjustments         '/users/:user_permalink/buckets/:bucket_permalink/adjustments.:format',     :action => :index,  :conditions => { :method => :get }
     m.adjustment          '/users/:user_permalink/buckets/:bucket_permalink/adjustments/:id.:format', :action => :show,   :conditions => { :method => :get }
     m.connect             '/users/:user_permalink/buckets/:bucket_permalink/adjustments/:id.:format', :action => :update, :conditions => { :method => :put }
+    m.connect             '/users/:user_permalink/buckets/:bucket_permalink/adjustments/:id.:format', :action => :destroy,:conditions => { :method => :delete }
     m.new_user_adjustment '/users/:user_permalink/adjustments/new',                                   :action => :new,    :conditions => { :method => :get }
     m.user_adjustments    '/users/:user_permalink/adjustments',                                       :action => :create, :conditions => { :method => :post }
   end

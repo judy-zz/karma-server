@@ -99,7 +99,6 @@ Feature: Adjustments via XML
     When I POST "/users/harry/buckets/animals/adjustments.xml" with body ""
     Then I should get a 422 Unprocessable Entity response
     
-  
   Scenario: Update an adjustment
     When I PUT "/users/harry/buckets/animals/adjustments/8.xml" with body "adjustment[value]=7&adjustment[bucket_id]=3"
     Then I should get a 200 OK response
@@ -113,5 +112,21 @@ Feature: Adjustments via XML
         <updated-at type="datetime">2009-09-09T12:00:00Z</updated-at>
         <user-id type="integer">2</user-id>
         <value type="integer">7</value>
+      </adjustment>
+    """
+  
+  Scenario: Destroy an adjustment
+    When I DELETE "/users/harry/buckets/animals/adjustments/8.xml"
+    Then I should get a 200 OK response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <adjustment>
+        <bucket-id type="integer">4</bucket-id>
+        <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
+        <id type="integer">8</id>
+        <updated-at type="datetime">2009-09-10T15:06:32Z</updated-at>
+        <user-id type="integer">2</user-id>
+        <value type="integer">4</value>
       </adjustment>
     """

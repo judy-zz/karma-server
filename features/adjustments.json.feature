@@ -102,14 +102,27 @@ Feature: Adjustments via JSON
     Then I should get a 200 OK response
     And I should get a JSON response body like:
     """
-      {
-        "adjustment":{
-          "updated_at":"2009-09-09T12:00:00Z",
-          "id":8,
-          "bucket_id":3,
-          "value":7,
-          "user_id":2,
-          "created_at":"2009-09-10T15:06:32Z"
-        }
+      "adjustment":{
+        "updated_at":"2009-09-09T12:00:00Z",
+        "id":8,
+        "bucket_id":3,
+        "value":7,
+        "user_id":2,
+        "created_at":"2009-09-10T15:06:32Z"
+      }
+    """
+  
+  Scenario: Destroy an adjustment
+    When I DELETE "/users/harry/buckets/animals/adjustments/8.json"
+    Then I should get a 200 OK response
+    And I should get a JSON response body like:
+    """
+      adjustment: {
+        bucket_id: 4,
+        created_at: "2009-09-10T15:06:32Z",
+        updated_at: "2009-09-10T15:06:32Z",
+        id: 8,
+        user_id: 2,
+        value: 4
       }
     """
