@@ -3,7 +3,7 @@
 - form_for @adjustment, :url => new_adjustment_url do |f|
   = f.error_messages
   %p
-    = f.label :value, "Karma &#177;"
+    = f.label :value, "Karma"
     %br
     = f.text_field :value
   - unless @bucket
