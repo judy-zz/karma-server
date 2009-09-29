@@ -83,10 +83,10 @@ Feature: Adjustments via XML
     """
       <?xml version="1.0" encoding="UTF-8"?>
       <adjustment>
-        <bucket-id type="integer" nil="true"></bucket-id>
+        <bucket-id type="integer" nil="true">4</bucket-id>
         <created-at type="datetime" nil="true"></created-at>
         <updated-at type="datetime" nil="true"></updated-at>
-        <user-id type="integer" nil="true"></user-id>
+        <user-id type="integer" nil="true">2</user-id>
         <value type="integer" nil="true"></value>
       </adjustment>
     """
