@@ -1,6 +1,5 @@
 = render :partial => "/shared/header", :locals => { :title => "Editing Bucket", :subtitle => @bucket.permalink, :flash => flash }
 - form_for(@bucket) do |f| 
-  = f.error_messages
-  = f.label :permalink
-  = f.text_field :permalink
-  = f.submit "Update Bucket"
+  = render :partial => "form", :locals => { :f => f }
+  
+  %button{:type => "submit", :name => "commit", :value => "Update", :class => 'button positive'} Update Bucket
