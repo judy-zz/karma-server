@@ -218,6 +218,9 @@ body #main {
   body #main #content table {
     margin: 0;
     width: auto !important; }
+    body #main #content table td.permalink {
+      font-weight: 600;
+      font-size: 1.5em; }
   body #main #footer {
     clear: both;
     margin-top: 1em; }
