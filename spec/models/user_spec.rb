@@ -58,6 +58,7 @@ describe User do
     
     describe ":dependent => :destroy" do
       it "should delete all adjustments when user is deleted" do
+        @user.karma.should == 7
         @user.destroy
         @user.karma.should == 0
       end
