@@ -11,3 +11,4 @@
         %td= adjustment.value
   .button_row
     = link_to "Make an Adjustment", new_adjustment_path(@user, @bucket), :class => "button"
+    = link_to "Go Back to #{@user.permalink}", user_path(@user), :class => "button"

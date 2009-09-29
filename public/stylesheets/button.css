@@ -25,13 +25,12 @@ background-color:#F5F5F5;
 border-color:#DEDEDE #BBBBBB #BFBFBF #DEDEDE;
 border-style:solid;
 border-width:1px;
-color:#333333;
+color:#333333 !important;
 cursor:pointer;
 display:block;
 float:left;
 font-size:100%;
 font-weight:bold;
-line-height:130%;
 margin:0 0.7em 0 0;
 padding:5px 10px 6px;
 text-decoration:none;
@@ -69,33 +68,33 @@ color:#336699;
 .buttons a:active, a.button:active {
 background-color:#6299C5;
 border:1px solid #6299C5;
-color:#FFFFFF;
+color:#FFFFFF !important;
 }
 button.positive, a.positive {
-color:#529214;
+color:#529214 !important;
 }
 a.positive:hover, button.positive:hover {
 background-color:#E9EFD1;
 border:1px solid #AACF81;
-color:#529214;
+color:#529214 !important;
 }
 a.positive:active {
 background-color:#529214;
 border:1px solid #529214;
-color:#FFFFFF;
+color:#FFFFFF !important;
 }
 a.negative, button.negative {
-color:#D12F19;
+color:#D12F19 !important;
 }
 a.negative:hover, button.negative:hover {
 background:#FBE3E4 none repeat scroll 0 0;
 border:1px solid #EF959B;
-color:#D12F19;
+color:#D12F19 !important;
 }
 a.negative:active {
 background-color:#D12F19;
 border:1px solid #D12F19;
-color:#FFFFFF;
+color:#FFFFFF !important;
 }
 .buttons a em, .buttons button em, a.button em {
 font-style:normal;

@@ -1,6 +1,5 @@
 = render :partial => "/shared/header", :locals => { :title => "New Bucket", :subtitle => "", :flash => flash }
 - form_for(@bucket) do |f| 
-  = f.error_messages
-  = f.label :permalink
-  = f.text_field :permalink
-  = f.submit "Create Bucket"
+  = render :partial => "form", :locals => { :f => f }
+  
+  %button{:type => "submit", :name => "commit", :value => "Create", :class => 'button positive'} Create Bucket

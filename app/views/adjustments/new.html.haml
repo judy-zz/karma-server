@@ -7,5 +7,5 @@
   - unless @bucket
     = f.label :bucket_id, "Bucket"
     = f.collection_select :bucket_id, Bucket.all, :id, :permalink
-  = f.submit 'Save'
+  %button{:type => "submit", :name => "commit", :value => "Save", :class => 'button positive'} Save Adjustment
 
