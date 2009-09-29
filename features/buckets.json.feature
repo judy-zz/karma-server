@@ -31,6 +31,15 @@ Feature: Buckets via JSON
       }]
     """
     
+  Scenario: Read list of buckets when there are no buckets
+    Given there are no buckets
+    When I GET "/buckets.json"
+    Then I should get a 200 OK response
+    And I should get a JSON response body like:
+    """
+      []
+    """
+    
   Scenario: Read a bucket
     When I GET "/buckets/Plants.json"
     Then I should get a 200 OK response
@@ -47,9 +56,8 @@ Feature: Buckets via JSON
     """
     
   Scenario: Read a non-existing bucket
-    When I GET "/buckets/bugs.json"
-    Then I should get a 500 Internal Server Error response
-    And I should get a blank response body
+    When I GET "/buckets/not-there.json"
+    Then I should get a 404 Not Found response
      
   Scenario: Request a new bucket
     When I GET "/buckets/new.json"
@@ -66,9 +74,8 @@ Feature: Buckets via JSON
     """
   
   Scenario: Create a bucket
-    When I PUT "/buckets/dinosaurs.json"
+    When I PUT "/buckets/dinosaurs.json" with body ""
     Then I should get a 201 Created response
-    And I should get a blank response body
   
   Scenario: Update a bucket
     When I PUT "/buckets/Animals.json" with body "bucket[permalink]=Nice Animals"
