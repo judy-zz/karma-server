@@ -19,11 +19,6 @@ class Bucket < ActiveRecord::Base
   def to_param
     permalink
   end
-
-  def self.find_or_new_by_permalink permalink = ''
-    found = find_by_permalink permalink
-    found ? found : new(:permalink => permalink)
-  end
   
   private
   def valid_permalink

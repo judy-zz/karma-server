@@ -20,7 +20,7 @@ Feature: Adjustments via XML
       | 8  | 2       | 4         | 4     | 2009-09-10 15:06:32 UTC | 2009-09-10 15:06:32 UTC |
       | 9  | 2       | 4         | -1    | 2009-09-10 15:06:32 UTC | 2009-09-10 15:06:32 UTC |
 
-  Scenario: Read adjustments
+  Scenario: Read list of adjustments
     When I GET "/users/harry/buckets/animals/adjustments.xml"
     Then I should get a 200 OK response
     And I should get an XML response body like:
@@ -44,4 +44,69 @@ Feature: Adjustments via XML
           <value type="integer">-1</value>
         </adjustment>
       </adjustments>
+    """
+    
+  Scenario: Read list of adjustments when there are none
+    Given there are no adjustments
+    When I GET "/users/harry/buckets/animals/adjustments.xml"
+    Then I should get a 200 OK response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <nil-classes type="array"/>
+    """
+    
+  Scenario: Read adjustment
+    When I GET "/users/harry/buckets/animals/adjustments/8.xml"
+    Then I should get a 200 OK response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <adjustment>
+        <bucket-id type="integer">4</bucket-id>
+        <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
+        <id type="integer">8</id>
+        <updated-at type="datetime">2009-09-10T15:06:32Z</updated-at>
+        <user-id type="integer">2</user-id>
+        <value type="integer">4</value>
+      </adjustment>
+    """
+  
+  Scenario: Read a non-existent adjustment
+    When I GET "/users/harry/buckets/animals/adjustments/500.xml"
+    Then I should get a 404 Not Found response
+       
+  Scenario: Request a new adjustment
+    When I GET "/users/harry/buckets/animals/adjustments/new.xml"
+    Then I should get a 200 OK response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <adjustment>
+        <bucket-id type="integer" nil="true"></bucket-id>
+        <created-at type="datetime" nil="true"></created-at>
+        <updated-at type="datetime" nil="true"></updated-at>
+        <user-id type="integer" nil="true"></user-id>
+        <value type="integer" nil="true"></value>
+      </adjustment>
+    """
+
+  Scenario: Create an adjustment
+    When I POST "/users/harry/buckets/animals/adjustments.xml" with body "adjustment[value]=2"
+    Then I should get a 201 Created response
+  
+  Scenario: Update an adjustment
+    When I PUT "/users/harry/buckets/animals/adjustments/8.xml" with body "adjustment[value]=7&adjustment[bucket_id]=3"
+    Then I should get a 200 OK response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <adjustment>
+        <bucket-id type="integer">3</bucket-id>
+        <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
+        <id type="integer">8</id>
+        <updated-at type="datetime">2009-09-09T12:00:00Z</updated-at>
+        <user-id type="integer">2</user-id>
+        <value type="integer">7</value>
+      </adjustment>
     """
