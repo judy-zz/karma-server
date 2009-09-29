@@ -46,11 +46,11 @@ class BucketsController < ApplicationController
     end
   end
   
-  # Show a particular user.
+  # Show a particular bucket.
   #
-  #   GET /users/:permalink.html
-  #   GET /users/:permalink.json
-  #   GET /users/:permalink.xml
+  #   GET /buckets/:permalink.html
+  #   GET /buckets/:permalink.json
+  #   GET /buckets/:permalink.xml
   def show
     @bucket = Bucket.find_by_permalink! params[:id]
     respond_to do |format|
@@ -60,11 +60,11 @@ class BucketsController < ApplicationController
     end
   end
   
-  # Display the template for editing an existing user.
+  # Display the template for editing an existing bucket.
   #
-  #   GET /users/:permalink/edit.html
-  #   GET /users/:permalink/edit.json
-  #   GET /users/:permalink/edit.xml
+  #   GET /buckets/:permalink/edit.html
+  #   GET /buckets/:permalink/edit.json
+  #   GET /buckets/:permalink/edit.xml
   def edit
     @bucket = Bucket.find_by_permalink params[:id]
   end
