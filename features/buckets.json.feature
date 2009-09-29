@@ -91,3 +91,16 @@ Feature: Buckets via JSON
         }
       }
     """
+  
+  Scenario: Destroy a bucket
+    When I DELETE "/buckets/Animals.json"
+    Then I should get a 200 OK response
+    And I should get a JSON response body like:
+    """
+      bucket: {
+        id: 1,
+        permalink: Animals,
+        created_at: "2009-10-01T12:00:00Z",
+        updated_at: "2009-10-01T12:00:00Z"
+      }
+    """

@@ -95,3 +95,17 @@ Feature: Buckets via XML
         <updated-at type="datetime">2009-09-09T12:00:00Z</updated-at>
       </bucket>
     """
+  
+  Scenario: Destroy a bucket
+    When I DELETE "/buckets/Animals.xml"
+    Then I should get a 200 OK response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <bucket>
+        <created-at type="datetime">2009-10-01T12:00:00Z</created-at>
+        <id type="integer">1</id>
+        <permalink>Animals</permalink>
+        <updated-at type="datetime">2009-10-01T12:00:00Z</updated-at>
+      </bucket>
+    """
