@@ -46,6 +46,18 @@ Feature: Adjustments via XML
       </adjustments>
     """
     
+  Scenario: Read a list of adjustments with a non-existing bucket
+    When I GET "/users/harry/buckets/doesnt-exist/adjustments.xml"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Read a list of adjustments with a non-existing user
+    When I GET "/users/doesnt-exist/buckets/animals/adjustments.xml"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Read a list of adjustments with a non-existing user and bucket
+    When I GET "/users/doesnt-exist/buckets/doesnt-exist/adjustments.xml"
+    Then I should get a 404 Not Found response
+    
   Scenario: Read list of adjustments when there are none
     Given there are no adjustments
     When I GET "/users/harry/buckets/animals/adjustments.xml"
@@ -71,9 +83,21 @@ Feature: Adjustments via XML
         <value type="integer">4</value>
       </adjustment>
     """
-  
-  Scenario: Read a non-existent adjustment
-    When I GET "/users/harry/buckets/animals/adjustments/500.xml"
+    
+  Scenario: Read a non-existing adjustment
+    When I GET "/users/harry/buckets/animals/adjustments/300.xml"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Read an adjustment with a non-existing bucket
+    When I GET "/users/harry/buckets/doesnt-exist/adjustments/300.xml"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Read an adjustment with a non-existing user
+    When I GET "/users/doesnt-exist/buckets/animals/adjustments/300.xml"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Read an adjustment with a non-existing user and bucket
+    When I GET "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.xml"
     Then I should get a 404 Not Found response
        
   Scenario: Request a new adjustment
@@ -90,6 +114,18 @@ Feature: Adjustments via XML
         <value type="integer" nil="true"></value>
       </adjustment>
     """
+    
+  Scenario: Request a new adjustment with a non-existing bucket
+    When I GET "/users/harry/buckets/doesnt-exist/adjustments/300.xml"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Request a new adjustment with a non-existing user
+    When I GET "/users/doesnt-exist/buckets/animals/adjustments/300.xml"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Request a new adjustment with a non-existing user and bucket
+    When I GET "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.xml"
+    Then I should get a 404 Not Found response
 
   Scenario: Create an adjustment
     When I POST "/users/harry/buckets/animals/adjustments.xml" with body "adjustment[value]=2"
@@ -114,6 +150,22 @@ Feature: Adjustments via XML
         <value type="integer">7</value>
       </adjustment>
     """
+    
+  Scenario: Attempt to update a non-existing adjustment
+    When I PUT "/users/harry/buckets/animals/adjustments/300.xml"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Attempt to update an adjustment with a non-existing bucket
+    When I PUT "/users/harry/buckets/doesnt-exist/adjustments/300.xml"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Attempt to update an adjustment with a non-existing user
+    When I PUT "/users/doesnt-exist/buckets/animals/adjustments/300.xml"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Attempt to update an adjustment with a non-existing user and bucket
+    When I PUT "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.xml"
+    Then I should get a 404 Not Found response
   
   Scenario: Destroy an adjustment
     When I DELETE "/users/harry/buckets/animals/adjustments/8.xml"
@@ -130,3 +182,19 @@ Feature: Adjustments via XML
         <value type="integer">4</value>
       </adjustment>
     """
+    
+  Scenario: Attempt to destroy a non-existing adjustment
+    When I DELETE "/users/harry/buckets/animals/adjustments/300.xml"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Attempt to destroy an adjustment with a non-existing bucket
+    When I DELETE "/users/harry/buckets/doesnt-exist/adjustments/300.xml"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Attempt to destroy an adjustment with a non-existing user
+    When I DELETE "/users/doesnt-exist/buckets/animals/adjustments/300.xml"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Attempt to destroy an adjustment with a non-existing user and bucket
+    When I DELETE "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.xml"
+    Then I should get a 404 Not Found response

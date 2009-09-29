@@ -8,11 +8,17 @@ class AdjustmentsController < ApplicationController
   #   GET /users/:user_permalink/buckets/:bucket_permalink/adjustments.xml
   #   GET /users/:user_permalink/buckets/:bucket_permalink/adjustments.json
   def index
-    @adjustments = Adjustment.find(:all, :conditions => {:user_id => @user.id, :bucket_id => @bucket.id})
-    respond_to do |format|
-      format.html
-      format.xml  { render :xml   => @adjustments }
-      format.json { render :json  => @adjustments }
+    if @user and @bucket
+      @adjustments = Adjustment.find(:all, :conditions => {:user_id => @user.id, :bucket_id => @bucket.id})
+      respond_to do |format|
+        format.html
+        format.xml  { render :xml   => @adjustments }
+        format.json { render :json  => @adjustments }
+      end
+    else
+      respond_to do |format|
+        format.xml{ render :xml => :nothing, :status => :not_found }
+      end
     end
   end
   

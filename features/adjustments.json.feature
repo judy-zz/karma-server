@@ -76,6 +76,22 @@ Feature: Adjustments via JSON
   Scenario: Read a non-existent adjustment
     When I GET "/users/harry/buckets/animals/adjustments/500.json"
     Then I should get a 404 Not Found response
+    
+  Scenario: Read a non-existing adjustment
+    When I GET "/users/harry/buckets/animals/adjustments/300.json"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Read an adjustment with a non-existing bucket
+    When I GET "/users/harry/buckets/doesnt-exist/adjustments/300.json"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Read an adjustment with a non-existing user
+    When I GET "/users/doesnt-exist/buckets/animals/adjustments/300.json"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Read an adjustment with a non-existing user and bucket
+    When I GET "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.json"
+    Then I should get a 404 Not Found response
        
   Scenario: Request a new adjustment
     When I GET "/users/harry/buckets/animals/adjustments/new.json"
@@ -92,10 +108,26 @@ Feature: Adjustments via JSON
         }
       }
     """
+    
+  Scenario: Request a new adjustment with a non-existing bucket
+    When I GET "/users/harry/buckets/doesnt-exist/adjustments/300.json"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Request a new adjustment with a non-existing user
+    When I GET "/users/doesnt-exist/buckets/animals/adjustments/300.json"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Request a new adjustment with a non-existing user and bucket
+    When I GET "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.json"
+    Then I should get a 404 Not Found response
 
   Scenario: Create an adjustment
     When I POST "/users/harry/buckets/animals/adjustments.json" with body "adjustment[value]=2"
     Then I should get a 201 Created response
+  
+  Scenario: Attempt to create an adjustment with no value
+    When I POST "/users/harry/buckets/animals/adjustments.json" with body ""
+    Then I should get a 422 Unprocessable Entity response
   
   Scenario: Update an adjustment
     When I PUT "/users/harry/buckets/animals/adjustments/8.json" with body "adjustment[value]=7&adjustment[bucket_id]=3"
@@ -111,6 +143,22 @@ Feature: Adjustments via JSON
         "created_at":"2009-09-10T15:06:32Z"
       }
     """
+    
+  Scenario: Attempt to update a non-existing adjustment
+    When I PUT "/users/harry/buckets/animals/adjustments/300.json"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Attempt to update an adjustment with a non-existing bucket
+    When I PUT "/users/harry/buckets/doesnt-exist/adjustments/300.json"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Attempt to update an adjustment with a non-existing user
+    When I PUT "/users/doesnt-exist/buckets/animals/adjustments/300.json"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Attempt to update an adjustment with a non-existing user and bucket
+    When I PUT "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.json"
+    Then I should get a 404 Not Found response
   
   Scenario: Destroy an adjustment
     When I DELETE "/users/harry/buckets/animals/adjustments/8.json"
@@ -126,3 +174,19 @@ Feature: Adjustments via JSON
         value: 4
       }
     """
+    
+  Scenario: Attempt to destroy a non-existing adjustment
+    When I DELETE "/users/harry/buckets/animals/adjustments/300.json"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Attempt to destroy an adjustment with a non-existing bucket
+    When I DELETE "/users/harry/buckets/doesnt-exist/adjustments/300.json"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Attempt to destroy an adjustment with a non-existing user
+    When I DELETE "/users/doesnt-exist/buckets/animals/adjustments/300.json"
+    Then I should get a 404 Not Found response
+    
+  Scenario: Attempt to destroy an adjustment with a non-existing user and bucket
+    When I DELETE "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.json"
+    Then I should get a 404 Not Found response
