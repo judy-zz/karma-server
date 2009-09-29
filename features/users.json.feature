@@ -36,3 +36,29 @@ Feature: Users via JSON
     When I GET "/users/not-there.json"
     Then I should get a 404 Not Found response
     
+  Scenario: Get a user's karma
+    Given a user "bob"
+    And a bucket "plants"
+    And a bucket "animals"
+    When I GET "/users/bob/karma.json"
+    Then I should get a 200 OK response
+    And I should get a JSON response body like:
+    """
+      {
+        user: bob,
+        user_path: /users/bob.json,
+        total: 0,
+        buckets: {
+          plants: {
+            total: 0,
+            bucket_path: /buckets/plants.json,
+            adjustments_path: /users/bob/buckets/plants/adjustments.json
+          },
+          animals: {
+            total: 0,
+            bucket_path: /buckets/animals.json,
+            adjustments_path: /users/bob/buckets/animals/adjustments.json
+          }
+        }
+      }
+    """

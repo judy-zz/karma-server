@@ -1,7 +1,7 @@
-Feature: Adjustments via XML
-  In order to modify and report on karma
+Feature: Adjustments via JSON
+  In order to track and manage changes to a user's karma
   As a client
-  I want to be able to read and manipulate user's karma via the XML API
+  I want to be able to read and modify user's karma via the JSON API
 
   Background:
     Given the following users:
@@ -21,27 +21,30 @@ Feature: Adjustments via XML
       | 9  | 2       | 4         | -1    | 2009-09-10 15:06:32 UTC | 2009-09-10 15:06:32 UTC |
 
   Scenario: Read adjustments
-    When I GET "/users/harry/buckets/animals/adjustments.xml"
+    When I GET "/users/harry/buckets/animals/adjustments.json"
     Then I should get a 200 OK response
-    And I should get an XML response body like:
+    And I should get a JSON response body like:
     """
-      <?xml version="1.0" encoding="UTF-8"?>
-      <adjustments type="array">
-        <adjustment>
-          <bucket-id type="integer">4</bucket-id>
-          <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
-          <id type="integer">8</id>
-          <updated-at type="datetime">2009-09-10T15:06:32Z</updated-at>
-          <user-id type="integer">2</user-id>
-          <value type="integer">4</value>
-        </adjustment>
-        <adjustment>
-          <bucket-id type="integer">4</bucket-id>
-          <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
-          <id type="integer">9</id>
-          <updated-at type="datetime">2009-09-10T15:06:32Z</updated-at>
-          <user-id type="integer">2</user-id>
-          <value type="integer">-1</value>
-        </adjustment>
-      </adjustments>
+      [
+        {
+          adjustment: {
+            bucket_id: 4,
+            created_at: "2009-09-10T15:06:32Z",
+            updated_at: "2009-09-10T15:06:32Z",
+            id: 8,
+            user_id: 2,
+            value: 4
+          }
+        },
+        {
+          adjustment: {
+            bucket_id: 4,
+            created_at: "2009-09-10T15:06:32Z",
+            updated_at: "2009-09-10T15:06:32Z",
+            id: 9,
+            user_id: 2,
+            value: -1            
+          }
+        }
+      ]
     """

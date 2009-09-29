@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  include UsersHelper
+
   # List all users.
   #
   #   GET /users.html
@@ -59,6 +61,16 @@ class UsersController < ApplicationController
       format.json { render :json => @user }
       format.xml  { render :xml  => @user }
     end    
+  end
+  
+  # Show the karma summary for a user and the user's buckets
+  #
+  #   GET /users/:permalink/karma.json
+  def karma
+    @user = User.find_by_permalink!(params[:id])
+    respond_to do |format|
+      format.json { render :json => karma_for(@user) }
+    end
   end
   
   # Display the template for editing an existing user.
