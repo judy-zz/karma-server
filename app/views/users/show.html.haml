@@ -1,15 +1,15 @@
 = render :partial => "/shared/header", :locals => { :title => @user.permalink, :subtitle => "", :flash => flash }
 
-%h3 Buckets
-%table
-  - @buckets.each do |bucket|
+#content
+  %h3 Buckets
+  %table
+    - @buckets.each do |bucket|
+      %tr
+        %th= link_to bucket.permalink, adjustments_path(@user, bucket)
+        %td= @user.karma_for(bucket)
     %tr
-      %th= link_to bucket.permalink, adjustments_path(@user, bucket)
-      %td= @user.karma_for(bucket)
-  %tr
-    %th Total:
-    %td= @user.karma
+      %th Total:
+      %td= @user.karma
     
-  
 .button_row
   = link_to "Make an Adjustment", new_user_adjustment_path(@user), :class => "button"
