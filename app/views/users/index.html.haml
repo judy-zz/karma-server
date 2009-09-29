@@ -9,9 +9,10 @@
         %th{ :colspan => 2 } Actions
       - @users.each do |user| 
         %tr
-          %td= link_to user.permalink, user
-          %td= link_to "#{image_tag 'edit.png'}Edit", edit_user_path(user), :class => "button"
-          %td= link_to "#{image_tag 'delete.png'}Destroy", user, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{user.permalink} User", :class => "button"
+          %th= link_to user.permalink, user
+          %td
+            = link_to "#{image_tag 'edit.png'}Edit", edit_user_path(user), :class => "button"
+            = link_to "#{image_tag 'delete.png'}Destroy", user, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{user.permalink} User", :class => "button"
   - else
     = link_to "There are no users, click here to create the first one.", new_user_path
     
