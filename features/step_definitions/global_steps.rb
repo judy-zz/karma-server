@@ -1,3 +1,7 @@
+Given /^there are no ([^\"]*)$/ do |objects|
+  eval(objects.classify).delete_all
+end
+
 Given /^I have a ([^\"]*) with attribute ([^\"]*) "([^\"]*)"$/ do |klass, method, value|
   eval("#{klass.camelize}.create(:#{method} => '#{value}')")
 end

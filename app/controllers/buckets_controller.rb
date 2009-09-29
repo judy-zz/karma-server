@@ -1,8 +1,10 @@
 class BucketsController < ApplicationController
   
-  # GET /buckets
-  # GET /buckets.json
-  # GET /buckets.xml
+  # List all buckets.
+  #
+  #   GET /buckets.html
+  #   GET /buckets.json
+  #   GET /buckets.xml
   def index
     @buckets = Bucket.all
     respond_to do |format|
@@ -12,8 +14,43 @@ class BucketsController < ApplicationController
     end
   end
   
-  # GET /buckets/Animals
-  # GET /buckets/Animals.json
+  # Display the template for creating a new bucket.
+  #
+  #   GET /buckets/new.html
+  #   GET /buckets/new.json
+  #   GET /buckets/new.xml
+  def new
+    @bucket = Bucket.new
+    respond_to do |format|
+      format.html
+      format.json{ render :json => @bucket } 
+      format.xml { render :xml  => @bucket } 
+    end
+  end
+  
+  # Create a new bucket (HTML format only).
+  #
+  #   POST /bucket.html
+  #
+  # Ideally, buckets are only created via PUT to /buckets/:permalink. 
+  # We support POST to /buckets so that buckets can be created via HTML forms
+  # (since those forms can't PUT to a permalink that's a form field).
+  def create
+    @bucket = Bucket.new params[:bucket]
+    if @bucket.save
+      flash[:success] = "Bucket was successfully created."
+      redirect_to @bucket
+    else
+      flash[:failure] = "Bucket could not be created."
+      render :action => :new
+    end
+  end
+  
+  # Show a particular user.
+  #
+  #   GET /users/:permalink.html
+  #   GET /users/:permalink.json
+  #   GET /users/:permalink.xml
   def show
     @bucket = Bucket.find_by_permalink! params[:id]
     respond_to do |format|
@@ -23,20 +60,13 @@ class BucketsController < ApplicationController
     end
   end
   
-  # GET /buckets/Animals/edit
+  # Display the template for editing an existing user.
+  #
+  #   GET /users/:permalink/edit.html
+  #   GET /users/:permalink/edit.json
+  #   GET /users/:permalink/edit.xml
   def edit
     @bucket = Bucket.find_by_permalink params[:id]
-  end
-  
-  # GET /buckets/new
-  # GET /buckets/new.json
-  def new
-    @bucket = Bucket.new
-    respond_to do |format|
-      format.html
-      format.json{ render :json => @bucket } 
-      format.xml { render :xml  => @bucket } 
-    end
   end
   
   # Create or update a particular bucket.
@@ -96,21 +126,9 @@ class BucketsController < ApplicationController
     end
   end
   
-  # POST /buckets
-  def create
-    @bucket = Bucket.new params[:bucket]
-    if @bucket.save
-      flash[:success] = "Bucket was successfully created."
-      redirect_to @bucket
-    else
-      flash[:failure] = "Bucket could not be created."
-      render :action => :new
-    end
-  end
-  
   # Delete a particular bucket from the database.
   #
-  #   DELETE /buckets/:permalink
+  #   DELETE /buckets/:permalink.html
   #   DELETE /buckets/:permalink.json
   #   DELETE /buckets/:permalink.xml
   def destroy
