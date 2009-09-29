@@ -1,14 +1,14 @@
-= render :partial => "/shared/header", :locals => { :title => "Adjustments", :subtitle => subtitle, :flash => flash }
+= render :partial => "/shared/header", :locals => { :title => "Karmic History", :subtitle => subtitle, :flash => flash }
 
 #content
   %table
     %tr
       %th Date &amp; Time
-      %th Value
+      %th Karma &#177;
     - for adjustment in @adjustments
       %tr
         %td= adjustment.created_at.to_s :date_time12
         %td= adjustment.value
   .button_row
-    = link_to "Make an Adjustment", new_adjustment_path(@user, @bucket), :class => "button"
+    = link_to "Add/Remove Karma", new_adjustment_path(@user, @bucket), :class => "button"
     = link_to "Go Back to #{@user.permalink}", user_path(@user), :class => "button"
