@@ -83,10 +83,10 @@ Feature: Adjustments via XML
     """
       <?xml version="1.0" encoding="UTF-8"?>
       <adjustment>
-        <bucket-id type="integer" nil="true"></bucket-id>
+        <bucket-id type="integer">4</bucket-id>
         <created-at type="datetime" nil="true"></created-at>
         <updated-at type="datetime" nil="true"></updated-at>
-        <user-id type="integer" nil="true"></user-id>
+        <user-id type="integer">2</user-id>
         <value type="integer" nil="true"></value>
       </adjustment>
     """
@@ -94,6 +94,11 @@ Feature: Adjustments via XML
   Scenario: Create an adjustment
     When I POST "/users/harry/buckets/animals/adjustments.xml" with body "adjustment[value]=2"
     Then I should get a 201 Created response
+  
+  Scenario: Attempt to create an adjustment with no value
+    When I POST "/users/harry/buckets/animals/adjustments.xml" with body ""
+    Then I should get a 422 Unprocessable Entity response
+    
   
   Scenario: Update an adjustment
     When I PUT "/users/harry/buckets/animals/adjustments/8.xml" with body "adjustment[value]=7&adjustment[bucket_id]=3"
