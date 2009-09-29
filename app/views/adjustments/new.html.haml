@@ -1,7 +1,6 @@
-- form_url = @bucket ? adjustments_path(@user, @bucket) : user_adjustments_path(@user)
-%h1 New Adjustment
+= render :partial => "/shared/header", :locals => { :title => "New Adjustment", :subtitle => subtitle, :flash => flash }
 
-- form_for @adjustment, :url => form_url do |f|
+- form_for @adjustment, :url => new_adjustment_url do |f|
   = f.error_messages
   = f.label :value
   = f.text_field :value

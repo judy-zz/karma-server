@@ -1,5 +1,4 @@
-%h1 Edit User
-%h3= @user.permalink
+= render :partial => "/shared/header", :locals => { :title => "Edit User", :subtitle => @user.permalink, :flash => flash }
 
 - form_for @user do |f|
   = f.error_messages

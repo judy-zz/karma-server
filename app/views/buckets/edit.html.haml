@@ -1,4 +1,4 @@
-%h2 Edit Bucket
+= render :partial => "/shared/header", :locals => { :title => "Editing Bucket", :subtitle => @bucket.permalink, :flash => flash }
 - form_for(@bucket) do |f| 
   = f.error_messages
   = f.label :permalink

@@ -1,0 +1,48 @@
+/*
+  Welcome to Compass.
+  In this file you should write your main styles. (or centralize your imports)
+  Import this file using the following HTML or equivalent:
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+
+@import compass/reset
+@import blueprint/screen
+@import modules/flash
+
+body
+  +blueprint-typography
+  #main
+    :padding-top 2em
+    +container
+    #header
+      :margin-bottom 1em
+    #flash
+    #content
+      table
+        :margin 0
+        :width auto
+    #footer
+      :clear both
+      :margin-top 1em
+      a
+        :vertical-align middle
+  
+  #home
+    #logo
+      +prepend(8)
+      +column(16)
+    #buttons
+      +prepend(6)
+      #users, #buckets
+        :width 128
+        :text-align center
+        :margin 2em 40px
+        img
+          :padding 1.5em 0
+        h3
+          :margin-bottom 0.5em
+      
+.button_row
+  :margin-top 1em
+    
+form
+  +blueprint-form
