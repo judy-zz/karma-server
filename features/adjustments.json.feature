@@ -1,7 +1,7 @@
 Feature: Adjustments via JSON
-  In order to track and manage changes to a user's karma
+  In order to modify and report on karma
   As a client
-  I want to be able to read and modify user's karma via the JSON API
+  I want to be able to read and manipulate user's karma via the JSON API
 
   Background:
     Given the following users:
@@ -20,7 +20,7 @@ Feature: Adjustments via JSON
       | 8  | 2       | 4         | 4     | 2009-09-10 15:06:32 UTC | 2009-09-10 15:06:32 UTC |
       | 9  | 2       | 4         | -1    | 2009-09-10 15:06:32 UTC | 2009-09-10 15:06:32 UTC |
 
-  Scenario: Read adjustments
+  Scenario: Read list of adjustments
     When I GET "/users/harry/buckets/animals/adjustments.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
@@ -47,4 +47,69 @@ Feature: Adjustments via JSON
           }
         }
       ]
+    """
+    
+  Scenario: Read list of adjustments when there are none
+    Given there are no adjustments
+    When I GET "/users/harry/buckets/animals/adjustments.json"
+    Then I should get a 200 OK response
+    And I should get a JSON response body like:
+    """
+      []
+    """
+    
+  Scenario: Read adjustment
+    When I GET "/users/harry/buckets/animals/adjustments/8.json"
+    Then I should get a 200 OK response
+    And I should get a JSON response body like:
+    """
+      adjustment: {
+        bucket_id: 4,
+        created_at: "2009-09-10T15:06:32Z",
+        updated_at: "2009-09-10T15:06:32Z",
+        id: 8,
+        user_id: 2,
+        value: 4
+      }
+    """
+  
+  Scenario: Read a non-existent adjustment
+    When I GET "/users/harry/buckets/animals/adjustments/500.json"
+    Then I should get a 404 Not Found response
+       
+  Scenario: Request a new adjustment
+    When I GET "/users/harry/buckets/animals/adjustments/new.json"
+    Then I should get a 200 OK response
+    And I should get a JSON response body like:
+    """
+      {
+        "adjustment":{
+          "updated_at":null,
+          "bucket_id":4,
+          "value":null,
+          "user_id":2,
+          "created_at":null
+        }
+      }
+    """
+
+  Scenario: Create an adjustment
+    When I POST "/users/harry/buckets/animals/adjustments.json" with body "adjustment[value]=2"
+    Then I should get a 201 Created response
+  
+  Scenario: Update an adjustment
+    When I PUT "/users/harry/buckets/animals/adjustments/8.json" with body "adjustment[value]=7&adjustment[bucket_id]=3"
+    Then I should get a 200 OK response
+    And I should get a JSON response body like:
+    """
+      {
+        "adjustment":{
+          "updated_at":"2009-09-09T12:00:00Z",
+          "id":8,
+          "bucket_id":3,
+          "value":7,
+          "user_id":2,
+          "created_at":"2009-09-10T15:06:32Z"
+        }
+      }
     """
