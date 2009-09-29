@@ -9,6 +9,7 @@
 #
 
 class User < ActiveRecord::Base
+  has_many :adjustments, :dependent => :destroy
   validates_presence_of   :permalink
   validates_uniqueness_of :permalink
   
