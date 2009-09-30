@@ -28,17 +28,17 @@
         <tbody>
           <tr>
             <td class="left_align"><a href="app-controllers-adjustments_controller_rb.html">app/controllers/adjustments_controller.rb</a></td>
-            <td class='right_align'><tt>132</tt></td>
-            <td class='right_align'><tt>94</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>90.91%</tt></div>
+            <td class='right_align'><tt>130</tt></td>
+            <td class='right_align'><tt>92</tt></td>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:91px"></div>
-            <div class="uncovered" style="width:9px"></div>
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>87.23%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:87px"></div>
-            <div class="uncovered" style="width:13px"></div>
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -602,13 +602,13 @@
         
           
           
-          <tr class="uncovered">
+          <tr class="marked">
             <td><pre><a name="line92">92</a>       @adjustment.user_id = params[:adjustment][:user_id]</pre></td>
           </tr>
         
           
           
-          <tr class="uncovered">
+          <tr class="inferred">
             <td><pre><a name="line93">93</a>     end</pre></td>
           </tr>
         
@@ -644,43 +644,43 @@
         
           
           
-          <tr class="uncovered">
+          <tr class="inferred">
             <td><pre><a name="line99">99</a>     else</pre></td>
           </tr>
         
           
           
-          <tr class="uncovered">
+          <tr class="marked">
             <td><pre><a name="line100">100</a>       respond_to do |format|</pre></td>
           </tr>
         
           
           
-          <tr class="uncovered">
+          <tr class="marked">
             <td><pre><a name="line101">101</a>         format.xml  { render :xml  =&gt; @adjustment.errors, :status =&gt; :unprocessable_entity }</pre></td>
           </tr>
         
           
           
-          <tr class="uncovered">
+          <tr class="marked">
             <td><pre><a name="line102">102</a>         format.json { render :json =&gt; @adjustment.errors, :status =&gt; :unprocessable_entity }</pre></td>
           </tr>
         
           
           
-          <tr class="uncovered">
+          <tr class="inferred">
             <td><pre><a name="line103">103</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="uncovered">
+          <tr class="inferred">
             <td><pre><a name="line104">104</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="uncovered">
+          <tr class="inferred">
             <td><pre><a name="line105">105</a>   end</pre></td>
           </tr>
         
@@ -746,110 +746,98 @@
         
           
           
-          <tr class="uncovered">
-            <td><pre><a name="line116">116</a>     else</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line117">117</a>       flash[:failure] = &quot;Adjustment could not be destroyed.&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line118">118</a>     end</pre></td>
+          <tr class="inferred">
+            <td><pre><a name="line116">116</a>     end</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line119">119</a>     respond_to do |format|</pre></td>
+            <td><pre><a name="line117">117</a>     respond_to do |format|</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line120">120</a>       format.json { render :json =&gt; @adjustment }</pre></td>
+            <td><pre><a name="line118">118</a>       format.json { render :json =&gt; @adjustment }</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line121">121</a>       format.xml  { render :xml  =&gt; @adjustment }</pre></td>
+            <td><pre><a name="line119">119</a>       format.xml  { render :xml  =&gt; @adjustment }</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line122">122</a>     end    </pre></td>
+            <td><pre><a name="line120">120</a>     end    </pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line123">123</a>   end</pre></td>
+            <td><pre><a name="line121">121</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line124">124</a> </pre></td>
+            <td><pre><a name="line122">122</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line125">125</a>   private</pre></td>
+            <td><pre><a name="line123">123</a>   private</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line126">126</a>   </pre></td>
+            <td><pre><a name="line124">124</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line127">127</a>   def find_user_and_bucket</pre></td>
+            <td><pre><a name="line125">125</a>   def find_user_and_bucket</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line128">128</a>     @user = User.find_by_permalink!(params[:user_permalink])</pre></td>
+            <td><pre><a name="line126">126</a>     @user = User.find_by_permalink!(params[:user_permalink])</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line129">129</a>     @bucket = Bucket.find_by_permalink(params[:bucket_permalink])</pre></td>
+            <td><pre><a name="line127">127</a>     @bucket = Bucket.find_by_permalink(params[:bucket_permalink])</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line130">130</a>   end</pre></td>
+            <td><pre><a name="line128">128</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line131">131</a> </pre></td>
+            <td><pre><a name="line129">129</a> </pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line132">132</a> end</pre></td>
+            <td><pre><a name="line130">130</a> end</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Wed Sep 30 12:20:50 -0400 2009 with <a href="http://github.com/relevance/rcov">rcov 0.9.2.1</a></p>
+    <p>Generated on Wed Sep 30 13:52:47 -0400 2009 with <a href="http://github.com/relevance/rcov">rcov 0.9.2.1</a></p>
 
   </body>
 </html>
