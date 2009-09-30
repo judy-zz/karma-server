@@ -129,8 +129,23 @@ Feature: Adjustments via JSON
     When I POST "/users/harry/buckets/animals/adjustments.json" with body ""
     Then I should get a 422 Unprocessable Entity response
   
-  Scenario: Update an adjustment
-    When I PUT "/users/harry/buckets/animals/adjustments/8.json" with body "adjustment[value]=7&adjustment[bucket_id]=3"
+  Scenario: Update an adjustment value
+    When I PUT "/users/harry/buckets/animals/adjustments/8.json" with body "adjustment[value]=7"
+    Then I should get a 200 OK response
+    And I should get a JSON response body like:
+    """
+      "adjustment":{
+        "updated_at":"2009-09-09T12:00:00Z",
+        "id":8,
+        "bucket_id":4,
+        "value":7,
+        "user_id":2,
+        "created_at":"2009-09-10T15:06:32Z"
+      }
+    """
+    
+  Scenario: Update an adjustment bucket
+    When I PUT "/users/harry/buckets/animals/adjustments/8.json" with body "adjustment[bucket_id]=3"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
     """
@@ -138,11 +153,45 @@ Feature: Adjustments via JSON
         "updated_at":"2009-09-09T12:00:00Z",
         "id":8,
         "bucket_id":3,
-        "value":7,
+        "value":4,
         "user_id":2,
         "created_at":"2009-09-10T15:06:32Z"
       }
     """
+    
+  Scenario: Update an adjustment user
+    When I PUT "/users/harry/buckets/animals/adjustments/8.json" with body "adjustment[user_id]=1"
+    Then I should get a 200 OK response
+    And I should get a JSON response body like:
+    """
+      "adjustment":{
+        "updated_at":"2009-09-09T12:00:00Z",
+        "id":8,
+        "bucket_id":4,
+        "value":4,
+        "user_id":1,
+        "created_at":"2009-09-10T15:06:32Z"
+      }
+    """
+    
+  Scenario: Update an adjustment user, bucket and value
+    When I PUT "/users/harry/buckets/animals/adjustments/8.json" with body "adjustment[user_id]=1&adjustment[bucket_id]=3&adjustment[value]=10"
+    Then I should get a 200 OK response
+    And I should get a JSON response body like:
+    """
+      "adjustment":{
+        "updated_at":"2009-09-09T12:00:00Z",
+        "id":8,
+        "bucket_id":3,
+        "value":10,
+        "user_id":1,
+        "created_at":"2009-09-10T15:06:32Z"
+      }
+    """
+    
+  Scenario: Attempt to update an adjustment with an invalid value
+    When I PUT "/users/harry/buckets/animals/adjustments/8.json" with body "adjustment[value]=asdf"
+    Then I should get a 422 Unprocessable Entity response
     
   Scenario: Attempt to update a non-existing adjustment
     When I PUT "/users/harry/buckets/animals/adjustments/300.json"

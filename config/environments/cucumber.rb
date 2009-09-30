@@ -25,3 +25,6 @@ config.gem 'notahat-machinist', :lib => 'machinist', :version => '1.0.3'
 
 # Generate fake test data
 config.gem 'faker', :version => '0.3.1'
+
+# Generate code coverage reports
+config.gem 'relevance-rcov', :lib => false, :version => '0.9.2.1', :source => 'http://gems.github.com/'
