@@ -113,8 +113,6 @@ class AdjustmentsController < ApplicationController
     @adjustment = Adjustment.find params[:id]
     if @adjustment.destroy
       flash[:success] = "Adjustment was successfully destroyed."
-    else
-      flash[:failure] = "Adjustment could not be destroyed."
     end
     respond_to do |format|
       format.json { render :json => @adjustment }
