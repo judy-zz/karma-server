@@ -19,4 +19,5 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :users
   map.user_karma '/users/:id/karma.:format', :controller => :users, :action => :karma, :conditions => { :method => :get  }
+  map.root :controller => :dashboards, :action => :home, :conditions => { :method => :get }
 end

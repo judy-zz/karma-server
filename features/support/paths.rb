@@ -9,7 +9,7 @@ module NavigationHelpers
     case page_name
     
     when /the home page/
-      root_path   
+      root_path
     # Add more page name => path mappings here
     when /^the "(.*)" bucket page$/i
       bucket_path(Bucket.find_by_permalink($1))

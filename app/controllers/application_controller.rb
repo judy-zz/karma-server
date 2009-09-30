@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   
   def rescue_action(exception)
     case exception
-    when ActiveRecord::RecordNotFound
+    when ActiveRecord::RecordNotFound, ActionController::RoutingError
       render_404
     else
       super
