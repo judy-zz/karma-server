@@ -8,8 +8,6 @@ module AdjustmentsHelper
       "#{@user.permalink}: #{@bucket.permalink}"
     elsif @user
       @user.permalink
-    elsif @bucket
-      @bucket.permalink
     else
       ""
     end
