@@ -2,4 +2,4 @@
 log/*.log
 tmp/*
 nbproject
-coverage
+coverage.data
