@@ -25,5 +25,4 @@ class Adjustment < ActiveRecord::Base
   belongs_to :bucket
   
   attr_accessible :value
-  attr_protected :created_at, :updated_at
 end

@@ -67,6 +67,7 @@ Feature: Buckets via JSON
       {
         "bucket":{
           "permalink":null,
+          "path":null,
           "updated_at":null,
           "created_at":null
         }
@@ -85,7 +86,7 @@ Feature: Buckets via JSON
       {
         bucket:{
           permalink: "Nice Animals",
-          path: "/buckets/Animals.json",
+          path: "/buckets/Nice%20Animals.json",
           created_at: "2009-10-01T12:00:00Z",
           updated_at: "2009-09-09T12:00:00Z"
         }

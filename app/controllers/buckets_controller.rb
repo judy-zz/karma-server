@@ -1,4 +1,6 @@
 class BucketsController < ApplicationController
+
+  include BucketsHelper
   
   # List all buckets.
   #
@@ -9,8 +11,8 @@ class BucketsController < ApplicationController
     @buckets = Bucket.all
     respond_to do |format|
       format.html
-      format.json{  render :json => @buckets  }
-      format.xml{   render :xml => @buckets   }
+      format.json{  render :json => buckets_to_json(@buckets)  }
+      format.xml {  render :xml  => buckets_to_xml(@buckets)   }
     end
   end
   
@@ -23,8 +25,8 @@ class BucketsController < ApplicationController
     @bucket = Bucket.new
     respond_to do |format|
       format.html
-      format.json{ render :json => @bucket } 
-      format.xml { render :xml  => @bucket } 
+      format.json{ render :json => bucket_to_json(@bucket) } 
+      format.xml { render :xml  => bucket_to_xml(@bucket) } 
     end
   end
   
@@ -55,8 +57,8 @@ class BucketsController < ApplicationController
     @bucket = Bucket.find_by_permalink! params[:id]
     respond_to do |format|
       format.html
-      format.json{ render :json => @bucket }
-      format.xml{  render :xml  => @bucket }
+      format.json{ render :json => bucket_to_json(@bucket) }
+      format.xml{  render :xml  => bucket_to_xml(@bucket) }
     end
   end
   
@@ -104,9 +106,9 @@ class BucketsController < ApplicationController
       format.json do
         if success
           if new_record
-            render :json => @bucket, :status => :created
+            render :json => bucket_to_json(@bucket), :status => :created
           else
-            render :json => @bucket, :status => :ok
+            render :json => bucket_to_json(@bucket), :status => :ok
             if permalink_changed
               headers['Location'] = bucket_path(@bucket)
             end
@@ -118,9 +120,9 @@ class BucketsController < ApplicationController
       format.xml do
         if success
           if new_record
-            render :xml => @bucket, :status => :created
+            render :xml => bucket_to_xml(@bucket), :status => :created
           else
-            render :xml => @bucket, :status => :ok
+            render :xml => bucket_to_xml(@bucket), :status => :ok
             if permalink_changed
               headers['Location'] = bucket_path(@bucket)
             end
@@ -146,8 +148,8 @@ class BucketsController < ApplicationController
     end
     respond_to do |format|
       format.html { redirect_to buckets_path }
-      format.json { render :json => @bucket }
-      format.xml  { render :xml  => @bucket }
+      format.json { render :json => bucket_to_json(@bucket) }
+      format.xml  { render :xml  => bucket_to_xml(@bucket) }
     end    
   end
   

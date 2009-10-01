@@ -11,8 +11,8 @@ class UsersController < ApplicationController
     @users = User.all
     respond_to do |format|
       format.html
-      format.json { render :json => @users }
-      format.xml  { render :xml  => @users }
+      format.json { render :json => users_to_xml(@users) }
+      format.xml  { render :xml  => users_to_json(@users) }
     end
   end
   
@@ -25,8 +25,8 @@ class UsersController < ApplicationController
     @user = User.new
     respond_to do |format|
       format.html
-      format.json { render :json => @user }
-      format.xml  { render :xml  => @user }
+      format.json { render :json => user_to_json(@user) }
+      format.xml  { render :xml  => user_to_xml(@user) }
     end
   end
   
@@ -58,8 +58,8 @@ class UsersController < ApplicationController
     @buckets = Bucket.all
     respond_to do |format|
       format.html
-      format.json { render :json => @user }
-      format.xml  { render :xml  => @user }
+      format.json { render :json => user_to_json(@user) }
+      format.xml  { render :xml  => user_to_xml(@user) }
     end    
   end
   
@@ -68,10 +68,9 @@ class UsersController < ApplicationController
   #   GET /users/:permalink/karma.json
   def karma
     @user = User.find_by_permalink!(params[:id])
-    debugger
     respond_to do |format|
       format.json { render :json => karma_for(@user) }
-      format.xml  { render :xml  => karma_for(@user) }
+      format.xml  { render :xml  => karma_for(@user, :xml) }
     end
   end
   
@@ -84,8 +83,8 @@ class UsersController < ApplicationController
     @user = User.find_by_permalink!(params[:id])
     respond_to do |format|
       format.html
-      format.json { render :json => @user }
-      format.xml  { render :xml  => @user }
+      format.json { render :json => user_to_json(@user) }
+      format.xml  { render :xml  => user_to_xml(@user) }
     end
   end
   
@@ -118,11 +117,11 @@ class UsersController < ApplicationController
       format.json do
         if success
           if new_record
-            render :json => @user, :status => :created
+            render :json => user_to_json(@user), :status => :created
           else
-            render :json => @user, :status => :ok
+            render :json => user_to_json(@user), :status => :ok
             if permalink_changed
-              headers['Location'] = user_path(@user)
+              headers['Location'] = user_path(@user, :format => :json)
             end
           end
         else
@@ -132,11 +131,11 @@ class UsersController < ApplicationController
       format.xml do
         if success
           if new_record
-            render :xml => @user, :status => :created
+            render :xml => user_to_xml(@user), :status => :created
           else
-            render :xml => @user, :status => :ok
+            render :xml => user_to_xml(@user), :status => :ok
             if permalink_changed
-              headers['Location'] = user_path(@user)
+              headers['Location'] = user_path(@user, :format => :xml)
             end
           end
         else
@@ -160,8 +159,8 @@ class UsersController < ApplicationController
     end
     respond_to do |format|
       format.html { redirect_to users_path }
-      format.json { render :json => @user }
-      format.xml  { render :xml  => @user }
+      format.json { render :json => user_to_json(@user) }
+      format.xml  { render :xml  => user_to_xml(@user) }
     end    
   end
     

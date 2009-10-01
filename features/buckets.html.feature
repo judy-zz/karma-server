@@ -20,7 +20,7 @@ Feature: Buckets via HTML
     When I fill in "Permalink" with "Bugs.Bar"
     And I press "Create Bucket"
     Then I should see "New Bucket"
-    And I should see "Bucket wasn't successfully created."
+    And I should see "Bucket couldn't be created."
     And I should see "Permalink can't contain a period or a slash"
   
   Scenario: Attempt to Create a bucket with a slash
@@ -28,7 +28,7 @@ Feature: Buckets via HTML
     When I fill in "Permalink" with "Bugs/foo"
     And I press "Create Bucket"
     Then I should see "New Bucket"
-    And I should see "Bucket wasn't successfully created."
+    And I should see "Bucket couldn't be created."
     And I should see "Permalink can't contain a period or a slash"
   
   Scenario: Attempt to Create a bucket with a slash and a period
@@ -36,7 +36,7 @@ Feature: Buckets via HTML
     When I fill in "Permalink" with "Bugs/foo.bar"
     And I press "Create Bucket"
     Then I should see "New Bucket"
-    And I should see "Bucket wasn't successfully created."
+    And I should see "Bucket couldn't be created."
     And I should see "Permalink can't contain a period or a slash"
     
   Scenario: Edit a bucket
