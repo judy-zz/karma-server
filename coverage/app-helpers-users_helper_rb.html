@@ -28,17 +28,17 @@
         <tbody>
           <tr>
             <td class="left_align"><a href="app-helpers-users_helper_rb.html">app/helpers/users_helper.rb</a></td>
-            <td class='right_align'><tt>25</tt></td>
-            <td class='right_align'><tt>18</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+            <td class='right_align'><tt>65</tt></td>
+            <td class='right_align'><tt>43</tt></td>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>90.77%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:100px"></div>
-            <div class="uncovered" style="width:0px"></div>
+            <div class="covered" style="width:91px"></div>
+            <div class="uncovered" style="width:9px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>86.05%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:100px"></div>
-            <div class="uncovered" style="width:0px"></div>
+            <div class="covered" style="width:86px"></div>
+            <div class="uncovered" style="width:14px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -87,7 +87,7 @@
           
           
           <tr class="marked">
-            <td><pre><a name="line6">6</a>   def karma_for(user)</pre></td>
+            <td><pre><a name="line6">6</a>   def karma_for(user, format = :json)</pre></td>
           </tr>
         
           
@@ -117,13 +117,13 @@
           
           
           <tr class="marked">
-            <td><pre><a name="line11">11</a>         :bucket_path =&gt; bucket_path(bucket, :format =&gt; :json),</pre></td>
+            <td><pre><a name="line11">11</a>         :bucket_path =&gt; bucket_path(bucket, :format =&gt; format),</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line12">12</a>         :adjustments_path =&gt; adjustments_path(user, bucket, :format =&gt; :json),</pre></td>
+            <td><pre><a name="line12">12</a>         :adjustments_path =&gt; adjustments_path(user, bucket, :format =&gt; format),</pre></td>
           </tr>
         
           
@@ -165,7 +165,7 @@
           
           
           <tr class="marked">
-            <td><pre><a name="line19">19</a>       :user_path =&gt; user_path(user, :format =&gt; :json),</pre></td>
+            <td><pre><a name="line19">19</a>       :user_path =&gt; user_path(user, :format =&gt; format),</pre></td>
           </tr>
         
           
@@ -176,7 +176,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line21">21</a>       :buckets =&gt; buckets_karma</pre></td>
           </tr>
         
@@ -189,25 +189,265 @@
           
           
           <tr class="inferred">
-            <td><pre><a name="line23">23</a>   end</pre></td>
+            <td><pre><a name="line23">23</a>     </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line24">24</a>     eval(&quot;karma.to_#{format}(:root =&gt; 'karma')&quot;)</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line24">24</a>   </pre></td>
+            <td><pre><a name="line25">25</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line25">25</a> end</pre></td>
+            <td><pre><a name="line26">26</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line27">27</a>   # Create and return the hash with the fields used the JSON and XML API</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line28">28</a>   def user_to_hash(user, format = nil)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line29">29</a>     user_hash =  {</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line30">30</a>       'permalink' =&gt; user.permalink,</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line31">31</a>       'path' =&gt; (user.permalink ? user_path(user, :format =&gt; format) : nil),</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line32">32</a>       'created_at' =&gt; user.created_at,</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line33">33</a>       'updated_at' =&gt; user.updated_at</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line34">34</a>     }</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line35">35</a>     format == :json ? { :user =&gt; user_hash } : user_hash</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line36">36</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line37">37</a>   </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line38">38</a>   # Return the collection of users in a hash for the JSON and XML API</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line39">39</a>   # If the format is :json then enclose each user hash with a :user key.</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line40">40</a>   # otherwise simply return the collection without the key</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line41">41</a>   def users_to_hash(users, format = nil)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line42">42</a>     users.collect{|b| user_to_hash(b, format) }</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line43">43</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line44">44</a>   </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line45">45</a>   # Returns an array of User objects in XML format for use in the XML API</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line46">46</a>   def users_to_xml(users)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line47">47</a>     users_to_hash(users, :xml).to_xml(:root =&gt; 'users')</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line48">48</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line49">49</a>   </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line50">50</a>   # Returns an array of User objects in JSON format for use in the JSON API</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line51">51</a>   def users_to_json(users)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line52">52</a>     users_to_hash(users, :json).to_json(:root =&gt; 'users')</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line53">53</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line54">54</a>   </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line55">55</a>   # Returns a User object in XML format for use in the XML API</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line56">56</a>   def user_to_xml(user)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line57">57</a>     user_to_hash(user, :xml).to_xml(:root =&gt; 'user')</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line58">58</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line59">59</a>   </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line60">60</a>   # Returns a User object in JSON format for use in the JSON API</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line61">61</a>   def user_to_json(user)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line62">62</a>     user_to_hash(user, :json).to_json(:root =&gt; 'user')</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line63">63</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line64">64</a>   </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line65">65</a> end</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Wed Sep 30 13:52:47 -0400 2009 with <a href="http://github.com/relevance/rcov">rcov 0.9.2.1</a></p>
+    <p>Generated on Thu Oct 01 16:53:37 -0400 2009 with <a href="http://github.com/relevance/rcov">rcov 0.9.2.1</a></p>
 
   </body>
 </html>
