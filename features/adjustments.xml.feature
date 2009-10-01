@@ -67,7 +67,7 @@ Feature: Adjustments vian XML
     And I should get an XML response body like:
     """
       <?xml version="1.0" encoding="UTF-8"?>
-      <nil-classes type="array"/>
+      <adjustments type="array"/>
     """
     
   Scenario: Read adjustment
@@ -110,6 +110,7 @@ Feature: Adjustments vian XML
     """
       <?xml version="1.0" encoding="UTF-8"?>
       <adjustment>
+        <id type="integer" nil='true'></id>
         <value type="integer" nil='true'></value>
         <path nil='true'></path>
         <user-permalink>harry</user-permalink>

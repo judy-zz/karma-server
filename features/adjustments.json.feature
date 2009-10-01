@@ -30,7 +30,7 @@ Feature: Adjustments via JSON
           adjustment: {
             id: 8,
             value: 4,
-            path: "/users/harry/buckets/animals/adjusmtents/8.json",
+            path: "/users/harry/buckets/animals/adjustments/8.json",
             user_permalink: harry,
             bucket_permalink: animals,
             created_at: "2009-09-10T15:06:32Z",
@@ -41,7 +41,7 @@ Feature: Adjustments via JSON
           adjustment: {
             id: 9,
             value: -1,
-            path: "/users/harry/buckets/animals/adjustments/8.json",
+            path: "/users/harry/buckets/animals/adjustments/9.json",
             user_permalink: harry,
             bucket_permalink: animals,
             created_at: "2009-09-10T15:06:32Z",
@@ -68,7 +68,7 @@ Feature: Adjustments via JSON
       adjustment: {
         id: 8,
         value: 4,
-        path: "/users/harry/buckets/animals/adjusmtents/8.json",
+        path: "/users/harry/buckets/animals/adjustments/8.json",
         user_permalink: harry,
         bucket_permalink: animals,
         created_at: "2009-09-10T15:06:32Z",
@@ -103,12 +103,13 @@ Feature: Adjustments via JSON
     """
       {
         "adjustment":{
+          id: null,
           value: null,
           path: null,
           user_permalink: harry,
           bucket_permalink: animals,
-          created_at: "2009-09-10T15:06:32Z",
-          updated_at: "2009-09-10T15:06:32Z"
+          created_at: null,
+          updated_at: null
         }
       }
     """
@@ -138,7 +139,7 @@ Feature: Adjustments via JSON
     Then I should get a 200 OK response
     And I should get a JSON response body like:
     """
-      adjustment: {
+      "adjustment": {
         id: 8,
         value: 4,
         path: "/users/harry/buckets/animals/adjustments/8.json",
