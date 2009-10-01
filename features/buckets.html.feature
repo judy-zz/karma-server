@@ -20,24 +20,24 @@ Feature: Buckets via HTML
     When I fill in "Permalink" with "Bugs.Bar"
     And I press "Create Bucket"
     Then I should see "New Bucket"
-    And I should see an error message
-    And I should see "Permalink cannot contain a period or a slash"
+    And I should see "Bucket wasn't successfully created."
+    And I should see "Permalink can't contain a period or a slash"
   
   Scenario: Attempt to Create a bucket with a slash
     Given I am on the new bucket page
     When I fill in "Permalink" with "Bugs/foo"
     And I press "Create Bucket"
     Then I should see "New Bucket"
-    And I should see an error message
-    And I should see "Permalink cannot contain a period or a slash"
+    And I should see "Bucket wasn't successfully created."
+    And I should see "Permalink can't contain a period or a slash"
   
   Scenario: Attempt to Create a bucket with a slash and a period
     Given I am on the new bucket page
     When I fill in "Permalink" with "Bugs/foo.bar"
     And I press "Create Bucket"
     Then I should see "New Bucket"
-    And I should see an error message
-    And I should see "Permalink cannot contain a period or a slash"
+    And I should see "Bucket wasn't successfully created."
+    And I should see "Permalink can't contain a period or a slash"
     
   Scenario: Edit a bucket
     Given I am on the edit "Animals" bucket page
@@ -45,6 +45,27 @@ Feature: Buckets via HTML
     And I press "Update Bucket"
     Then I should be on the "Animals1" bucket page
     And I should see "Bucket was successfully updated."
+    
+  Scenario: Attempt to edit a bucket without a Permalink
+    Given I am on the edit "Animals" bucket page
+    When I fill in "Permalink" with ""
+    And I press "Update Bucket"
+    Then I should see "Editing Bucket"
+    And I should see "Animals"
+    And I should see "Bucket wasn't successfully updated."
+    And I should see "Permalink can't be blank"
+    
+  Scenario: Attempt to edit a bucket without a valid Permalink twice
+    Given I am on the edit "Animals" bucket page
+    When I fill in "Permalink" with ""
+    And I press "Update Bucket"
+    Then I should see "Editing Bucket"
+    When I fill in "Permalink" with "adjustments/2"
+    And I press "Update Bucket"
+    Then I should see "Editing Bucket"
+    And I should see "Animals"
+    And I should see "Bucket wasn't successfully updated."
+    And I should see "Permalink can't contain a period or a slash"
   
   Scenario: View list of buckets
     Given I am on the buckets page

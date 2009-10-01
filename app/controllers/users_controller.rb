@@ -68,6 +68,7 @@ class UsersController < ApplicationController
   #   GET /users/:permalink/karma.json
   def karma
     @user = User.find_by_permalink!(params[:id])
+    debugger
     respond_to do |format|
       format.json { render :json => karma_for(@user) }
     end

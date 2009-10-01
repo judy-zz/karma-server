@@ -41,7 +41,7 @@ class BucketsController < ApplicationController
       flash[:success] = "Bucket was successfully created."
       redirect_to @bucket
     else
-      flash[:failure] = "Bucket could not be created."
+      flash[:failure] = "Bucket couldn't be created."
       render :action => :new
     end
   end
@@ -83,6 +83,7 @@ class BucketsController < ApplicationController
     @bucket = Bucket.find_or_initialize_by_permalink(params[:id])
     @bucket.attributes = params[:bucket]
     new_record = @bucket.new_record?
+    saved = new_record ? "created" : "updated"
     permalink_changed = @bucket.changed.include?('permalink') && !new_record
     success = @bucket.save
     respond_to do |format|
@@ -92,7 +93,12 @@ class BucketsController < ApplicationController
           flash[:success] = "Bucket was successfully #{saved}."
           redirect_to @bucket
         else
-          render :action => :new
+          flash[:failure] = "Bucket wasn't successfully #{saved}."
+          if new_record
+            render :action => :new
+          else
+            render :action => :edit
+          end
         end
       end
       format.json do
@@ -136,7 +142,7 @@ class BucketsController < ApplicationController
     if @bucket.destroy
       flash[:success] = "Bucket was successfully destroyed."
     else
-      flash[:failure] = "Bucket could not be destroyed."
+      flash[:failure] = "Bucket couldn't be destroyed."
     end
     respond_to do |format|
       format.html { redirect_to buckets_path }
