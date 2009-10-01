@@ -23,8 +23,8 @@ Feature: Users via JSON
     """
       {
         user: {
-          id: 1,
           permalink: bob,
+          path: /users/bob.json,
           created_at: "2009-10-01T12:00:00Z",
           updated_at: "2009-10-01T12:00:00Z"
         }

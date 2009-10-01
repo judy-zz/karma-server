@@ -24,7 +24,7 @@ Feature: Users via XML
       <?xml version="1.0" encoding="UTF-8"?>
       <user>
         <created-at type="datetime">2009-10-01T12:00:00Z</created-at>
-        <id type="integer">1</id>
+        <path>/users/bob.xml</path>
         <permalink>bob</permalink>
         <updated-at type="datetime">2009-10-01T12:00:00Z</updated-at>
       </user>
@@ -44,21 +44,21 @@ Feature: Users via XML
     And I should get an XML response body like:
     """
       <?xml version="1.0" encoding="UTF-8"?>
-      <hash>
+      <karma>
         <total type="integer">0</total>
-        <user-path>/users/bob.json</user-path>
+        <user-path>/users/bob.xml</user-path>
         <buckets>
           <animals>
-            <adjustments-path>/users/bob/buckets/animals/adjustments.json</adjustments-path>
-            <bucket-path>/buckets/animals.json</bucket-path>
+            <adjustments-path>/users/bob/buckets/animals/adjustments.xml</adjustments-path>
+            <bucket-path>/buckets/animals.xml</bucket-path>
             <total type="integer">0</total>
           </animals>
           <plants>
-            <adjustments-path>/users/bob/buckets/plants/adjustments.json</adjustments-path>
-            <bucket-path>/buckets/plants.json</bucket-path>
+            <adjustments-path>/users/bob/buckets/plants/adjustments.xml</adjustments-path>
+            <bucket-path>/buckets/plants.xml</bucket-path>
             <total type="integer">0</total>
           </plants>
         </buckets>
         <user>bob</user>
-      </hash>
+      </karma>
     """
