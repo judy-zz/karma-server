@@ -70,6 +70,7 @@ class UsersController < ApplicationController
     @user = User.find_by_permalink!(params[:id])
     respond_to do |format|
       format.json { render :json => karma_for(@user) }
+      format.xml  { render :xml  => karma_for(@user) }
     end
   end
   
