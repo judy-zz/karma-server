@@ -15,6 +15,7 @@ class Bucket < ActiveRecord::Base
   default_scope :order => :permalink
   validate :valid_permalink
   
+  attr_protected :created_at, :updated_at
   
   def to_param
     permalink
