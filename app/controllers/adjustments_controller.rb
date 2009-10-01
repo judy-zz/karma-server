@@ -12,13 +12,13 @@ class AdjustmentsController < ApplicationController
       @adjustments = Adjustment.find(:all, :conditions => {:user_id => @user.id, :bucket_id => @bucket.id})
       respond_to do |format|
         format.html
-        format.xml  { render :xml   => adjustments_to_xml(@adjustments) }
         format.json { render :json  => adjustments_to_json(@adjustments) }
+        format.xml  { render :xml   => adjustments_to_xml(@adjustments) }
       end
     else
       respond_to do |format|
-        format.xml{ render :xml => :nothing, :status => :not_found }
         format.json { render :json => :nothing, :status => :not_found }
+        format.xml{ render :xml => :nothing, :status => :not_found }
       end
     end
   end
@@ -34,8 +34,8 @@ class AdjustmentsController < ApplicationController
     @adjustment.bucket = @bucket
     respond_to do |format|
       format.html
-      format.xml{  render :xml  => adjustment_to_xml(@adjustment)  }
       format.json{ render :json => adjustment_to_json(@adjustment) }
+      format.xml{  render :xml  => adjustment_to_xml(@adjustment)  }
     end
   end
   
@@ -55,15 +55,15 @@ class AdjustmentsController < ApplicationController
       flash[:success] = "Karma was successfully adjusted"
       respond_to do |format|
         format.html{ redirect_to adjustments_path(@user, @bucket) }
-        format.xml{  render :xml  => adjustment_to_xml(@adjustment), :status => :created }
         format.json{ render :json => adjustment_to_json(@adjustment), :status => :created }
+        format.xml{  render :xml  => adjustment_to_xml(@adjustment), :status => :created }
       end
     else
       flash[:failure] = "Karma failed to be adjusted"
       respond_to do |format|
         format.html{ render :new }
-        format.xml{  render :xml  => @adjustment.errors, :status => :unprocessable_entity }
         format.json{ render :json => @adjustment.errors, :status => :unprocessable_entity }
+        format.xml{  render :xml  => @adjustment.errors, :status => :unprocessable_entity }
       end
     end      
   end
@@ -75,8 +75,8 @@ class AdjustmentsController < ApplicationController
   def show
     @adjustment = Adjustment.find params[:id]
     respond_to do |format|
-      format.xml {  render :xml  => adjustment_to_xml(@adjustment)  }
       format.json { render :json => adjustment_to_json(@adjustment) }
+      format.xml {  render :xml  => adjustment_to_xml(@adjustment)  }
     end
   end
   
@@ -91,8 +91,8 @@ class AdjustmentsController < ApplicationController
       flash[:success] = "Adjustment was successfully destroyed."
     end
     respond_to do |format|
-      format.xml  { render :xml  => adjustment_to_xml(@adjustment) }
       format.json { render :json => adjustment_to_json(@adjustment) }
+      format.xml  { render :xml  => adjustment_to_xml(@adjustment) }
     end    
   end
 
