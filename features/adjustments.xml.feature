@@ -28,20 +28,22 @@ Feature: Adjustments vian XML
       <?xml version="1.0" encoding="UTF-8"?>
       <adjustments type="array">
         <adjustment>
-          <bucket-id type="integer">4</bucket-id>
-          <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
           <id type="integer">8</id>
-          <updated-at type="datetime">2009-09-10T15:06:32Z</updated-at>
-          <user-id type="integer">2</user-id>
           <value type="integer">4</value>
+          <path>/users/harry/buckets/animals/adjustments/8.xml</path>
+          <user-permalink>harry</user-permalink>
+          <bucket-permalink>animals</bucket-permalink>
+          <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
+          <updated-at type="datetime">2009-09-10T15:06:32Z</updated-at>
         </adjustment>
         <adjustment>
-          <bucket-id type="integer">4</bucket-id>
-          <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
           <id type="integer">9</id>
-          <updated-at type="datetime">2009-09-10T15:06:32Z</updated-at>
-          <user-id type="integer">2</user-id>
           <value type="integer">-1</value>
+          <path>/users/harry/buckets/animals/adjustments/9.xml</path>
+          <user-permalink>harry</user-permalink>
+          <bucket-permalink>animals</bucket-permalink>
+          <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
+          <updated-at type="datetime">2009-09-10T15:06:32Z</updated-at>
         </adjustment>
       </adjustments>
     """
@@ -75,12 +77,13 @@ Feature: Adjustments vian XML
     """
       <?xml version="1.0" encoding="UTF-8"?>
       <adjustment>
-        <bucket-id type="integer">4</bucket-id>
-        <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
-        <id type="integer">8</id>
-        <updated-at type="datetime">2009-09-10T15:06:32Z</updated-at>
-        <user-id type="integer">2</user-id>
-        <value type="integer">4</value>
+          <id type="integer">8</id>
+          <value type="integer">4</value>
+          <path>/users/harry/buckets/animals/adjustments/8.xml</path>
+          <user-permalink>harry</user-permalink>
+          <bucket-permalink>animals</bucket-permalink>
+          <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
+          <updated-at type="datetime">2009-09-10T15:06:32Z</updated-at>
       </adjustment>
     """
     
@@ -107,11 +110,12 @@ Feature: Adjustments vian XML
     """
       <?xml version="1.0" encoding="UTF-8"?>
       <adjustment>
-        <bucket-id type="integer">4</bucket-id>
-        <created-at type="datetime" nil="true"></created-at>
-        <updated-at type="datetime" nil="true"></updated-at>
-        <user-id type="integer">2</user-id>
-        <value type="integer" nil="true"></value>
+        <value type="integer" nil='true'></value>
+        <path nil='true'></path>
+        <user-permalink>harry</user-permalink>
+        <bucket-permalink>animals</bucket-permalink>
+        <created-at type="datetime" nil='true'></created-at>
+        <updated-at type="datetime" nil='true'></updated-at>
       </adjustment>
     """
     
@@ -135,91 +139,6 @@ Feature: Adjustments vian XML
     When I POST "/users/harry/buckets/animals/adjustments.xml" with body ""
     Then I should get a 422 Unprocessable Entity response
   
-  Scenario: Update an adjustment value
-    When I PUT "/users/harry/buckets/animals/adjustments/8.xml" with body "adjustment[value]=7"
-    Then I should get a 200 OK response
-    And I should get an XML response body like:
-    """
-      <?xml version="1.0" encoding="UTF-8"?>
-      <adjustment>
-        <bucket-id type="integer">4</bucket-id>
-        <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
-        <id type="integer">8</id>
-        <updated-at type="datetime">2009-09-09T12:00:00Z</updated-at>
-        <user-id type="integer">2</user-id>
-        <value type="integer">7</value>
-      </adjustment>
-    """
-    
-  Scenario: Update an adjustment bucket
-    When I PUT "/users/harry/buckets/animals/adjustments/8.xml" with body "adjustment[bucket_id]=3"
-    Then I should get a 200 OK response
-    And I should get an XML response body like:
-    """
-      <?xml version="1.0" encoding="UTF-8"?>
-      <adjustment>
-        <bucket-id type="integer">3</bucket-id>
-        <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
-        <id type="integer">8</id>
-        <updated-at type="datetime">2009-09-09T12:00:00Z</updated-at>
-        <user-id type="integer">2</user-id>
-        <value type="integer">4</value>
-      </adjustment>
-      }
-    """
-    
-  Scenario: Update an adjustment user
-    When I PUT "/users/harry/buckets/animals/adjustments/8.xml" with body "adjustment[user_id]=1"
-    Then I should get a 200 OK response
-    And I should get an XML response body like:
-    """
-      <?xml version="1.0" encoding="UTF-8"?>
-      <adjustment>
-        <bucket-id type="integer">4</bucket-id>
-        <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
-        <id type="integer">8</id>
-        <updated-at type="datetime">2009-09-09T12:00:00Z</updated-at>
-        <user-id type="integer">1</user-id>
-        <value type="integer">4</value>
-      </adjustment>
-    """
-    
-  Scenario: Update an adjustment user, bucket and value
-    When I PUT "/users/harry/buckets/animals/adjustments/8.xml" with body "adjustment[user_id]=1&adjustment[bucket_id]=3&adjustment[value]=10"
-    Then I should get a 200 OK response
-    And I should get an XML response body like:
-    """
-      <?xml version="1.0" encoding="UTF-8"?>
-      <adjustment>
-        <bucket-id type="integer">3</bucket-id>
-        <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
-        <id type="integer">8</id>
-        <updated-at type="datetime">2009-09-09T12:00:00Z</updated-at>
-        <user-id type="integer">1</user-id>
-        <value type="integer">10</value>
-      </adjustment>
-    """
-    
-  Scenario: Attempt to update an adjustment with an invalid value
-    When I PUT "/users/harry/buckets/animals/adjustments/8.xml" with body "adjustment[value]=asdf"
-    Then I should get a 422 Unprocessable Entity response
-    
-  Scenario: Attempt to update a non-existing adjustment
-    When I PUT "/users/harry/buckets/animals/adjustments/300.xml"
-    Then I should get a 404 Not Found response
-    
-  Scenario: Attempt to update an adjustment with a non-existing bucket
-    When I PUT "/users/harry/buckets/doesnt-exist/adjustments/300.xml"
-    Then I should get a 404 Not Found response
-    
-  Scenario: Attempt to update an adjustment with a non-existing user
-    When I PUT "/users/doesnt-exist/buckets/animals/adjustments/300.xml"
-    Then I should get a 404 Not Found response
-    
-  Scenario: Attempt to update an adjustment with a non-existing user and bucket
-    When I PUT "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.xml"
-    Then I should get a 404 Not Found response
-  
   Scenario: Destroy an adjustment
     When I DELETE "/users/harry/buckets/animals/adjustments/8.xml"
     Then I should get a 200 OK response
@@ -227,12 +146,13 @@ Feature: Adjustments vian XML
     """
       <?xml version="1.0" encoding="UTF-8"?>
       <adjustment>
-        <bucket-id type="integer">4</bucket-id>
-        <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
-        <id type="integer">8</id>
-        <updated-at type="datetime">2009-09-10T15:06:32Z</updated-at>
-        <user-id type="integer">2</user-id>
-        <value type="integer">4</value>
+          <id type="integer">8</id>
+          <value type="integer">4</value>
+          <path>/users/harry/buckets/animals/adjustments/8.xml</path>
+          <user-permalink>harry</user-permalink>
+          <bucket-permalink>animals</bucket-permalink>
+          <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
+          <updated-at type="datetime">2009-09-10T15:06:32Z</updated-at>
       </adjustment>
     """
     

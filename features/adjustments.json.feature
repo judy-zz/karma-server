@@ -24,26 +24,28 @@ Feature: Adjustments via JSON
     When I GET "/users/harry/buckets/animals/adjustments.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
-    """
+    """    
       [
         {
           adjustment: {
-            bucket_id: 4,
-            created_at: "2009-09-10T15:06:32Z",
-            updated_at: "2009-09-10T15:06:32Z",
             id: 8,
-            user_id: 2,
-            value: 4
+            value: 4,
+            path: "/users/harry/buckets/animals/adjusmtents/8.json",
+            user_permalink: harry,
+            bucket_permalink: animals,
+            created_at: "2009-09-10T15:06:32Z",
+            updated_at: "2009-09-10T15:06:32Z"
           }
         },
         {
           adjustment: {
-            bucket_id: 4,
-            created_at: "2009-09-10T15:06:32Z",
-            updated_at: "2009-09-10T15:06:32Z",
             id: 9,
-            user_id: 2,
-            value: -1            
+            value: -1,
+            path: "/users/harry/buckets/animals/adjustments/8.json",
+            user_permalink: harry,
+            bucket_permalink: animals,
+            created_at: "2009-09-10T15:06:32Z",
+            updated_at: "2009-09-10T15:06:32Z"
           }
         }
       ]
@@ -64,12 +66,13 @@ Feature: Adjustments via JSON
     And I should get a JSON response body like:
     """
       adjustment: {
-        bucket_id: 4,
-        created_at: "2009-09-10T15:06:32Z",
-        updated_at: "2009-09-10T15:06:32Z",
         id: 8,
-        user_id: 2,
-        value: 4
+        value: 4,
+        path: "/users/harry/buckets/animals/adjusmtents/8.json",
+        user_permalink: harry,
+        bucket_permalink: animals,
+        created_at: "2009-09-10T15:06:32Z",
+        updated_at: "2009-09-10T15:06:32Z"
       }
     """
   
@@ -100,11 +103,12 @@ Feature: Adjustments via JSON
     """
       {
         "adjustment":{
-          "updated_at":null,
-          "bucket_id":4,
-          "value":null,
-          "user_id":2,
-          "created_at":null
+          value: null,
+          path: null,
+          user_permalink: harry,
+          bucket_permalink: animals,
+          created_at: "2009-09-10T15:06:32Z",
+          updated_at: "2009-09-10T15:06:32Z"
         }
       }
     """
@@ -129,98 +133,19 @@ Feature: Adjustments via JSON
     When I POST "/users/harry/buckets/animals/adjustments.json" with body ""
     Then I should get a 422 Unprocessable Entity response
   
-  Scenario: Update an adjustment value
-    When I PUT "/users/harry/buckets/animals/adjustments/8.json" with body "adjustment[value]=7"
-    Then I should get a 200 OK response
-    And I should get a JSON response body like:
-    """
-      "adjustment":{
-        "updated_at":"2009-09-09T12:00:00Z",
-        "id":8,
-        "bucket_id":4,
-        "value":7,
-        "user_id":2,
-        "created_at":"2009-09-10T15:06:32Z"
-      }
-    """
-    
-  Scenario: Update an adjustment bucket
-    When I PUT "/users/harry/buckets/animals/adjustments/8.json" with body "adjustment[bucket_id]=3"
-    Then I should get a 200 OK response
-    And I should get a JSON response body like:
-    """
-      "adjustment":{
-        "updated_at":"2009-09-09T12:00:00Z",
-        "id":8,
-        "bucket_id":3,
-        "value":4,
-        "user_id":2,
-        "created_at":"2009-09-10T15:06:32Z"
-      }
-    """
-    
-  Scenario: Update an adjustment user
-    When I PUT "/users/harry/buckets/animals/adjustments/8.json" with body "adjustment[user_id]=1"
-    Then I should get a 200 OK response
-    And I should get a JSON response body like:
-    """
-      "adjustment":{
-        "updated_at":"2009-09-09T12:00:00Z",
-        "id":8,
-        "bucket_id":4,
-        "value":4,
-        "user_id":1,
-        "created_at":"2009-09-10T15:06:32Z"
-      }
-    """
-    
-  Scenario: Update an adjustment user, bucket and value
-    When I PUT "/users/harry/buckets/animals/adjustments/8.json" with body "adjustment[user_id]=1&adjustment[bucket_id]=3&adjustment[value]=10"
-    Then I should get a 200 OK response
-    And I should get a JSON response body like:
-    """
-      "adjustment":{
-        "updated_at":"2009-09-09T12:00:00Z",
-        "id":8,
-        "bucket_id":3,
-        "value":10,
-        "user_id":1,
-        "created_at":"2009-09-10T15:06:32Z"
-      }
-    """
-    
-  Scenario: Attempt to update an adjustment with an invalid value
-    When I PUT "/users/harry/buckets/animals/adjustments/8.json" with body "adjustment[value]=asdf"
-    Then I should get a 422 Unprocessable Entity response
-    
-  Scenario: Attempt to update a non-existing adjustment
-    When I PUT "/users/harry/buckets/animals/adjustments/300.json"
-    Then I should get a 404 Not Found response
-    
-  Scenario: Attempt to update an adjustment with a non-existing bucket
-    When I PUT "/users/harry/buckets/doesnt-exist/adjustments/300.json"
-    Then I should get a 404 Not Found response
-    
-  Scenario: Attempt to update an adjustment with a non-existing user
-    When I PUT "/users/doesnt-exist/buckets/animals/adjustments/300.json"
-    Then I should get a 404 Not Found response
-    
-  Scenario: Attempt to update an adjustment with a non-existing user and bucket
-    When I PUT "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.json"
-    Then I should get a 404 Not Found response
-  
   Scenario: Destroy an adjustment
     When I DELETE "/users/harry/buckets/animals/adjustments/8.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
     """
       adjustment: {
-        bucket_id: 4,
-        created_at: "2009-09-10T15:06:32Z",
-        updated_at: "2009-09-10T15:06:32Z",
         id: 8,
-        user_id: 2,
-        value: 4
+        value: 4,
+        path: "/users/harry/buckets/animals/adjustments/8.json",
+        user_permalink: harry,
+        bucket_permalink: animals,
+        created_at: "2009-09-10T15:06:32Z",
+        updated_at: "2009-09-10T15:06:32Z"
       }
     """
     

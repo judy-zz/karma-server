@@ -79,31 +79,6 @@ class AdjustmentsController < ApplicationController
     end
   end
   
-  # Update an adjustment.
-  #
-  #   PUT /users/:user_permalink/buckets/:bucket_permalink/adjustments/:id.xml
-  #   PUT /users/:user_permalink/buckets/:bucket_permalink/adjustments/:id.json
-  def update
-    @adjustment = Adjustment.find params[:id]
-    if params[:adjustment][:bucket_id]
-      @adjustment.bucket_id = params[:adjustment][:bucket_id]
-    end
-    if params[:adjustment][:user_id]
-      @adjustment.user_id = params[:adjustment][:user_id]
-    end
-    if @adjustment.save and @adjustment.update_attributes(params[:adjustment])
-      respond_to do |format|
-        format.xml  { render :xml => @adjustment }
-        format.json { render :json => @adjustment }
-      end
-    else
-      respond_to do |format|
-        format.xml  { render :xml  => @adjustment.errors, :status => :unprocessable_entity }
-        format.json { render :json => @adjustment.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-  
   # Delete a particular bucket from the database.
   #
   #   DELETE /users/:user_permalink/buckets/:bucket_permalink/adjustments/:id.html
