@@ -71,6 +71,7 @@ class UsersController < ApplicationController
     debugger
     respond_to do |format|
       format.json { render :json => karma_for(@user) }
+      format.xml  { render :xml  => karma_for(@user) }
     end
   end
   

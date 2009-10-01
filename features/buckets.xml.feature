@@ -19,13 +19,13 @@ Feature: Buckets via XML
       <buckets type="array">
         <bucket>
           <created-at type="datetime">2009-10-01T12:00:00Z</created-at>
-          <id type="integer">1</id>
+          <path>/buckets/Animals.xml</path>
           <permalink>Animals</permalink>
           <updated-at type="datetime">2009-10-01T12:00:00Z</updated-at>
         </bucket>
         <bucket>
           <created-at type="datetime">2009-10-02T12:00:00Z</created-at>
-          <id type="integer">2</id>
+          <path>/buckets/Plants.xml</path>
           <permalink>Plants</permalink>
           <updated-at type="datetime">2009-10-02T12:00:00Z</updated-at>
         </bucket>
@@ -50,7 +50,7 @@ Feature: Buckets via XML
       <?xml version="1.0" encoding="UTF-8"?>
       <bucket>
         <created-at type="datetime">2009-10-02T12:00:00Z</created-at>
-        <id type="integer">2</id>
+        <path>/buckets/Plants.xml</path>
         <permalink>Plants</permalink>
         <updated-at type="datetime">2009-10-02T12:00:00Z</updated-at>
       </bucket>
@@ -68,6 +68,7 @@ Feature: Buckets via XML
       <?xml version="1.0" encoding="UTF-8"?>
       <bucket>
         <created-at type="datetime" nil="true"></created-at>
+        <path nil="true"></path>
         <permalink nil="true"></permalink>
         <updated-at type="datetime" nil="true"></updated-at>
       </bucket>
@@ -90,7 +91,7 @@ Feature: Buckets via XML
       <?xml version="1.0" encoding="UTF-8"?>
       <bucket>
         <created-at type="datetime">2009-10-01T12:00:00Z</created-at>
-        <id type="integer">1</id>
+        <path>/buckets/Nice Animals.xml</path>
         <permalink>Nice Animals</permalink>
         <updated-at type="datetime">2009-09-09T12:00:00Z</updated-at>
       </bucket>
@@ -104,7 +105,7 @@ Feature: Buckets via XML
       <?xml version="1.0" encoding="UTF-8"?>
       <bucket>
         <created-at type="datetime">2009-10-01T12:00:00Z</created-at>
-        <id type="integer">1</id>
+        <path>/buckets/Animals.xml</path>
         <permalink>Animals</permalink>
         <updated-at type="datetime">2009-10-01T12:00:00Z</updated-at>
       </bucket>

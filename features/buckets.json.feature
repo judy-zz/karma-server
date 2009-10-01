@@ -17,14 +17,14 @@ Feature: Buckets via JSON
     """
       [{
         bucket: {
-          id: 1,
           permalink: Animals,
+          path: "/buckets/Animals.json",
           created_at: "2009-10-01T12:00:00Z",
           updated_at: "2009-10-01T12:00:00Z"
         }},
         {bucket: {
-          id: 2,
           permalink: Plants,
+          path: "/buckets/Plants.json",
           created_at: "2009-10-02T12:00:00Z",
           updated_at: "2009-10-02T12:00:00Z"
         }
@@ -47,8 +47,8 @@ Feature: Buckets via JSON
     """
       {
         bucket: {
-          id: 2,
           permalink: Plants,
+          path: "/buckets/Plants.json",
           created_at: "2009-10-02T12:00:00Z",
           updated_at: "2009-10-02T12:00:00Z"
         }
@@ -84,8 +84,8 @@ Feature: Buckets via JSON
     """
       {
         bucket:{
-          id: 1,
           permalink: "Nice Animals",
+          path: "/buckets/Animals.json",
           created_at: "2009-10-01T12:00:00Z",
           updated_at: "2009-09-09T12:00:00Z"
         }
@@ -98,8 +98,8 @@ Feature: Buckets via JSON
     And I should get a JSON response body like:
     """
       bucket: {
-        id: 1,
         permalink: Animals,
+        path: "/buckets/Animals.json",
         created_at: "2009-10-01T12:00:00Z",
         updated_at: "2009-10-01T12:00:00Z"
       }
