@@ -14,6 +14,10 @@ Feature: Buckets via HTML
     And I press "Create Bucket"
     Then I should be on the "Bugs" bucket page
     And I should see "Bucket was successfully created."
+    
+  Scenario: Attempt to Create a bucket via PUT with an invalid permalink
+    When I PUT "/buckets/doesnt-exist" with body "bucket[permalink]="
+    And I should see "Bucket wasn't successfully created."
   
   Scenario: Attempt to Create a bucket with a period
     Given I am on the new bucket page
