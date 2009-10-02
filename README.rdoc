@@ -30,16 +30,16 @@ by the client.
 
 ==== Get list of all Users
 
-	GET /users
-	
+  GET /users
+  
 Get a list of all users currently in the karma server database.  Will return
 the same information as the /users/bob action, mentioned below, but for
 all users.
 
 ==== Get a New User
 
-	GET /users/new
-	
+  GET /users/new
+  
 Get a new user object.  This method allows you to see what the user object 
 looks like and allows you to manipulate and change it without any chance to 
 affect any actual data.
@@ -94,16 +94,16 @@ and chosen by the client.
 
 ==== Get list of all Buckets
 
-	GET /buckets
-	
+  GET /buckets
+  
 Get a list of all buckets currently in the karma server database.  Will return
 the same information as the /buckets/plants action, mentioned below, but for
 all buckets.
 
 ==== Get a New Bucket
 
-	GET /buckets/new
-	
+  GET /buckets/new
+  
 Get a new bucket object.  This method allows you to see what the user object 
 looks like and allows you to manipulate and change it without any chance to 
 affect any actual data.
@@ -168,8 +168,8 @@ Get the details for one particular adjustment from user Bob.
 
 ==== View a new adjustment
 
-	GET /users/bob/buckets/plants/adjustments/new
-	
+  GET /users/bob/buckets/plants/adjustments/new
+  
 Get a new adjustment object to see what fields it consists of and to have a 
 sandbox adjustment object to play around with.
 
