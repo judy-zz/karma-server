@@ -148,14 +148,14 @@ assigned an integer identifier by the karma server when they're created.
 
 ==== Increment Karma
 
-  POST /users/bob/buckets/plants/adjustments?value=3
+  POST /users/bob/buckets/plants/adjustments?adjustment[value]=3
 
 Increment the karma in bob's plant bucket by three points. The "Location"
 header of the response redirects the client to the new adjustment.  
 
 ==== Decrement Karma
 
-  POST /users/bob/buckets/plants/adjustments?value=-1
+  POST /users/bob/buckets/plants/adjustments?adjustment[value]=-1
   
 Decrement the karma in bob's plant bucket by one point. The "Location"
 header of the response redirects the client to the new adjustment.
@@ -165,6 +165,13 @@ header of the response redirects the client to the new adjustment.
   GET /users/bob/buckets/plants/adjustments/245
   
 Get the details for one particular adjustment from user Bob.
+
+==== View a new adjustment
+
+	GET /users/bob/buckets/plants/adjustments/new
+	
+Get a new adjustment object to see what fields it consists of and to have a 
+sandbox adjustment object to play around with.
 
 ==== View the History of All Adjustments for a User
 
@@ -179,11 +186,7 @@ Returns a history of all karma adjustments for user "bob".
   
 Returns a history of all karma adjustments for bob's "plants" bucket.
 
-==== View the History of All Adjustments for a User
-
-  PUT /users/bob/buckets/plants/adjustments/245?adjustment[value]=4
-  
-Modify the details for one particular adjustment from user Bob.
+==== Delete an adjustment
 
   DELETE /users/bob/buckets/plants/adjustments/245
   
