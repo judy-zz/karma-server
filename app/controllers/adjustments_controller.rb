@@ -15,6 +15,14 @@ class AdjustmentsController < ApplicationController
         format.json { render :json  => adjustments_to_json(@adjustments) }
         format.xml  { render :xml   => adjustments_to_xml(@adjustments) }
       end
+    # If bucket permalink is given but not found, do not run!
+    elsif @user && ! params[:bucket_permalink] 
+      @adjustments = Adjustment.find(:all, :conditions => {:user_id => @user.id})
+      respond_to do |format|
+        format.html
+        format.json { render :json  => adjustments_to_json(@adjustments) }
+        format.xml  { render :xml   => adjustments_to_xml(@adjustments) }
+      end
     else
       respond_to do |format|
         format.json { render :json => :nothing, :status => :not_found }
