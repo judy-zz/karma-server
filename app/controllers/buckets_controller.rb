@@ -141,11 +141,8 @@ class BucketsController < ApplicationController
   #   DELETE /buckets/:permalink.xml
   def destroy
     @bucket = Bucket.find_by_permalink!(params[:id])
-    if @bucket.destroy
-      flash[:success] = "Bucket was successfully destroyed."
-    else
-      flash[:failure] = "Bucket couldn't be destroyed."
-    end
+    @bucket.destroy
+    flash[:success] = "Bucket was successfully destroyed."
     respond_to do |format|
       format.html { redirect_to buckets_path }
       format.json { render :json => bucket_to_json(@bucket) }

@@ -105,3 +105,12 @@ Feature: Buckets via JSON
         updated_at: "2009-10-01T12:00:00Z"
       }
     """
+    
+  Scenario: Failed attempt to destroy a bucket
+    Given a bucket "Bugs" that will fail to be deleted
+    When I DELETE "/buckets/Bugs.json"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an empty response body
+  
+  
+  

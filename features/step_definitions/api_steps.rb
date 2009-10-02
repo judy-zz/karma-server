@@ -37,6 +37,6 @@ Then /^I should get an XML response body like:$/ do |string|
   actual.should == expected
 end
 
-Then /^I should get a blank response body$/ do
+Then /^I should get an? (blank|empty) response body$/ do |empty|
   response.should be_empty
 end
