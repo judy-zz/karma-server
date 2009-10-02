@@ -1,6 +1,6 @@
 class AdjustmentsController < ApplicationController
   include AdjustmentsHelper
-  before_filter :find_user_and_bucket
+  before_filter :find_user
 
   # List all adjustments.
   #
@@ -8,26 +8,16 @@ class AdjustmentsController < ApplicationController
   #   GET /users/:user_permalink/buckets/:bucket_permalink/adjustments.xml
   #   GET /users/:user_permalink/buckets/:bucket_permalink/adjustments.json
   def index
-    if @user and @bucket
-      @adjustments = Adjustment.find(:all, :conditions => {:user_id => @user.id, :bucket_id => @bucket.id})
-      respond_to do |format|
-        format.html
-        format.json { render :json  => adjustments_to_json(@adjustments) }
-        format.xml  { render :xml   => adjustments_to_xml(@adjustments) }
-      end
-    # If bucket permalink is given but not found, do not run!
-    elsif @user && ! params[:bucket_permalink] 
-      @adjustments = Adjustment.find(:all, :conditions => {:user_id => @user.id})
-      respond_to do |format|
-        format.html
-        format.json { render :json  => adjustments_to_json(@adjustments) }
-        format.xml  { render :xml   => adjustments_to_xml(@adjustments) }
-      end
+    if (params[:bucket_permalink])
+      @bucket = Bucket.find_by_permalink!(params[:bucket_permalink])
+      @adjustments = @user.adjustments.find(:conditions => {:bucket_id => @bucket.id})
     else
-      respond_to do |format|
-        format.json { render :json => :nothing, :status => :not_found }
-        format.xml{ render :xml => :nothing, :status => :not_found }
-      end
+      @adjustments = @user.adjustments
+    end
+    respond_to do |format|
+      format.html
+      format.json { render :json  => adjustments_to_json(@adjustments) }
+      format.xml  { render :xml   => adjustments_to_xml(@adjustments) }
     end
   end
   
@@ -37,9 +27,8 @@ class AdjustmentsController < ApplicationController
   #   GET /users/:user_permalink/buckets/:bucket_permalink/adjustments/new.xml
   #   GET /users/:user_permalink/buckets/:bucket_permalink/adjustments/new.json
   def new
-    @adjustment = Adjustment.new
-    @adjustment.user = @user
-    @adjustment.bucket = @bucket
+    @bucket = Bucket.find_by_permalink!(params[:bucket_permalink])
+    @adjustment = Adjustment.new(:user => @user, :bucket => @bucket)
     respond_to do |format|
       format.html
       format.json{ render :json => adjustment_to_json(@adjustment) }
@@ -53,13 +42,14 @@ class AdjustmentsController < ApplicationController
   #   POST /users/:user_permalink/buckets/:bucket_permalink/adjustments.xml
   #   POST /users/:user_permalink/buckets/:bucket_permalink/adjustments.json
   def create
-    if params[:adjustment] and params[:adjustment][:bucket_id]
+    # Harvest the bucket from the form, if we were called that way. 
+    if params[:adjustment] && params[:adjustment][:bucket_id]
       @bucket = Bucket.find(params[:adjustment][:bucket_id])
+    else
+      @bucket = Bucket.find_by_permalink!(params[:bucket_permalink])
     end
-    @adjustment = Adjustment.new
-    @adjustment.user = @user
-    @adjustment.bucket = @bucket
-    if params[:adjustment] and @adjustment.update_attributes(params[:adjustment])
+    @adjustment = Adjustment.new(:user => @user, :bucket => @bucket)
+    if params[:adjustment] && @adjustment.update_attributes(params[:adjustment])
       flash[:success] = "Karma was successfully adjusted"
       respond_to do |format|
         format.html{ redirect_to adjustments_path(@user, @bucket) }
@@ -76,12 +66,13 @@ class AdjustmentsController < ApplicationController
     end      
   end
   
-  # Show a particular user.
+  # Show a particular adjustment.
   #
   #   GET /users/:user_permalink/buckets/:bucket_permalink/adjustments/:id.xml
   #   GET /users/:user_permalink/buckets/:bucket_permalink/adjustments/:id.json
   def show
-    @adjustment = Adjustment.find params[:id]
+    @bucket = Bucket.find_by_permalink!(params[:bucket_permalink])
+    @adjustment = Adjustment.find(params[:id])
     respond_to do |format|
       format.json { render :json => adjustment_to_json(@adjustment) }
       format.xml {  render :xml  => adjustment_to_xml(@adjustment)  }
@@ -94,7 +85,11 @@ class AdjustmentsController < ApplicationController
   #   DELETE /users/:user_permalink/buckets/:bucket_permalink/adjustments/:id.xml
   #   DELETE /users/:user_permalink/buckets/:bucket_permalink/adjustments/:id.json
   def destroy
-    @adjustment = Adjustment.find params[:id]
+    @bucket = Bucket.find_by_permalink!(params[:bucket_permalink])
+    @adjustment = @user.adjustments.find(:first, :conditions => {
+      :id => params[:id],
+      :bucket_id => @bucket.id
+    })
     if @adjustment.destroy
       flash[:success] = "Adjustment was successfully destroyed."
     end
@@ -106,9 +101,8 @@ class AdjustmentsController < ApplicationController
 
   private
   
-  def find_user_and_bucket
+  def find_user
     @user = User.find_by_permalink!(params[:user_permalink])
-    @bucket = Bucket.find_by_permalink(params[:bucket_permalink])
   end
 
 end
