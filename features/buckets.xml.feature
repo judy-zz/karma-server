@@ -77,8 +77,12 @@ Feature: Buckets via XML
   Scenario: Create a bucket
     When I PUT "/buckets/dinosaurs.xml" with body ""
     Then I should get a 201 Created response
+    
+  Scenario: Attempt to create a bucket with an invalid permalink
+    When I PUT "/buckets/doesnt-exist.xml" with body "bucket[permalink]="
+    Then I should get a 422 Unprocessible Entity response
 
-  Scenario: Recreate a user
+  Scenario: Recreate a bucket
     Given a bucket "exists"
     When I PUT "/buckets/exists.json" with body ""
     Then I should get a 200 OK response
