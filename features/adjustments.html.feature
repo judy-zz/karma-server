@@ -7,11 +7,11 @@ Feature: Adjustments via HTML
     Given a user "bob"
     And a bucket "plants"
     When I go to the new adjustment page for bob's plants bucket
-    And I fill in "karma" with "5"
-    And I press "Save"
+    And I fill in "value" with "5"
+    And I press "Apply Adjustment"
     And I go to the new adjustment page for bob's plants bucket
-    And I fill in "karma" with "-1"
-    And I press "Save"
+    And I fill in "value" with "-1"
+    And I press "Apply Adjustment"
     Then I should be on the adjustments page for bob's plants bucket
     And I should see "5"
     And I should see "-1"
@@ -21,8 +21,8 @@ Feature: Adjustments via HTML
     Given a user "bob"
     And a bucket "plants"
     When I go to the new adjustment page for bob's plants bucket
-    And I press "Save"
-    Then I should see "Change Karma"
+    And I press "Apply Adjustment"
+    Then I should see "Adjust Karma"
     And I should see an error message
     And I should see "Value can't be blank"
     
@@ -30,9 +30,9 @@ Feature: Adjustments via HTML
     Given a user "bob"
     And a bucket "plants"
     When I go to the new adjustment page for user bob
-    And I fill in "karma" with "4"
+    And I fill in "value" with "4"
     And I select "plants" from "Bucket"
-    And I press "Save"
+    And I press "Apply Adjustment"
     Then I should be on the adjustments page for bob's plants bucket
     And I should see "4"
     And there should be no errors
@@ -43,8 +43,8 @@ Feature: Adjustments via HTML
     And a bucket "plants"
     When I go to the new adjustment page for user bob
     And I select "plants" from "Bucket"
-    And I press "Save"
-    Then I should see "Change Karma"
+    And I press "Apply Adjustment"
+    Then I should see "Adjust Karma"
     And I should see an error message
     And I should see "Value can't be blank"
     
@@ -52,8 +52,8 @@ Feature: Adjustments via HTML
     Given a user "bob"
     And a bucket "plants"
     When I go to the new adjustment page for user bob
-    And I fill in "karma" with "not-valid"
+    And I fill in "value" with "not-valid"
     And I press "Save"
-    Then I should see "Change Karma"
+    Then I should see "Adjust Karma"
     And I should see an error message
     And I should see "Value is not a number"
