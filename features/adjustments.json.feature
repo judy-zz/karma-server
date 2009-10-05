@@ -84,27 +84,22 @@ Feature: Adjustments via JSON
   Scenario: Read a non-existent adjustment
     When I GET "/users/harry/buckets/animals/adjustments/500.json"
     Then I should get a 404 Not Found response
-    And I should get an empty response body
     
   Scenario: Read a non-existing adjustment
     When I GET "/users/harry/buckets/animals/adjustments/300.json"
     Then I should get a 404 Not Found response
-    And I should get an empty response body
     
   Scenario: Read an adjustment with a non-existing bucket
     When I GET "/users/harry/buckets/doesnt-exist/adjustments/300.json"
     Then I should get a 404 Not Found response
-    And I should get an empty response body
     
   Scenario: Read an adjustment with a non-existing user
     When I GET "/users/doesnt-exist/buckets/animals/adjustments/300.json"
     Then I should get a 404 Not Found response
-    And I should get an empty response body
     
   Scenario: Read an adjustment with a non-existing user and bucket
     When I GET "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.json"
     Then I should get a 404 Not Found response
-    And I should get an empty response body
        
   Scenario: Request a new adjustment
     Given a typical set of adjustments, buckets, and users
@@ -128,68 +123,25 @@ Feature: Adjustments via JSON
   Scenario: Request a new adjustment with a non-existing bucket
     When I GET "/users/harry/buckets/doesnt-exist/adjustments/300.json"
     Then I should get a 404 Not Found response
-    And I should get an empty response body
     
   Scenario: Request a new adjustment with a non-existing user
     When I GET "/users/doesnt-exist/buckets/animals/adjustments/300.json"
     Then I should get a 404 Not Found response
-    And I should get an empty response body
     
   Scenario: Request a new adjustment with a non-existing user and bucket
     When I GET "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.json"
     Then I should get a 404 Not Found response
-    And I should get an empty response body
 
   Scenario: Create an adjustment
     Given a typical set of adjustments, buckets, and users
     When I POST "/users/harry/buckets/animals/adjustments.json" with body "adjustment[value]=2"
     Then I should get a 201 Created response
-    And I should get a JSON response body like:
-    """
-      {
-        "adjustment":{
-          id: null,
-          value: null,
-          path: null,
-          user_permalink: harry,
-          bucket_permalink: animals,
-          created_at: null,
-          updated_at: null
-        }
-      }
-    """
   
   Scenario: Attempt to create an adjustment with no value
     Given a typical set of adjustments, buckets, and users
     When I POST "/users/harry/buckets/animals/adjustments.json" with body ""
     Then I should get a 422 Unprocessable Entity response
-    And I should get a JSON response body like:
-    """
-      {
-        "errors":{
-          id: null,
-          value: null,
-          path: null,
-          user_permalink: harry,
-          bucket_permalink: animals,
-          created_at: null,
-          updated_at: null
-        }
-      }
-    """
   
-  Scenario: Attempt to create an adjustment under a non-existent user
-    Given a typical set of adjustments, buckets, and users
-    When I POST "/users/not-there/buckets/animals/adjustments.json" with body ""
-    Then I should get a 404 Not Found response
-    And I should get an empty response body
-
-  Scenario: Attempt to create an adjustment under a non-existent bucket
-    Given a typical set of adjustments, buckets, and users
-    When I POST "/users/harry/buckets/not-there/adjustments.json" with body ""
-    Then I should get a 404 Not Found response
-    And I should get an empty response body
-
   Scenario: Destroy an adjustment
     Given a typical set of adjustments, buckets, and users
     When I DELETE "/users/harry/buckets/animals/adjustments/8.json"
@@ -210,20 +162,15 @@ Feature: Adjustments via JSON
   Scenario: Attempt to destroy a non-existing adjustment
     When I DELETE "/users/harry/buckets/animals/adjustments/300.json"
     Then I should get a 404 Not Found response
-    And I should get an empty response body
     
   Scenario: Attempt to destroy an adjustment with a non-existing bucket
     When I DELETE "/users/harry/buckets/doesnt-exist/adjustments/300.json"
     Then I should get a 404 Not Found response
-    And I should get an empty response body
     
   Scenario: Attempt to destroy an adjustment with a non-existing user
     When I DELETE "/users/doesnt-exist/buckets/animals/adjustments/300.json"
     Then I should get a 404 Not Found response
-    And I should get an empty response body
     
   Scenario: Attempt to destroy an adjustment with a non-existing user and bucket
     When I DELETE "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.json"
     Then I should get a 404 Not Found response
-    And I should get an empty response body
-    
