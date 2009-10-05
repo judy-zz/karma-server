@@ -1,9 +1,9 @@
-= render :partial => "/shared/header", :locals => { :title => "Change Karma", :subtitle => subtitle, :flash => flash }
+= render :partial => "/shared/header", :locals => { :title => "Adjust Karma", :subtitle => subtitle, :flash => flash }
 
 - form_for @adjustment, :url => new_adjustment_url do |f|
   = f.error_messages
   %p
-    = f.label :value, "Karma"
+    = f.label :value
     %br
     = f.text_field :value
   - unless @bucket
@@ -11,5 +11,5 @@
       = f.label :bucket_id, "Bucket"
       %br
       = f.collection_select :bucket_id, Bucket.all, :id, :permalink
-  %button{:type => "submit", :name => "commit", :value => "Save", :class => 'button positive'} Save Karma
+  %button{:type => "submit", :name => "commit", :value => "Save", :class => 'button positive'} Apply Adjustment
 
