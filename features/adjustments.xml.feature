@@ -1,4 +1,4 @@
-Feature: Adjustments vian XML
+Feature: Adjustments via XML
   In order to modify and report on karma
   As a client
   I want to be able to read and manipulate user's karma via the XML API
@@ -32,18 +32,18 @@ Feature: Adjustments vian XML
       <?xml version="1.0" encoding="UTF-8"?>
       <adjustments type="array">
         <adjustment>
-          <id type="integer">8</id>
+          <id type="integer">4</id>
           <value type="integer">4</value>
-          <path>/users/harry/buckets/animals/adjustments/8.xml</path>
+          <path>/users/harry/buckets/animals/adjustments/4.xml</path>
           <user-permalink>harry</user-permalink>
           <bucket-permalink>animals</bucket-permalink>
           <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
           <updated-at type="datetime">2009-09-10T15:06:32Z</updated-at>
         </adjustment>
         <adjustment>
-          <id type="integer">9</id>
+          <id type="integer">5</id>
           <value type="integer">-1</value>
-          <path>/users/harry/buckets/animals/adjustments/9.xml</path>
+          <path>/users/harry/buckets/animals/adjustments/5.xml</path>
           <user-permalink>harry</user-permalink>
           <bucket-permalink>animals</bucket-permalink>
           <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
@@ -80,15 +80,15 @@ Feature: Adjustments vian XML
     
   Scenario: Read adjustment
     Given a typical set of adjustments, buckets, and users
-    When I GET "/users/harry/buckets/animals/adjustments/8.xml"
+    When I GET "/users/harry/buckets/animals/adjustments/4.xml"
     Then I should get a 200 OK response
     And I should get an XML response body like:
     """
       <?xml version="1.0" encoding="UTF-8"?>
       <adjustment>
-          <id type="integer">8</id>
+          <id type="integer">4</id>
           <value type="integer">4</value>
-          <path>/users/harry/buckets/animals/adjustments/8.xml</path>
+          <path>/users/harry/buckets/animals/adjustments/4.xml</path>
           <user-permalink>harry</user-permalink>
           <bucket-permalink>animals</bucket-permalink>
           <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
@@ -161,15 +161,15 @@ Feature: Adjustments vian XML
   
   Scenario: Destroy an adjustment
     Given a typical set of adjustments, buckets, and users
-    When I DELETE "/users/harry/buckets/animals/adjustments/8.xml"
+    When I DELETE "/users/harry/buckets/animals/adjustments/4.xml"
     Then I should get a 200 OK response
     And I should get an XML response body like:
     """
       <?xml version="1.0" encoding="UTF-8"?>
       <adjustment>
-          <id type="integer">8</id>
+          <id type="integer">4</id>
           <value type="integer">4</value>
-          <path>/users/harry/buckets/animals/adjustments/8.xml</path>
+          <path>/users/harry/buckets/animals/adjustments/4.xml</path>
           <user-permalink>harry</user-permalink>
           <bucket-permalink>animals</bucket-permalink>
           <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
