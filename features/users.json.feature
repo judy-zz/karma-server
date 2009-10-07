@@ -7,15 +7,6 @@ Feature: Users via JSON
     When I PUT "/users/bob.json" with body ""
     Then I should get a 201 Created response
   
-  Scenario: Attempt to Create a user via PUT with an invalid permalink
-    When I PUT "/users/doesnt-exist.json" with body "user[permalink]="
-    And I should get a JSON response body like:
-    """
-      [
-        ["permalink","can't be blank"]
-      ]
-    """
-  
   Scenario: Attempt to create a user with a blank permalink
     When I PUT "/users/bob.json" with body "user[permalink]="
     Then I should get a 422 Unprocessible Entity response
@@ -25,7 +16,7 @@ Feature: Users via JSON
         ["permalink","can't be blank"]
       ]
     """
-    
+  
   Scenario: Attempt to create a user with a period in the permalink
     When I PUT "/users/bob.json" with body "user[permalink]='matt.simpson'"
     Then I should get a 422 Unprocessible Entity response
@@ -35,7 +26,7 @@ Feature: Users via JSON
         ["permalink","can't have a period"]
       ]
     """
-    
+  
   Scenario: Attempt to create a user with a backslash in the permalink
     When I PUT "/users/bob.json" with body "user[permalink]=matt/simpson"
     Then I should get a 422 Unprocessible Entity response
@@ -45,12 +36,12 @@ Feature: Users via JSON
         ["permalink","can't have a slash"]
       ]
     """
-
+  
   Scenario: Recreate a user
     Given a user "bob"
     When I PUT "/users/bob.json" with body ""
     Then I should get a 200 OK response
-
+  
   Scenario: Read a user
     Given the following users:
       | id | permalink | created_at          | updated_at          |
@@ -69,12 +60,12 @@ Feature: Users via JSON
         }
       }
     """
-    
+  
   Scenario: Get a non-existent user
     Given a user "bob"
     When I GET "/users/not-there.json"
     Then I should get a 404 Not Found response
-    
+  
   Scenario: Get a user's adjustments
     Given the following users:
       | id  | permalink      | created_at              | updated_at              |
@@ -128,7 +119,7 @@ Feature: Users via JSON
         }
       ]
     """
-    
+  
   Scenario: Get a user's karma
     Given a user "bob"
     And a bucket "plants"
@@ -155,3 +146,28 @@ Feature: Users via JSON
         }
       }
     """
+  
+
+  # Scenario: Attempt to Create a user via POST
+  # Scenario: Attempt to Create a user with a period and a slash
+  # Scenario: Attempt to Create a user with "index" as the permalink
+  # Scenario: Attempt to Create a user with "new" as the permalink
+  # Scenario: Attempt to Create a user with "create" as the permalink
+  # Scenario: Attempt to Create a user with "show" as the permalink
+  # Scenario: Attempt to Create a user with "edit" as the permalink
+  # Scenario: Get a non-existing user's adjustments
+  # Scenario: Get a non-existing user's karma
+  # Scenario: Update a user's permalink
+  # Scenario: Update a non-existing user's permalink
+  # Scenario: Attempt to Update a user with a a period and a slash
+  # Scenario: Attempt to Update a user with "index" as the permalink
+  # Scenario: Attempt to Update a user with "new" as the permalink
+  # Scenario: Attempt to Update a user with "create" as the permalink
+  # Scenario: Attempt to Update a user with "show" as the permalink
+  # Scenario: Attempt to Update a user with "edit" as the permalink
+  # Scenario: Attempt to Edit a user
+  # Scenario: Get a new user
+  # Scenario: Get a list of users
+  # Scenario: Get a list of users when there are none
+  # Scenario: Destroy a user
+  # Scenario: Attempt to Destroy a non-existent user
