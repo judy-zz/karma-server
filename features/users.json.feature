@@ -52,17 +52,17 @@ Feature: Users via JSON
     Given a user "bob"
     When I PUT "/users/bob.json" with body ""
     Then I should get a 200 OK response
-    # And I should get a JSON response body like:
-    # """
-    #   {
-    #     user: {
-    #       permalink: bob,
-    #       path: /users/bob.json,
-    #       created_at: "2009-09-09T12:00:00Z",
-    #       updated_at: "2009-09-09T12:00:00Z"
-    #     }
-    #   }
-    # """
+    And I should get a JSON response body like:
+    """
+      {
+        user: {
+          permalink: bob,
+          path: /users/bob.json,
+          created_at: "2009-09-09T12:00:00Z",
+          updated_at: "2009-09-09T12:00:00Z"
+        }
+      }
+    """
   
   Scenario: Read a user
     Given the following users:
