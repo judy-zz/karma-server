@@ -6,6 +6,45 @@ Feature: Users via JSON
   Scenario: Create a user
     When I PUT "/users/bob.json" with body ""
     Then I should get a 201 Created response
+  
+  Scenario: Attempt to Create a user via PUT with an invalid permalink
+    When I PUT "/users/doesnt-exist.json" with body "user[permalink]="
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't be blank"]
+      ]
+    """
+  
+  Scenario: Attempt to create a user with a blank permalink
+    When I PUT "/users/bob.json" with body "user[permalink]="
+    Then I should get a 422 Unprocessible Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't be blank"]
+      ]
+    """
+    
+  Scenario: Attempt to create a user with a period in the permalink
+    When I PUT "/users/bob.json" with body "user[permalink]='matt.simpson'"
+    Then I should get a 422 Unprocessible Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't have a period"]
+      ]
+    """
+    
+  Scenario: Attempt to create a user with a backslash in the permalink
+    When I PUT "/users/bob.json" with body "user[permalink]=matt/simpson"
+    Then I should get a 422 Unprocessible Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't have a slash"]
+      ]
+    """
 
   Scenario: Recreate a user
     Given a user "bob"

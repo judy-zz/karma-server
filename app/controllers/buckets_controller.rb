@@ -95,7 +95,7 @@ class BucketsController < ApplicationController
           flash[:success] = "Bucket was successfully #{saved}."
           redirect_to @bucket
         else
-          flash[:failure] = "Bucket wasn't successfully #{saved}."
+          flash[:failure] = "Bucket couldn't be #{saved}."
           if new_record
             render :action => :new
           else
