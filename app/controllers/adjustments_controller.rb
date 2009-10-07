@@ -24,10 +24,7 @@ class AdjustmentsController < ApplicationController
         format.xml  { render :xml   => adjustments_to_xml(@adjustments) }
       end
     else
-      respond_to do |format|
-        format.json { render :json => :nothing, :status => :not_found }
-        format.xml{ render :xml => :nothing, :status => :not_found }
-      end
+      render :nothing => true, :status => :not_found
     end
   end
   
@@ -82,9 +79,13 @@ class AdjustmentsController < ApplicationController
   #   GET /users/:user_permalink/buckets/:bucket_permalink/adjustments/:id.json
   def show
     @adjustment = Adjustment.find params[:id]
-    respond_to do |format|
-      format.json { render :json => adjustment_to_json(@adjustment) }
-      format.xml {  render :xml  => adjustment_to_xml(@adjustment)  }
+    if @adjustment
+      respond_to do |format|
+        format.json { render :json => adjustment_to_json(@adjustment) }
+        format.xml  { render :xml  => adjustment_to_xml(@adjustment)  }
+      end
+    else
+      render :nothing => true, :status => :not_found
     end
   end
   
@@ -97,11 +98,17 @@ class AdjustmentsController < ApplicationController
     @adjustment = Adjustment.find params[:id]
     if @adjustment.destroy
       flash[:success] = "Adjustment was successfully destroyed."
+      respond_to do |format|
+        format.json { render :json => adjustment_to_json(@adjustment) }
+        format.xml  { render :xml  => adjustment_to_xml(@adjustment) }
+      end
+    else
+      respond_to do |format|
+        format.json { render :nothing => true }
+        format.xml  { render :text => "yo" }
+      end
     end
-    respond_to do |format|
-      format.json { render :json => adjustment_to_json(@adjustment) }
-      format.xml  { render :xml  => adjustment_to_xml(@adjustment) }
-    end    
+      
   end
 
   private

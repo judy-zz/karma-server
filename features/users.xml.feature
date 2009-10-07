@@ -34,6 +34,7 @@ Feature: Users via XML
     Given a user "bob"
     When I GET "/users/not-there.xml"
     Then I should get a 404 Not Found response
+    And I should get an empty response body
     
   Scenario: Get a user's adjustments
     Given the following users:
