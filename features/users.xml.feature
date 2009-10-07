@@ -113,6 +113,7 @@ Feature: Users via XML
     """
   
 
+  # Scenarios to implement :)
   # Scenario: Attempt to create a user with a blank permalink
   # Scenario: Attempt to create a user with a period in the permalink
   # Scenario: Attempt to create a user with a backslash in the permalink

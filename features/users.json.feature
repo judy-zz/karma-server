@@ -6,6 +6,17 @@ Feature: Users via JSON
   Scenario: Create a user
     When I PUT "/users/bob.json" with body ""
     Then I should get a 201 Created response
+    And I should get a JSON response body like:
+    """
+      {
+        user: {
+          permalink: bob,
+          path: /users/bob.json,
+          created_at: "2009-09-09T12:00:00Z",
+          updated_at: "2009-09-09T12:00:00Z"
+        }
+      }
+    """
   
   Scenario: Attempt to create a user with a blank permalink
     When I PUT "/users/bob.json" with body "user[permalink]="
@@ -41,6 +52,17 @@ Feature: Users via JSON
     Given a user "bob"
     When I PUT "/users/bob.json" with body ""
     Then I should get a 200 OK response
+    # And I should get a JSON response body like:
+    # """
+    #   {
+    #     user: {
+    #       permalink: bob,
+    #       path: /users/bob.json,
+    #       created_at: "2009-09-09T12:00:00Z",
+    #       updated_at: "2009-09-09T12:00:00Z"
+    #     }
+    #   }
+    # """
   
   Scenario: Read a user
     Given the following users:
@@ -147,7 +169,7 @@ Feature: Users via JSON
       }
     """
   
-
+  # Scenarios to implement :)
   # Scenario: Attempt to Create a user via POST
   # Scenario: Attempt to Create a user with a period and a slash
   # Scenario: Attempt to Create a user with "index" as the permalink
