@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :adjustments, :dependent => :destroy
   validates_presence_of   :permalink
   validates_uniqueness_of :permalink
+  validate :valid_permalink
   
   default_scope :order => :permalink
   
@@ -30,6 +31,18 @@ class User < ActiveRecord::Base
   # described as the user's total karma
   def karma
     Adjustment.sum('value', :conditions => ["user_id = ?", id])
+  end
+  
+  private
+  def valid_permalink
+    unless self.permalink.nil?
+      if self.permalink.include?(".")
+        errors.add(:permalink, "can't have a period")
+      end
+      if self.permalink.include?("/")
+        errors.add(:permalink, "can't have a slash")
+      end
+    end
   end
   
 end
