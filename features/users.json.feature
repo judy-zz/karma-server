@@ -82,10 +82,10 @@ Feature: Users via JSON
       }
     """
   
-  # Scenario: Attempt to Create a user via POST
-  #   When I POST "/users.json" with body "user[permalink]=joe"
-  #   Then I should get a 404 Not Found response
-  #   And I should get a blank response body
+  Scenario: Attempt to Create a user via POST
+    When I POST "/users.json" with body "user[permalink]=joebilly"
+    Then I should get a 404 Not Found response
+    And I should get a blank response body
   
   Scenario: Attempt to Create a user with a blank permalink
     When I PUT "/users/bob.json" with body "user[permalink]="
@@ -137,7 +137,7 @@ Feature: Users via JSON
         ["permalink","can't be index, new, create, edit, update or show"]
       ]
     """
-    
+  
   Scenario: Attempt to Create a user with "new" as the permalink
     When I PUT "/users/new.json"
     Then I should get a 422 Unprocessable Entity response
@@ -219,9 +219,55 @@ Feature: Users via JSON
     Then I should get a 404 Not Found response
     And I should get an empty response body
   
-  # Scenario: Update a user's permalink
-  # Scenario: Attempt to Update a user with a a period and a slash
+  Scenario: Update a user's permalink
+    Given a user "bob"
+    When I PUT "/users/bob.json" with body "user[permalink]=joe"
+    Then I should get a 200 OK response
+    And I should get a JSON response body like:
+    """
+      {
+        user: {
+          permalink: joe,
+          path: /users/joe.json,
+          created_at: "2009-09-09T12:00:00Z",
+          updated_at: "2009-09-09T12:00:00Z"
+        }
+      }
+    """
   
+  Scenario: Attempt to Update a user with a period
+    Given a user "joe"
+    When I PUT "/users/joe.json" with body "user[permalink]=joe.shmoe"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't have a period"]
+      ]
+    """
+  
+  Scenario: Attempt to Update a user with a slash
+    Given a user "joe"
+    When I PUT "/users/joe.json" with body "user[permalink]=joe/shmoe"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't have a slash"]
+      ]
+    """
+  
+  Scenario: Attempt to Update a user with a period and a slash
+    Given a user "joe"
+    When I PUT "/users/joe.json" with body "user[permalink]=joe.shm/oe"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't have a period"],
+        ["permalink","can't have a slash"]
+      ]
+    """
   
   Scenario: Attempt to Update a user with "index" as the permalink
     Given a user "joe"
@@ -233,7 +279,7 @@ Feature: Users via JSON
         ["permalink","can't be index, new, create, edit, update or show"]
       ]
     """
-    
+  
   Scenario: Attempt to Update a user with "new" as the permalink
     Given a user "joe"
     When I PUT "/users/joe.json" with body "user[permalink]=new"
@@ -343,7 +389,11 @@ Feature: Users via JSON
       ]
     """
   
-  # Scenario: Get a non-existing user's adjustments
+  Scenario: Get a non-existing user's adjustments
+    When I GET "/users/maximus/adjustments.json"
+    Then I should get a 404 Not Found response
+    And I should get a blank response body
+  
   Scenario: Get a user's karma
     Given a user "bob"
     And a bucket "plants"
@@ -371,6 +421,32 @@ Feature: Users via JSON
       }
     """
   
-  # Scenario: Get a non-existing user's karma
-  # Scenario: Destroy a user
-  # Scenario: Attempt to Destroy a non-existent user
+  Scenario: Get a non-existing user's karma
+    When I GET "/users/maximus/karma.json"
+    Then I should get a 404 Not Found response
+    And I should get a blank response body
+  
+  Scenario: Destroy a user
+    Given a user "bob"
+    When I DELETE "/users/bob.json"
+    Then I should get a 200 OK response
+    And I should get a JSON response body like:
+    """
+      {
+        user: {
+          permalink: bob,
+          path: /users/bob.json,
+          created_at: "2009-09-09T12:00:00Z",
+          updated_at: "2009-09-09T12:00:00Z"
+        }
+      }
+    """
+    When I GET "/users/bob.json"
+    Then I should get a 404 Not Found response
+    And I should get a blank response body
+  
+  Scenario: Attempt to Destroy a non-existent user  Scenario: Destroy a user
+    When I DELETE "/users/bob.json"
+    Then I should get a 404 Not Found response
+    And I should get a blank response body
+  

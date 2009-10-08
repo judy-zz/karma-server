@@ -38,14 +38,20 @@ class UsersController < ApplicationController
   # We support POST to /users so that users can be created via HTML forms
   # (since those forms can't PUT to a permalink that's a form field).
   def create
-    @user = User.new(params[:user])
-    if @user.save
-      flash[:success] = "User was successfully created."
-      redirect_to @user
-    else
-      flash[:failure] = "User could not be created."
-      render :action => :new
-    end    
+    respond_to do |format|
+      format.html do        
+        @user = User.new(params[:user])
+        if @user.save
+          flash[:success] = "User was successfully created."
+          redirect_to @user
+        else
+          flash[:failure] = "User could not be created."
+          render :action => :new
+        end    
+      end
+      format.json { render :nothing => true, :status => :not_found }
+      format.xml  { render :nothing => true, :status => :not_found }
+    end
   end
   
   # Show a particular user.

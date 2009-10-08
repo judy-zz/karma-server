@@ -81,7 +81,11 @@ Feature: Users via XML
       </user>
     """
   
-  # Scenario: Attempt to Create a user via POST
+  Scenario: Attempt to Create a user via POST
+    When I POST "/users.xml" with body "user[permalink]=joebilly"
+    Then I should get a 404 Not Found response
+    And I should get a blank response body
+  
   Scenario: Attempt to Create a user with a blank permalink
     When I PUT "/users/joe.xml" with body "user[permalink]="
     Then I should get a 422 Unprocessable Entity response
@@ -223,9 +227,57 @@ Feature: Users via XML
     Then I should get a 404 Not Found response
     And I should get an empty response body
   
-  # Scenario: Update a user's permalink
-  # Scenario: Update a non-existing user's permalink
-  # Scenario: Attempt to Update a user with a a period and a slash
+  Scenario: Update a user's permalink
+    Given a user "bob"
+    When I PUT "/users/bob.xml" with body "user[permalink]=joe"
+    Then I should get a 200 OK response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <user>
+        <created-at type="datetime">2009-09-09T12:00:00Z</created-at>
+        <path>/users/joe.xml</path>
+        <permalink>joe</permalink>
+        <updated-at type="datetime">2009-09-09T12:00:00Z</updated-at>
+      </user>
+    """
+  
+  Scenario: Attempt to Update a user with a period
+    Given a user "joe"
+    When I PUT "/users/joe.xml" with body "user[permalink]=joe.shmoe"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't have a period</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Update a user with a slash
+    Given a user "joe"
+    When I PUT "/users/joe.xml" with body "user[permalink]=joe/shmoe"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't have a slash</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Update a user with a period and a slash
+    Given a user "joe"
+    When I PUT "/users/joe.xml" with body "user[permalink]=joe.shm/oe"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't have a period</error>
+        <error>Permalink can't have a slash</error>
+      </errors>
+    """
   
   Scenario: Attempt to Update a user with "index" as the permalink
     Given a user "joe"
@@ -238,7 +290,7 @@ Feature: Users via XML
         <error>Permalink can't be index, new, create, edit, update or show</error>
       </errors>
     """
-    
+  
   Scenario: Attempt to Update a user with "new" as the permalink
     Given a user "joe"
     When I PUT "/users/joe.xml" with body "user[permalink]=new"
@@ -348,7 +400,11 @@ Feature: Users via XML
       </adjustments>
     """
   
-  # Scenario: Get a non-existing user's adjustments
+  Scenario: Get a non-existing user's adjustments
+    When I GET "/users/maximus/adjustments.xml"
+    Then I should get a 404 Not Found response
+    And I should get a blank response body
+  
   Scenario: Get a user's karma
     Given a user "bob"
     And a bucket "plants"
@@ -377,6 +433,31 @@ Feature: Users via XML
       </karma>
     """
   
-  # Scenario: Get a non-existing user's karma
-  # Scenario: Destroy a user
-  # Scenario: Attempt to Destroy a non-existent user
+  Scenario: Get a non-existing user's karma
+    When I GET "/users/maximus/karma.xml"
+    Then I should get a 404 Not Found response
+    And I should get a blank response body
+  
+  Scenario: Destroy a user
+    Given a user "bob"
+    When I DELETE "/users/bob.xml"
+    Then I should get a 200 OK response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <user>
+        <created-at type="datetime">2009-09-09T12:00:00Z</created-at>
+        <path>/users/bob.xml</path>
+        <permalink>bob</permalink>
+        <updated-at type="datetime">2009-09-09T12:00:00Z</updated-at>
+      </user>
+    """
+    When I GET "/users/bob.json"
+    Then I should get a 404 Not Found response
+    And I should get a blank response body
+  
+  Scenario: Attempt to Destroy a non-existent user  Scenario: Destroy a user
+    When I DELETE "/users/bob.xml"
+    Then I should get a 404 Not Found response
+    And I should get a blank response body
+  
