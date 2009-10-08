@@ -83,8 +83,8 @@ class UsersController < ApplicationController
     @user = User.find_by_permalink!(params[:id])
     respond_to do |format|
       format.html
-      format.json { render :json => user_to_json(@user) }
-      format.xml  { render :xml  => user_to_xml(@user) }
+      format.json { render :nothing => true, :status => :not_found }
+      format.xml  { render :nothing => true, :status => :not_found }
     end
   end
   

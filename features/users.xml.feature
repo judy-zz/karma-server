@@ -217,7 +217,12 @@ Feature: Users via XML
     Then I should get a 404 Not Found response
     And I should get an empty response body
   
-  # Scenario: Attempt to Edit a user
+  Scenario: Attempt to get the edit template for a user
+    Given a user "bob"
+    When I GET "/users/bob/edit.xml"
+    Then I should get a 404 Not Found response
+    And I should get an empty response body
+  
   # Scenario: Update a user's permalink
   # Scenario: Update a non-existing user's permalink
   # Scenario: Attempt to Update a user with a a period and a slash
