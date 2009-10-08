@@ -80,7 +80,223 @@ Feature: Buckets via XML
   
   Scenario: Attempt to create a bucket with an invalid permalink
     When I PUT "/buckets/doesnt-exist.xml" with body "bucket[permalink]="
-    Then I should get a 422 Unprocessible Entity response
+    Then I should get a 422 Unprocessable Entity response
+  
+  
+  
+  Scenario: Attempt to Create a bucket with a period in the permalink
+    When I PUT "/buckets/animals.xml" with body "bucket[permalink]=jo.e"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't have a period</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Create a bucket with a backslash in the permalink
+    When I PUT "/buckets/animals.xml" with body "bucket[permalink]=jo/e"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't have a slash</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Create a bucket with a period and a slash
+    When I PUT "/buckets/animals.xml" with body "bucket[permalink]=j.o/e"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't have a period</error>
+        <error>Permalink can't have a slash</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Create a bucket with "index" as the permalink
+    When I PUT "/buckets/index.xml"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Create a bucket with "new" as the permalink
+    When I PUT "/buckets/new.xml"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Create a bucket with "create" as the permalink
+    When I PUT "/buckets/create.xml"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Create a bucket with "show" as the permalink
+    When I PUT "/buckets/show.xml"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Create a bucket with "edit" as the permalink
+    When I PUT "/buckets/edit.xml"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Create a bucket with "update" as the permalink
+    When I PUT "/buckets/update.xml"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Update a bucket with a period
+    Given a bucket "animals"
+    When I PUT "/buckets/animals.xml" with body "bucket[permalink]=inse.cts"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't have a period</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Update a bucket with a slash
+    Given a bucket "animals"
+    When I PUT "/buckets/animals.xml" with body "bucket[permalink]=insects/tigers/bears"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't have a slash</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Update a bucket with a period and a slash
+    Given a bucket "animals"
+    When I PUT "/buckets/animals.xml" with body "bucket[permalink]=in.se/cts"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't have a period</error>
+        <error>Permalink can't have a slash</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Update a bucket with "index" as the permalink
+    Given a bucket "animals"
+    When I PUT "/buckets/animals.xml" with body "bucket[permalink]=index"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Update a bucket with "new" as the permalink
+    Given a bucket "animals"
+    When I PUT "/buckets/animals.xml" with body "bucket[permalink]=new"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Update a bucket with "create" as the permalink
+    Given a bucket "animals"
+    When I PUT "/buckets/animals.xml" with body "bucket[permalink]=create"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Update a bucket with "show" as the permalink
+    Given a bucket "animals"
+    When I PUT "/buckets/animals.xml" with body "bucket[permalink]=show"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Update a bucket with "edit" as the permalink
+    Given a bucket "animals"
+    When I PUT "/buckets/animals.xml" with body "bucket[permalink]=edit"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Update a bucket with "update" as the permalink
+    Given a bucket "animals"
+    When I PUT "/buckets/animals.xml" with body "bucket[permalink]=update"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
+
+  
+  
+  
   
   Scenario: Recreate a bucket
     Given a bucket "exists"
@@ -101,6 +317,7 @@ Feature: Buckets via XML
       </bucket>
     """
   
+  # Scenario: Attempt to update bucket with other invalid permalinks
   Scenario: Destroy a bucket
     When I DELETE "/buckets/Animals.xml"
     Then I should get a 200 OK response

@@ -30,6 +30,10 @@ class Bucket < ActiveRecord::Base
       if self.permalink.include?("/")
         errors.add(:permalink, "can't have a slash")
       end
+      case self.permalink
+      when "index", "new", "create", "edit", "update", "show"
+        errors.add(:permalink, "can't be index, new, create, edit, update or show")
+      end
     end
   end
 
