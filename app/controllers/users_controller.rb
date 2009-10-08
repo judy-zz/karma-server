@@ -54,21 +54,13 @@ class UsersController < ApplicationController
   #   GET /users/:permalink.json
   #   GET /users/:permalink.xml
   def show
-    @user = User.find_by_permalink!(params[:id])
     @buckets = Bucket.all
-    if @user = User.find_by_permalink!(params[:id])
-      respond_to do |format|
-        format.html
-        format.json { render :json => user_to_json(@user) }
-        format.xml  { render :xml  => user_to_xml(@user) }
-      end 
-    else
-      respond_to do |format|
-        format.html
-        format.json { render :text => "boo" }
-        format.xml  { render :text => "boo" }
-      end 
-    end
+    @user = User.find_by_permalink!(params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render :json => user_to_json(@user) }
+      format.xml  { render :xml  => user_to_xml(@user) }
+    end 
   end
   
   # Show the karma summary for a user and the user's buckets
