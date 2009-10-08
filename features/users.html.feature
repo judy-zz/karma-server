@@ -62,12 +62,34 @@ Feature: Users via HTML
   Scenario: View a user
     When I am on the "bob" user page
     Then I should see "bob"
-    And I should not see "steve"
+    And I should not see "harry"
+    And I should see "animals" in "tr[id=animals] > th"
+    And I should see "2" in "tr[id=animals] > td"
+    And I should see "plants" in "tr[id=plants] > th"
+    And I should see "1" in "tr[id=plants] > td"
+    And I should see "Total:" in "tr[id=total] > th"
+    And I should see "3" in "tr[id=total] > td"
   
-  # Scenario: Get a user's adjustments
-  # Scenario: Get a non-existing user's adjustments
-  # Scenario: Get a user's karma
-  # Scenario: Get a non-existing user's karma
+  Scenario: View a user when there are no buckets
+    Given there are no buckets
+    When I am on the "bob" user page
+    Then I should see "bob"
+    And I should not see "harry"
+    And I should not see "animals"
+    And I should see "Total:" in "tr[id=total] > th"
+    And I should see "0" in "tr[id=total] > td"
+    
+  Scenario: View a user when there are no adjustments
+    Given there are no adjustments
+    When I am on the "bob" user page
+    Then I should see "bob"
+    And I should not see "harry"
+    And I should see "animals" in "tr[id=animals] > th"
+    And I should see "0" in "tr[id=animals] > td"
+    And I should see "plants" in "tr[id=plants] > th"
+    And I should see "0" in "tr[id=plants] > td"
+    And I should see "Total:" in "tr[id=total] > th"
+    And I should see "0" in "tr[id=total] > td"
   
   Scenario: Edit a user
     Given I am on the edit "bob" user page
@@ -75,8 +97,6 @@ Feature: Users via HTML
     And I press "Update User"
     Then I should be on the "steve" user page
     And I should see "User was successfully updated."
-  
-  # Scenario: Attempt to Destroy a non-existent user
   
   Scenario: Destroy a user
     Given I am on the users page

@@ -4,10 +4,10 @@
   %h3 Karma
   %table
     - @buckets.each do |bucket|
-      %tr
+      %tr{:id => bucket.permalink}
         %th= link_to bucket.permalink, adjustments_path(@user, bucket)
         %td= @user.karma_for(bucket)
-    %tr
+    %tr#total
       %th Total:
       %td= @user.karma
     
