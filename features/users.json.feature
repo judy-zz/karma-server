@@ -36,7 +36,21 @@ Feature: Users via JSON
       []
     """
   
-  # Scenario: Get a new user
+  Scenario: Get a new user
+    When I GET "/users/new.json"
+    Then I should get a 200 OK response
+    And I should get a JSON response body like:
+    """
+      {
+        "user":{
+          "permalink":null,
+          "updated_at":null,
+          "path":null,
+          "created_at":null
+        }
+      }
+    """
+  
   Scenario: Create a user
     When I PUT "/users/bob.json" with body ""
     Then I should get a 201 Created response
@@ -69,7 +83,11 @@ Feature: Users via JSON
     """
   
   # Scenario: Attempt to Create a user via POST
-  Scenario: Attempt to create a user with a blank permalink
+  #   When I POST "/users.json" with body "user[permalink]=joe"
+  #   Then I should get a 404 Not Found response
+  #   And I should get a blank response body
+  
+  Scenario: Attempt to Create a user with a blank permalink
     When I PUT "/users/bob.json" with body "user[permalink]="
     Then I should get a 422 Unprocessible Entity response
     And I should get a JSON response body like:
@@ -79,7 +97,7 @@ Feature: Users via JSON
       ]
     """
   
-  Scenario: Attempt to create a user with a period in the permalink
+  Scenario: Attempt to Create a user with a period in the permalink
     When I PUT "/users/bob.json" with body "user[permalink]='matt.simpson'"
     Then I should get a 422 Unprocessible Entity response
     And I should get a JSON response body like:
@@ -89,7 +107,7 @@ Feature: Users via JSON
       ]
     """
   
-  Scenario: Attempt to create a user with a backslash in the permalink
+  Scenario: Attempt to Create a user with a backslash in the permalink
     When I PUT "/users/bob.json" with body "user[permalink]='matt/simpson'"
     Then I should get a 422 Unprocessible Entity response
     And I should get a JSON response body like:
@@ -98,6 +116,7 @@ Feature: Users via JSON
         ["permalink","can't have a slash"]
       ]
     """
+  
   Scenario: Attempt to Create a user with a period and a slash
     When I PUT "/users/bob.json" with body "user[permalink]='matt.simp/son'"
     Then I should get a 422 Unprocessible Entity response
@@ -108,11 +127,67 @@ Feature: Users via JSON
         ["permalink","can't have a slash"]
       ]
     """
-  # Scenario: Attempt to Create a user with "index" as the permalink
-  # Scenario: Attempt to Create a user with "new" as the permalink
-  # Scenario: Attempt to Create a user with "create" as the permalink
-  # Scenario: Attempt to Create a user with "show" as the permalink
-  # Scenario: Attempt to Create a user with "edit" as the permalink
+  
+  Scenario: Attempt to Create a user with "index" as the permalink
+    When I PUT "/users/index.json"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't be index, new, create, edit, update or show"]
+      ]
+    """
+    
+  Scenario: Attempt to Create a user with "new" as the permalink
+    When I PUT "/users/new.json"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't be index, new, create, edit, update or show"]
+      ]
+    """
+  
+  Scenario: Attempt to Create a user with "create" as the permalink
+    When I PUT "/users/create.json"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't be index, new, create, edit, update or show"]
+      ]
+    """
+  
+  Scenario: Attempt to Create a user with "show" as the permalink
+    When I PUT "/users/show.json"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't be index, new, create, edit, update or show"]
+      ]
+    """
+  
+  Scenario: Attempt to Create a user with "edit" as the permalink
+    When I PUT "/users/edit.json"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't be index, new, create, edit, update or show"]
+      ]
+    """
+  
+  Scenario: Attempt to Create a user with "update" as the permalink
+    When I PUT "/users/update.json"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't be index, new, create, edit, update or show"]
+      ]
+    """
+  
   Scenario: Read a user
     Given the following users:
       | id | permalink | created_at          | updated_at          |

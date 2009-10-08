@@ -38,7 +38,20 @@ Feature: Users via XML
     <users type="array"/>
     """    
   
-  # Scenario: Get a new user
+  Scenario: Get a new user
+    When I GET "/users/new.xml"
+    Then I should get a 200 OK response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <user>
+        <permalink nil="true"></permalink>
+        <updated-at nil="true"></updated-at>
+        <path nil="true"></path>
+        <created-at nil="true"></created-at>
+      </user>
+    """
+  
   Scenario: Create a user
     When I PUT "/users/bob.xml" with body ""
     Then I should get a 201 Created response
@@ -79,7 +92,7 @@ Feature: Users via XML
         <error>Permalink can't be blank</error>
       </errors>
     """
-    
+  
   Scenario: Attempt to Create a user with a period in the permalink
     When I PUT "/users/joe.xml" with body "user[permalink]=jo.e"
     Then I should get a 422 Unprocessable Entity response
@@ -90,6 +103,7 @@ Feature: Users via XML
         <error>Permalink can't have a period</error>
       </errors>
     """
+  
   Scenario: Attempt to Create a user with a backslash in the permalink
     When I PUT "/users/joe.xml" with body "user[permalink]=jo/e"
     Then I should get a 422 Unprocessable Entity response
@@ -100,6 +114,7 @@ Feature: Users via XML
         <error>Permalink can't have a slash</error>
       </errors>
     """
+  
   Scenario: Attempt to Create a user with a period and a slash
     When I PUT "/users/joe.xml" with body "user[permalink]=j.o/e"
     Then I should get a 422 Unprocessable Entity response
@@ -111,11 +126,73 @@ Feature: Users via XML
         <error>Permalink can't have a slash</error>
       </errors>
     """
-  # Scenario: Attempt to Create a user with "index" as the permalink
-  # Scenario: Attempt to Create a user with "new" as the permalink
-  # Scenario: Attempt to Create a user with "create" as the permalink
-  # Scenario: Attempt to Create a user with "show" as the permalink
-  # Scenario: Attempt to Create a user with "edit" as the permalink
+  
+  Scenario: Attempt to Create a user with "index" as the permalink
+    When I PUT "/users/index.xml"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Create a user with "new" as the permalink
+    When I PUT "/users/new.xml"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Create a user with "create" as the permalink
+    When I PUT "/users/create.xml"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Create a user with "show" as the permalink
+    When I PUT "/users/show.xml"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Create a user with "edit" as the permalink
+    When I PUT "/users/edit.xml"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
+  Scenario: Attempt to Create a user with "update" as the permalink
+    When I PUT "/users/update.xml"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be index, new, create, edit, update or show</error>
+      </errors>
+    """
+  
   Scenario: Read a user
     Given the following users:
       | id | permalink | created_at          | updated_at          |
