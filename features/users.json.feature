@@ -221,11 +221,74 @@ Feature: Users via JSON
   
   # Scenario: Update a user's permalink
   # Scenario: Attempt to Update a user with a a period and a slash
-  # Scenario: Attempt to Update a user with "index" as the permalink
-  # Scenario: Attempt to Update a user with "new" as the permalink
-  # Scenario: Attempt to Update a user with "create" as the permalink
-  # Scenario: Attempt to Update a user with "show" as the permalink
-  # Scenario: Attempt to Update a user with "edit" as the permalink
+  
+  
+  Scenario: Attempt to Update a user with "index" as the permalink
+    Given a user "joe"
+    When I PUT "/users/joe.json" with body "user[permalink]=index"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't be index, new, create, edit, update or show"]
+      ]
+    """
+    
+  Scenario: Attempt to Update a user with "new" as the permalink
+    Given a user "joe"
+    When I PUT "/users/joe.json" with body "user[permalink]=new"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't be index, new, create, edit, update or show"]
+      ]
+    """
+  
+  Scenario: Attempt to Update a user with "create" as the permalink
+    Given a user "joe"
+    When I PUT "/users/joe.json" with body "user[permalink]=create"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't be index, new, create, edit, update or show"]
+      ]
+    """
+  
+  Scenario: Attempt to Update a user with "show" as the permalink
+    Given a user "joe"
+    When I PUT "/users/joe.json" with body "user[permalink]=show"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't be index, new, create, edit, update or show"]
+      ]
+    """
+  
+  Scenario: Attempt to Update a user with "edit" as the permalink
+    Given a user "joe"
+    When I PUT "/users/joe.json" with body "user[permalink]=edit"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't be index, new, create, edit, update or show"]
+      ]
+    """
+  
+  Scenario: Attempt to Update a user with "update" as the permalink
+    Given a user "joe"
+    When I PUT "/users/joe.json" with body "user[permalink]=update"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't be index, new, create, edit, update or show"]
+      ]
+    """
+  
   Scenario: Get a user's adjustments
     Given the following users:
       | id  | permalink      | created_at              | updated_at              |
