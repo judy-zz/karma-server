@@ -2,10 +2,60 @@ Feature: Users via JSON
   In order to manage the representation of users of the web applications,
   As a client
   I want to be able to create, read, update, and delete User objects via JSON.
+
+  Scenario: Get a list of users
+    Given the following users:
+      | id | permalink | created_at          | updated_at          |
+      | 1  | bob       | 2009-09-09 12:00:00 | 2009-09-09 12:00:00 | 
+      | 2  | harry     | 2009-09-09 12:00:00 | 2009-09-09 12:00:00 | 
+    When I GET "/users.json"
+    Then I should get a 200 OK response
+    And I should get a JSON response body like:
+    """
+      [{
+        user: {
+          permalink: bob,
+          path: /users/bob.json,
+          created_at: "2009-09-09T12:00:00Z",
+          updated_at: "2009-09-09T12:00:00Z"
+        }},
+        {user: {
+          permalink: harry,
+          path: /users/harry.json,
+          created_at: "2009-09-09T12:00:00Z",
+          updated_at: "2009-09-09T12:00:00Z"
+        }
+      }]    
+    """
   
+  Scenario: Get a list of users when there are none
+    When I GET "/users.json"
+    Then I should get a 200 OK response
+    And I should get a JSON response body like:
+    """
+      []
+    """
+  
+  # Scenario: Get a new user
   Scenario: Create a user
     When I PUT "/users/bob.json" with body ""
     Then I should get a 201 Created response
+    And I should get a JSON response body like:
+    """
+      {
+        user: {
+          permalink: bob,
+          path: /users/bob.json,
+          created_at: "2009-09-09T12:00:00Z",
+          updated_at: "2009-09-09T12:00:00Z"
+        }
+      }
+    """
+  
+  Scenario: Recreate a user
+    Given a user "bob"
+    When I PUT "/users/bob.json" with body ""
+    Then I should get a 200 OK response
     And I should get a JSON response body like:
     """
       {
@@ -38,32 +88,14 @@ Feature: Users via JSON
       ]
     """
   
-  Scenario: Attempt to create a user with a backslash in the permalink
-    When I PUT "/users/bob.json" with body "user[permalink]=matt/simpson"
-    Then I should get a 422 Unprocessible Entity response
-    And I should get a JSON response body like:
-    """
-      [
-        ["permalink","can't have a slash"]
-      ]
-    """
-  
-  Scenario: Recreate a user
-    Given a user "bob"
-    When I PUT "/users/bob.json" with body ""
-    Then I should get a 200 OK response
-    And I should get a JSON response body like:
-    """
-      {
-        user: {
-          permalink: bob,
-          path: /users/bob.json,
-          created_at: "2009-09-09T12:00:00Z",
-          updated_at: "2009-09-09T12:00:00Z"
-        }
-      }
-    """
-  
+  # Scenario: Attempt to create a user with a backslash in the permalink
+  # Scenario: Attempt to Create a user via POST
+  # Scenario: Attempt to Create a user with a period and a slash
+  # Scenario: Attempt to Create a user with "index" as the permalink
+  # Scenario: Attempt to Create a user with "new" as the permalink
+  # Scenario: Attempt to Create a user with "create" as the permalink
+  # Scenario: Attempt to Create a user with "show" as the permalink
+  # Scenario: Attempt to Create a user with "edit" as the permalink
   Scenario: Read a user
     Given the following users:
       | id | permalink | created_at          | updated_at          |
@@ -87,7 +119,17 @@ Feature: Users via JSON
     Given a user "bob"
     When I GET "/users/not-there.json"
     Then I should get a 404 Not Found response
+    And I should get a blank response body
   
+  # Scenario: Attempt to Edit a user
+  # Scenario: Update a user's permalink
+  # Scenario: Update a non-existing user's permalink
+  # Scenario: Attempt to Update a user with a a period and a slash
+  # Scenario: Attempt to Update a user with "index" as the permalink
+  # Scenario: Attempt to Update a user with "new" as the permalink
+  # Scenario: Attempt to Update a user with "create" as the permalink
+  # Scenario: Attempt to Update a user with "show" as the permalink
+  # Scenario: Attempt to Update a user with "edit" as the permalink
   Scenario: Get a user's adjustments
     Given the following users:
       | id  | permalink      | created_at              | updated_at              |
@@ -142,6 +184,7 @@ Feature: Users via JSON
       ]
     """
   
+  # Scenario: Get a non-existing user's adjustments
   Scenario: Get a user's karma
     Given a user "bob"
     And a bucket "plants"
@@ -169,27 +212,6 @@ Feature: Users via JSON
       }
     """
   
-  # Scenarios to implement :)
-  # Scenario: Attempt to Create a user via POST
-  # Scenario: Attempt to Create a user with a period and a slash
-  # Scenario: Attempt to Create a user with "index" as the permalink
-  # Scenario: Attempt to Create a user with "new" as the permalink
-  # Scenario: Attempt to Create a user with "create" as the permalink
-  # Scenario: Attempt to Create a user with "show" as the permalink
-  # Scenario: Attempt to Create a user with "edit" as the permalink
-  # Scenario: Get a non-existing user's adjustments
   # Scenario: Get a non-existing user's karma
-  # Scenario: Update a user's permalink
-  # Scenario: Update a non-existing user's permalink
-  # Scenario: Attempt to Update a user with a a period and a slash
-  # Scenario: Attempt to Update a user with "index" as the permalink
-  # Scenario: Attempt to Update a user with "new" as the permalink
-  # Scenario: Attempt to Update a user with "create" as the permalink
-  # Scenario: Attempt to Update a user with "show" as the permalink
-  # Scenario: Attempt to Update a user with "edit" as the permalink
-  # Scenario: Attempt to Edit a user
-  # Scenario: Get a new user
-  # Scenario: Get a list of users
-  # Scenario: Get a list of users when there are none
   # Scenario: Destroy a user
   # Scenario: Attempt to Destroy a non-existent user

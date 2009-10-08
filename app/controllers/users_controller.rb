@@ -11,8 +11,8 @@ class UsersController < ApplicationController
     @users = User.all
     respond_to do |format|
       format.html
-      format.json { render :json => users_to_xml(@users) }
-      format.xml  { render :xml  => users_to_json(@users) }
+      format.json { render :json => users_to_json(@users) }
+      format.xml  { render :xml  => users_to_xml(@users) }
     end
   end
   
