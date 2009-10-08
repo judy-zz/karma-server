@@ -68,11 +68,49 @@ Feature: Users via XML
       </user>
     """
   
-  # Scenario: Attempt to Create a user with a blank permalink
-  # Scenario: Attempt to Create a user with a period in the permalink
-  # Scenario: Attempt to Create a user with a backslash in the permalink
   # Scenario: Attempt to Create a user via POST
-  # Scenario: Attempt to Create a user with a period and a slash
+  Scenario: Attempt to Create a user with a blank permalink
+    When I PUT "/users/joe.xml" with body "user[permalink]="
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't be blank</error>
+      </errors>
+    """
+    
+  Scenario: Attempt to Create a user with a period in the permalink
+    When I PUT "/users/joe.xml" with body "user[permalink]=jo.e"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't have a period</error>
+      </errors>
+    """
+  Scenario: Attempt to Create a user with a backslash in the permalink
+    When I PUT "/users/joe.xml" with body "user[permalink]=jo/e"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't have a slash</error>
+      </errors>
+    """
+  Scenario: Attempt to Create a user with a period and a slash
+    When I PUT "/users/joe.xml" with body "user[permalink]=j.o/e"
+    Then I should get a 422 Unprocessable Entity response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Permalink can't have a period</error>
+        <error>Permalink can't have a slash</error>
+      </errors>
+    """
   # Scenario: Attempt to Create a user with "index" as the permalink
   # Scenario: Attempt to Create a user with "new" as the permalink
   # Scenario: Attempt to Create a user with "create" as the permalink

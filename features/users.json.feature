@@ -68,6 +68,7 @@ Feature: Users via JSON
       }
     """
   
+  # Scenario: Attempt to Create a user via POST
   Scenario: Attempt to create a user with a blank permalink
     When I PUT "/users/bob.json" with body "user[permalink]="
     Then I should get a 422 Unprocessible Entity response
@@ -88,9 +89,25 @@ Feature: Users via JSON
       ]
     """
   
-  # Scenario: Attempt to create a user with a backslash in the permalink
-  # Scenario: Attempt to Create a user via POST
-  # Scenario: Attempt to Create a user with a period and a slash
+  Scenario: Attempt to create a user with a backslash in the permalink
+    When I PUT "/users/bob.json" with body "user[permalink]='matt/simpson'"
+    Then I should get a 422 Unprocessible Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't have a slash"]
+      ]
+    """
+  Scenario: Attempt to Create a user with a period and a slash
+    When I PUT "/users/bob.json" with body "user[permalink]='matt.simp/son'"
+    Then I should get a 422 Unprocessible Entity response
+    And I should get a JSON response body like:
+    """
+      [
+        ["permalink","can't have a period"],
+        ["permalink","can't have a slash"]
+      ]
+    """
   # Scenario: Attempt to Create a user with "index" as the permalink
   # Scenario: Attempt to Create a user with "new" as the permalink
   # Scenario: Attempt to Create a user with "create" as the permalink
