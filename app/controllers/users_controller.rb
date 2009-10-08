@@ -110,14 +110,19 @@ class UsersController < ApplicationController
     new_record = @user.new_record?
     permalink_changed = @user.changed.include?('permalink') && !new_record
     success = @user.save
+    saved = new_record ? 'created' : 'updated'
     respond_to do |format|
       format.html do
         if success
-          saved = new_record ? 'created' : 'updated'
           flash[:success] = "User was successfully #{saved}."
           redirect_to @user
         else
-          render :action => :new
+          flash[:failure] = "User couldn't be #{saved}."
+          if new_record
+            render :action => :new
+          else
+            render :action => :edit
+          end
         end
       end
       format.json do
