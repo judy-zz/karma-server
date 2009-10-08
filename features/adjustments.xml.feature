@@ -56,20 +56,20 @@ Feature: Adjustments via XML
     Given a typical set of adjustments, buckets, and users
     When I GET "/users/harry/buckets/doesnt-exist/adjustments.xml"
     Then I should get a 404 Not Found response
-    # And I should get an empty response body
-    
+    And I should get an empty response body
+  
   Scenario: Read a list of adjustments with a non-existing user
     Given a typical set of adjustments, buckets, and users
     When I GET "/users/doesnt-exist/buckets/animals/adjustments.xml"
     Then I should get a 404 Not Found response
-    # And I should get an empty response body
-    
+    And I should get an empty response body
+  
   Scenario: Read a list of adjustments with a non-existing user and bucket
     Given a typical set of adjustments, buckets, and users
     When I GET "/users/doesnt-exist/buckets/doesnt-exist/adjustments.xml"
     Then I should get a 404 Not Found response
-    # And I should get an empty response body
-    
+    And I should get an empty response body
+  
   Scenario: Read list of adjustments when there are none
     Given a typical set of adjustments, buckets, and users
     And there are no adjustments
@@ -80,7 +80,7 @@ Feature: Adjustments via XML
       <?xml version="1.0" encoding="UTF-8"?>
       <adjustments type="array"/>
     """
-    
+  
   Scenario: Read adjustment
     Given a typical set of adjustments, buckets, and users
     When I GET "/users/harry/buckets/animals/adjustments/4.xml"
@@ -98,31 +98,31 @@ Feature: Adjustments via XML
           <updated-at type="datetime">2009-09-10T15:06:32Z</updated-at>
       </adjustment>
     """
-    
+  
   Scenario: Read a non-existing adjustment
     Given a typical set of adjustments, buckets, and users
     When I GET "/users/harry/buckets/animals/adjustments/300.xml"
     Then I should get a 404 Not Found response
-    # And I should get an empty response body
-    
+    And I should get an empty response body
+  
   Scenario: Read an adjustment with a non-existing bucket
     Given a typical set of adjustments, buckets, and users
     When I GET "/users/harry/buckets/doesnt-exist/adjustments/300.xml"
     Then I should get a 404 Not Found response
-    # And I should get an empty response body
-    
+    And I should get an empty response body
+  
   Scenario: Read an adjustment with a non-existing user
     Given a typical set of adjustments, buckets, and users
     When I GET "/users/doesnt-exist/buckets/animals/adjustments/300.xml"
     Then I should get a 404 Not Found response
-    # And I should get an empty response body
-    
+    And I should get an empty response body
+  
   Scenario: Read an adjustment with a non-existing user and bucket
     Given a typical set of adjustments, buckets, and users
     When I GET "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.xml"
     Then I should get a 404 Not Found response
-    # And I should get an empty response body
-       
+    And I should get an empty response body
+  
   Scenario: Request a new adjustment
     Given a typical set of adjustments, buckets, and users
     When I GET "/users/harry/buckets/animals/adjustments/new.xml"
@@ -145,20 +145,20 @@ Feature: Adjustments via XML
     Given a typical set of adjustments, buckets, and users
     When I GET "/users/harry/buckets/doesnt-exist/adjustments/300.xml"
     Then I should get a 404 Not Found response
-    # And I should get an empty response body
-    
+    And I should get an empty response body
+  
   Scenario: Request a new adjustment with a non-existing user
     Given a typical set of adjustments, buckets, and users
     When I GET "/users/doesnt-exist/buckets/animals/adjustments/300.xml"
     Then I should get a 404 Not Found response
-    # And I should get an empty response body
-    
+    And I should get an empty response body
+  
   Scenario: Request a new adjustment with a non-existing user and bucket
     Given a typical set of adjustments, buckets, and users
     When I GET "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.xml"
     Then I should get a 404 Not Found response
-    # And I should get an empty response body
-
+    And I should get an empty response body
+  
   Scenario: Create an adjustment
     Given a typical set of adjustments, buckets, and users
     When I POST "/users/harry/buckets/animals/adjustments.xml" with body "adjustment[value]=2"
@@ -193,22 +193,22 @@ Feature: Adjustments via XML
     Given a typical set of adjustments, buckets, and users
     When I DELETE "/users/harry/buckets/animals/adjustments/300.xml"
     Then I should get a 404 Not Found response
-    # And I should get an empty response body
+    And I should get an empty response body
     
   Scenario: Attempt to destroy an adjustment with a non-existing bucket
     Given a typical set of adjustments, buckets, and users
     When I DELETE "/users/harry/buckets/doesnt-exist/adjustments/300.xml"
     Then I should get a 404 Not Found response
-    # And I should get an empty response body
+    And I should get an empty response body
     
   Scenario: Attempt to destroy an adjustment with a non-existing user
     Given a typical set of adjustments, buckets, and users
     When I DELETE "/users/doesnt-exist/buckets/animals/adjustments/300.xml"
     Then I should get a 404 Not Found response
-    # And I should get an empty response body
+    And I should get an empty response body
     
   Scenario: Attempt to destroy an adjustment with a non-existing user and bucket
     Given a typical set of adjustments, buckets, and users
     When I DELETE "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.xml"
     Then I should get a 404 Not Found response
-    # And I should get an empty response body
+    And I should get an empty response body
