@@ -456,7 +456,7 @@ Feature: Users via XML
     Then I should get a 404 Not Found response
     And I should get a blank response body
   
-  Scenario: Attempt to Destroy a non-existent user  Scenario: Destroy a user
+  Scenario: Attempt to Destroy a non-existent user
     When I DELETE "/users/bob.xml"
     Then I should get a 404 Not Found response
     And I should get a blank response body

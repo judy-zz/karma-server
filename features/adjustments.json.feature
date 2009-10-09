@@ -53,7 +53,7 @@ Feature: Adjustments via JSON
         }
       ]
     """
-    
+  
   Scenario: Read list of adjustments when there are none
     Given a typical set of adjustments, buckets, and users
     And there are no adjustments
@@ -63,7 +63,7 @@ Feature: Adjustments via JSON
     """
       []
     """
-    
+  
   Scenario: Read adjustment
     Given a typical set of adjustments, buckets, and users
     When I GET "/users/harry/buckets/animals/adjustments/4.json"
@@ -85,27 +85,27 @@ Feature: Adjustments via JSON
     When I GET "/users/harry/buckets/animals/adjustments/500.json"
     Then I should get a 404 Not Found response
     And I should get an empty response body
-    
+  
   Scenario: Read a non-existing adjustment
     When I GET "/users/harry/buckets/animals/adjustments/300.json"
     Then I should get a 404 Not Found response
     And I should get an empty response body
-    
+  
   Scenario: Read an adjustment with a non-existing bucket
     When I GET "/users/harry/buckets/doesnt-exist/adjustments/300.json"
     Then I should get a 404 Not Found response
     And I should get an empty response body
-    
+  
   Scenario: Read an adjustment with a non-existing user
     When I GET "/users/doesnt-exist/buckets/animals/adjustments/300.json"
     Then I should get a 404 Not Found response
     And I should get an empty response body
-    
+  
   Scenario: Read an adjustment with a non-existing user and bucket
     When I GET "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.json"
     Then I should get a 404 Not Found response
     And I should get an empty response body
-       
+  
   Scenario: Request a new adjustment
     Given a typical set of adjustments, buckets, and users
     When I GET "/users/harry/buckets/animals/adjustments/new.json"
@@ -124,22 +124,22 @@ Feature: Adjustments via JSON
         }
       }
     """
-    
+  
   Scenario: Request a new adjustment with a non-existing bucket
     When I GET "/users/harry/buckets/doesnt-exist/adjustments/300.json"
     Then I should get a 404 Not Found response
     And I should get an empty response body
-    
+  
   Scenario: Request a new adjustment with a non-existing user
     When I GET "/users/doesnt-exist/buckets/animals/adjustments/300.json"
     Then I should get a 404 Not Found response
     And I should get an empty response body
-    
+  
   Scenario: Request a new adjustment with a non-existing user and bucket
     When I GET "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.json"
     Then I should get a 404 Not Found response
     And I should get an empty response body
-
+  
   Scenario: Create an adjustment
     Given a typical set of adjustments, buckets, and users
     When I POST "/users/harry/buckets/animals/adjustments.json" with body "adjustment[value]=2"
@@ -184,19 +184,20 @@ Feature: Adjustments via JSON
         updated_at: "2009-09-10T15:06:32Z"
       }
     """
-    
+  
   Scenario: Attempt to destroy a non-existing adjustment
     When I DELETE "/users/harry/buckets/animals/adjustments/300.json"
     Then I should get a 404 Not Found response
-    
+  
   Scenario: Attempt to destroy an adjustment with a non-existing bucket
     When I DELETE "/users/harry/buckets/doesnt-exist/adjustments/300.json"
     Then I should get a 404 Not Found response
-    
+  
   Scenario: Attempt to destroy an adjustment with a non-existing user
     When I DELETE "/users/doesnt-exist/buckets/animals/adjustments/300.json"
     Then I should get a 404 Not Found response
-    
+  
   Scenario: Attempt to destroy an adjustment with a non-existing user and bucket
     When I DELETE "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.json"
     Then I should get a 404 Not Found response
+  
