@@ -143,30 +143,30 @@ Feature: Adjustments via JSON
   Scenario: Create an adjustment
     Given a typical set of adjustments, buckets, and users
     When I POST "/users/harry/buckets/animals/adjustments.json" with body "adjustment[value]=2"
-    Then I should get a 201 Created response
-    # And I should get a JSON response body like:
-    # """
-    #   "adjustment": {
-    #     id: 6,
-    #     value: 2,
-    #     path: "/users/harry/buckets/animals/adjustments/6.json",
-    #     user_permalink: harry,
-    #     bucket_permalink: animals,
-    #     created_at: "2009-09-09T12:00:00Z",
-    #     updated_at: "2009-09-09T12:00:00Z"
-    #   }
-    # """
+    Then pending: I should get a 201 Created response
+    And pending: I should get a JSON response body like:
+    """
+      "adjustment": {
+        id: 6,
+        value: 2,
+        path: "/users/harry/buckets/animals/adjustments/6.json",
+        user_permalink: harry,
+        bucket_permalink: animals,
+        created_at: "2009-09-09T12:00:00Z",
+        updated_at: "2009-09-09T12:00:00Z"
+      }
+    """
   
   Scenario: Attempt to create an adjustment with no value
     Given a typical set of adjustments, buckets, and users
     When I POST "/users/harry/buckets/animals/adjustments.json" with body ""
     Then I should get a 422 Unprocessable Entity response
-    # And I should get a JSON response body like:
-    # """
-    #   [
-    #     ["value","can't be blank"]
-    #   ]
-    # """
+    And pending: I should get a JSON response body like:
+    """
+      [
+        ["value","can't be blank"]
+      ]
+    """
   
   Scenario: Destroy an adjustment
     Given a typical set of adjustments, buckets, and users

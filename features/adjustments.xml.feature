@@ -163,13 +163,19 @@ Feature: Adjustments via XML
     Given a typical set of adjustments, buckets, and users
     When I POST "/users/harry/buckets/animals/adjustments.xml" with body "adjustment[value]=2"
     Then I should get a 201 Created response
-    # And I should get an empty response body
+    Then pending: I should receive the object in XML
   
   Scenario: Attempt to create an adjustment with no value
     Given a typical set of adjustments, buckets, and users
     When I POST "/users/harry/buckets/animals/adjustments.xml" with body ""
     Then I should get a 422 Unprocessable Entity response
-    # And I should get an empty response body
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <errors>
+        <error>Value can not be blank</error>
+      </errors>
+    """
   
   Scenario: Destroy an adjustment
     Given a typical set of adjustments, buckets, and users
