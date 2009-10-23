@@ -11,14 +11,14 @@ distributed across several separate web applications.
 
 Each resource can be accessed via HTML, JSON, or XML. To control the format, 
 the Accept header can be set to the desired mime type, or a file extension
-can be appended to any URL. For example, to get the history of bob's karma in
-JSON format, you can issue a GET request to +/users/bob/adjustments.json+. 
+can be appended to any URL. For example, to get the summary of bob's karma in
+JSON format, you can issue a GET request to +/users/bob/karma.json+. 
 
 The default format is HTML.
 
-== Resources
+= Resources
 
-=== Users
+== Users
 
 Users in this system represent the users of the web application. They have no
 ability to authenticate to the Karma server. Users are uniquely identified by
@@ -28,28 +28,61 @@ Users only have one real attribute: their permalink. This is the last path
 segment of the URI that identifies the user. The permalink is set and chosen
 by the client.
 
-  PUT /users/bob
+==== Get list of all Users
   
+Get a list of all users currently in the karma server database.  Will return
+the same information as the /users/bob action, mentioned below, but for
+all users.
+
+  GET /users
+
+==== Get a New User
+  
+Get a new user object.  This method allows you to see what the user object 
+looks like and allows you to manipulate and change it without any chance to 
+affect any actual data.
+
+  GET /users/new
+
+==== Create a New User
+
 Create a new user "bob". You will automatically be able to access the value
 of bob's buckets -- you do not need to create the buckets individually. If
 the user already exists, then this request will have no effect.
 
-  PUT /users/bob?permalink=bobby
+  PUT /users/bob
+
+==== Get Information on a User
+  
+Get information about user bob. This would include the creation time, bob's
+karma score, latest activity, related URI's, etc.
+
+  GET /users/bob
+
+==== Update a User
   
 Rename the "bob" user to "bobby". The resource will now only be accessible as
 +/users/bobby+ (and likewise for any other place that this bucket is
 referenced). All data associated with the user is still intact.
 
-  GET /users/bob
-  
-Get information about user bob. This would include the creation time, bob's
-karma score, latest activity, etc.
+  PUT /users/bob?permalink=bobby
 
-  DELETE /users/bob
+==== Delete a User
   
 Delete user "bob", along with all of his karma and karma history.
 
-=== Buckets
+  DELETE /users/bob
+
+==== Get User's Karma Summary
+  
+Return details about bob's total karma score. Two versions are returned -- one
+that includes the ability for points to go negative, and the other that only
+allows points to go down to zero. Also included are the total positive and 
+negative points that have been accumulated.
+
+  GET /users/bob/karma
+
+== Buckets
 
 Buckets are the containers that are used to hold karma points. The client 
 defines one or more unique buckets, and these buckets are then available to
@@ -59,32 +92,53 @@ Like users, buckets only have one real attribute: their permalink. This is the
 last path segment of the URI that identifies the bucket. The permalink is set
 and chosen by the client.
 
-  PUT /buckets/plants
+==== Get list of all Buckets
+  
+Get a list of all buckets currently in the karma server database.  Will return
+the same information as the /buckets/plants action, mentioned below, but for
+all buckets.
+
+  GET /buckets
+
+==== Get a New Bucket
+  
+Get a new bucket object.  This method allows you to see what the user object 
+looks like and allows you to manipulate and change it without any chance to 
+affect any actual data.
+
+  GET /buckets/new
+
+==== Create a Bucket
   
 Create a new bucket "plants". Each user in the system will automatically get
 "plants" bucket. If the bucket already exists, then this request will have
 no effect.
 
-  PUT /buckets/plants?permalink=flowers
+  PUT /buckets/plants
+
+==== Get Information on a Bucket
+  
+Get information about the bucket "plants".
+
+  GET /buckets/plants
+
+==== Update a Bucket
   
 Change the name of the plants bucket to "flowers". The resource will now only
 be accessible as +/buckets/flowers+ (and likewise for any other place that 
 this bucket is referenced). All data associated with the bucket is
 still intact.
 
-  DELETE /buckets/plants
+  PUT /buckets/plants?permalink=flowers
+
+==== Delete a bucket
   
 Destroy the plants bucket. This will remove the plants bucket for each 
 user in the system, along with all karma associated with that bucket.
 
-  GET /users/bob/buckets
-  
-Return details about bob's total karma score. Two versions are returned -- one
-that includes the ability for points to go negative, and the other that only
-allows points to go down to zero. Also included are the total positive and 
-negative points that have been accumulated.
+  DELETE /buckets/plants
 
-=== Adjustments
+== Adjustments
 
 Adjustments represent a change in karma for a given user, for a given bucket.
 
@@ -92,32 +146,48 @@ They differ from buckets and users in the way that they're created and
 referenced; they're not named explicitly by the client. Instead, they're 
 assigned an integer identifier by the karma server when they're created.
 
-  POST /users/bob/buckets/plants/adjustments?value=3
+==== Increment Karma
 
 Increment the karma in bob's plant bucket by three points. The "Location"
 header of the response redirects the client to the new adjustment.  
 
-  POST /users/bob/buckets/plants/adjustments?value=-1
+  POST /users/bob/buckets/plants/adjustments?adjustment[value]=3
+
+==== Decrement Karma
   
 Decrement the karma in bob's plant bucket by one point. The "Location"
 header of the response redirects the client to the new adjustment.
 
-  GET /users/bob/buckets/plants/adjustments/245
+  POST /users/bob/buckets/plants/adjustments?adjustment[value]=-1
+
+==== View an Adjustment
   
 Get the details for one particular adjustment from user Bob.
 
+  GET /users/bob/buckets/plants/adjustments/245
+
+==== View a new adjustment
+  
+Get a new adjustment object to see what fields it consists of and to have a 
+sandbox adjustment object to play around with.
+
+  GET /users/bob/buckets/plants/adjustments/new
+
+==== View the History of All Adjustments for a User
+
+Returns a history of all karma adjustments for user "bob". 
+*not yet implemented*
+
   GET /users/bob/adjustments
 
-Returns a history of all karma adjustments for user "bob".
-
-  GET /users/bob/buckets/plants/adjustments
+==== View the History of All Adjustments for a User's Bucket
   
 Returns a history of all karma adjustments for bob's "plants" bucket.
 
-  PUT /users/bob/buckets/plants/adjustments/245
-  
-Modify the details for one particular adjustment from user Bob.
+  GET /users/bob/buckets/plants/adjustments
 
-  DELETE /users/bob/buckets/plants/adjustments/245
+==== Delete an adjustment
   
 Remove (undo) one particular adjustment for user Bob.
+
+  DELETE /users/bob/buckets/plants/adjustments/245

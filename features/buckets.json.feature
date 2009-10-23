@@ -77,6 +77,10 @@ Feature: Buckets via JSON
   Scenario: Create a bucket
     When I PUT "/buckets/dinosaurs.json" with body ""
     Then I should get a 201 Created response
+    
+  Scenario: Attempt to create a bucket with an invalid permalink
+    When I PUT "/buckets/doesnt-exist.json" with body "bucket[permalink]="
+    Then I should get a 422 Unprocessible Entity response
   
   Scenario: Update a bucket
     When I PUT "/buckets/Animals.json" with body "bucket[permalink]=Nice Animals"
@@ -105,3 +109,4 @@ Feature: Buckets via JSON
         updated_at: "2009-10-01T12:00:00Z"
       }
     """
+  

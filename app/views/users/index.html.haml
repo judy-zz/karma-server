@@ -7,6 +7,7 @@
         %tr
           %td.permalink= link_to user.permalink, user
           %td
+            = link_to "Adjust Karma", new_user_adjustment_path(user), :class => "button"
             = link_to "#{image_tag 'edit.png'} Edit", edit_user_path(user), :class => "button"
             = link_to "#{image_tag 'delete.png'} Destroy", user, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{user.permalink} User", :class => "button"
   - else

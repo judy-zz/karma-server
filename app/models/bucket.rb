@@ -23,8 +23,13 @@ class Bucket < ActiveRecord::Base
   
   private
   def valid_permalink
-    if !self.permalink.nil? and (self.permalink.include?(".") or self.permalink.include?("/"))
-      errors.add(:permalink, "can't contain a period or a slash")
+    unless self.permalink.nil?
+      if self.permalink.include?(".")
+        errors.add(:permalink, "can't have a period")
+      end
+      if self.permalink.include?("/")
+        errors.add(:permalink, "can't have a slash")
+      end
     end
   end
 

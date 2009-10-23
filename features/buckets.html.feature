@@ -6,7 +6,6 @@ Feature: Buckets via HTML
   Background:
     Given I have a bucket with attributes id "1" and permalink "Animals"
     And I have a bucket with attributes id "2" and permalink "Plants"
-    # And I have an adjustment with value "5" and bucket_id "1" and user_id "1"
   
   Scenario: Create a bucket
     Given I am on the new bucket page
@@ -14,6 +13,10 @@ Feature: Buckets via HTML
     And I press "Create Bucket"
     Then I should be on the "Bugs" bucket page
     And I should see "Bucket was successfully created."
+    
+  Scenario: Attempt to Create a bucket via PUT with an invalid permalink
+    When I PUT "/buckets/doesnt-exist" with body "bucket[permalink]="
+    And I should see "Bucket couldn't be created."
   
   Scenario: Attempt to Create a bucket with a period
     Given I am on the new bucket page
@@ -21,7 +24,7 @@ Feature: Buckets via HTML
     And I press "Create Bucket"
     Then I should see "New Bucket"
     And I should see "Bucket couldn't be created."
-    And I should see "Permalink can't contain a period or a slash"
+    And I should see "Permalink can't have a period"
   
   Scenario: Attempt to Create a bucket with a slash
     Given I am on the new bucket page
@@ -29,7 +32,7 @@ Feature: Buckets via HTML
     And I press "Create Bucket"
     Then I should see "New Bucket"
     And I should see "Bucket couldn't be created."
-    And I should see "Permalink can't contain a period or a slash"
+    And I should see "Permalink can't have a slash"
   
   Scenario: Attempt to Create a bucket with a slash and a period
     Given I am on the new bucket page
@@ -37,7 +40,8 @@ Feature: Buckets via HTML
     And I press "Create Bucket"
     Then I should see "New Bucket"
     And I should see "Bucket couldn't be created."
-    And I should see "Permalink can't contain a period or a slash"
+    And I should see "Permalink can't have a slash"
+    And I should see "Permalink can't have a period"
     
   Scenario: Edit a bucket
     Given I am on the edit "Animals" bucket page
@@ -52,7 +56,7 @@ Feature: Buckets via HTML
     And I press "Update Bucket"
     Then I should see "Editing Bucket"
     And I should see "Animals"
-    And I should see "Bucket wasn't successfully updated."
+    And I should see "Bucket couldn't be updated."
     And I should see "Permalink can't be blank"
     
   Scenario: Attempt to edit a bucket without a valid Permalink twice
@@ -64,8 +68,8 @@ Feature: Buckets via HTML
     And I press "Update Bucket"
     Then I should see "Editing Bucket"
     And I should see "Animals"
-    And I should see "Bucket wasn't successfully updated."
-    And I should see "Permalink can't contain a period or a slash"
+    And I should see "Bucket couldn't be updated."
+    And I should see "Permalink can't have a slash"
   
   Scenario: View list of buckets
     Given I am on the buckets page
