@@ -38,5 +38,5 @@ Then /^I should get an XML response body like:$/ do |string|
 end
 
 Then /^I should get an? (blank|empty) response body$/ do |empty|
-  response.should be_empty
+  @response.body.should == " " 
 end

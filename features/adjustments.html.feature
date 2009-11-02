@@ -16,7 +16,7 @@ Feature: Adjustments via HTML
     And I should see "5"
     And I should see "-1"
     And there should be no errors
-
+  
   Scenario: Create a new adjustment with blank value
     Given a user "bob"
     And a bucket "plants"
@@ -25,7 +25,7 @@ Feature: Adjustments via HTML
     Then I should see "Adjust Karma"
     And I should see an error message
     And I should see "Value can't be blank"
-    
+  
   Scenario: Create a new adjustment for user
     Given a user "bob"
     And a bucket "plants"
@@ -37,7 +37,7 @@ Feature: Adjustments via HTML
     And I should see "4"
     And there should be no errors
     And I should see "Karma was successfully adjusted"
-    
+  
   Scenario: Create a new adjustment for user with blank value
     Given a user "bob"
     And a bucket "plants"
@@ -47,7 +47,7 @@ Feature: Adjustments via HTML
     Then I should see "Adjust Karma"
     And I should see an error message
     And I should see "Value can't be blank"
-    
+  
   Scenario: Create a new adjustment for user with invalid value
     Given a user "bob"
     And a bucket "plants"
@@ -57,3 +57,4 @@ Feature: Adjustments via HTML
     Then I should see "Adjust Karma"
     And I should see an error message
     And I should see "Value is not a number"
+  

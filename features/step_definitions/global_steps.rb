@@ -1,5 +1,5 @@
 Given /^there are no ([^\"]*)$/ do |objects|
-  eval(objects.classify).delete_all
+  eval(objects.classify).destroy_all
 end
 
 Given /^I have a ([^\"]*) with attribute ([^\"]*) "([^\"]*)"$/ do |klass, method, value|
@@ -35,6 +35,10 @@ Then /^I should see a "([^\"]*)" link$/ do |name|
  response.should have_tag("a", name)
 end
 
+Then /^I should see "([^\"]*)" in "([^\"]*)"$/ do |value, tag|
+ response.should have_tag(tag, value)
+end
+
 When /^I click "([^\"]*)"$/ do |link_name|
   click_link link_name
 end
@@ -59,11 +63,11 @@ When /^I select "([^\"]*)"$/ do |value|
   select(value)
 end
 
-Then /^I should (still )?see "([^\"]*)" in "([^\"]*)"$/ do |still, value, field|
+Then /^I should (still )?see "([^\"]*)" in the "([^\"]*)" field$/ do |still, value, field|
   field_labeled(field).value.should == value
 end
 
-Then /^I should not see "([^\"]*)" in "([^\"]*)"$/ do |value, field|
+Then /^I should not see "([^\"]*)" in the "([^\"]*)" field$/ do |value, field|
   field_labeled(field).value.should_not == value
 end
 

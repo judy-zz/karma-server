@@ -11,8 +11,8 @@ class UsersController < ApplicationController
     @users = User.all
     respond_to do |format|
       format.html
-      format.json { render :json => users_to_xml(@users) }
-      format.xml  { render :xml  => users_to_json(@users) }
+      format.json { render :json => users_to_json(@users) }
+      format.xml  { render :xml  => users_to_xml(@users) }
     end
   end
   
@@ -38,14 +38,20 @@ class UsersController < ApplicationController
   # We support POST to /users so that users can be created via HTML forms
   # (since those forms can't PUT to a permalink that's a form field).
   def create
-    @user = User.new(params[:user])
-    if @user.save
-      flash[:success] = "User was successfully created."
-      redirect_to @user
-    else
-      flash[:failure] = "User could not be created."
-      render :action => :new
-    end    
+    respond_to do |format|
+      format.html do        
+        @user = User.new(params[:user])
+        if @user.save
+          flash[:success] = "User was successfully created."
+          redirect_to @user
+        else
+          flash[:failure] = "User could not be created."
+          render :action => :new
+        end    
+      end
+      format.json { render :nothing => true, :status => :not_found }
+      format.xml  { render :nothing => true, :status => :not_found }
+    end
   end
   
   # Show a particular user.
@@ -54,13 +60,13 @@ class UsersController < ApplicationController
   #   GET /users/:permalink.json
   #   GET /users/:permalink.xml
   def show
-    @user = User.find_by_permalink!(params[:id])
     @buckets = Bucket.all
+    @user = User.find_by_permalink!(params[:id])
     respond_to do |format|
       format.html
       format.json { render :json => user_to_json(@user) }
       format.xml  { render :xml  => user_to_xml(@user) }
-    end    
+    end 
   end
   
   # Show the karma summary for a user and the user's buckets
@@ -83,8 +89,8 @@ class UsersController < ApplicationController
     @user = User.find_by_permalink!(params[:id])
     respond_to do |format|
       format.html
-      format.json { render :json => user_to_json(@user) }
-      format.xml  { render :xml  => user_to_xml(@user) }
+      format.json { render :nothing => true, :status => :not_found }
+      format.xml  { render :nothing => true, :status => :not_found }
     end
   end
   
@@ -104,14 +110,19 @@ class UsersController < ApplicationController
     new_record = @user.new_record?
     permalink_changed = @user.changed.include?('permalink') && !new_record
     success = @user.save
+    saved = new_record ? 'created' : 'updated'
     respond_to do |format|
       format.html do
         if success
-          saved = new_record ? 'created' : 'updated'
           flash[:success] = "User was successfully #{saved}."
           redirect_to @user
         else
-          render :action => :new
+          flash[:failure] = "User couldn't be #{saved}."
+          if new_record
+            render :action => :new
+          else
+            render :action => :edit
+          end
         end
       end
       format.json do

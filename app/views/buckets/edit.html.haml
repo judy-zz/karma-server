@@ -1,4 +1,4 @@
-= render :partial => "/shared/header", :locals => { :title => "Editing Bucket", :subtitle => changed_permalink(@bucket), :flash => flash }
+= render :partial => "/shared/header", :locals => { :title => "Edit Bucket", :subtitle => changed_permalink(@bucket), :flash => flash }
 - form_for(@bucket, :url => bucket_path(:permalink => changed_permalink(@bucket))) do |f| 
   = render :partial => "form", :locals => { :f => f }
   

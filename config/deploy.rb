@@ -2,7 +2,7 @@
 require 'capistrano/ext/multistage'    # Support for multiple deploy targets
 require 'capistrano-helpers/passenger' # Support for Apache passenger
 require 'capistrano-helpers/specs'     # Check specs before deploying
-require 'capistrano-helpers/features'  # Check cucumber features before deploying
+# require 'capistrano-helpers/features'  # Check cucumber features before deploying
 require 'capistrano-helpers/preflight' # Run preflight checklist before deploying
 require 'capistrano-helpers/privates'  # Symlink private files after deploying
 require 'capistrano-helpers/version'   # Record the version number after deploying
