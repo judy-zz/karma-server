@@ -6,6 +6,14 @@ When /^I (GET|PUT|POST|DELETE|HEAD|OPTIONS|PROPFIND|TRACE) "([^\"]*)"( with body
   end
 end
 
+When /^I (GET|PUT|POST|DELETE|HEAD|OPTIONS|PROPFIND|TRACE) "([^\"]*)" with a body like:$/ do |verb, path, body|
+  # Perform the action at a precise time, so we can anticipate the resulting
+  # ActiveRecord timestamps.
+  at_time(Time.utc(2009,9,9, 12,0,0)) do
+    send verb.downcase.to_sym, path, body
+  end
+end
+
 Then /^I should get a (\d+) ([\w\s]+) response$/ do |code, name|
   @response.code.should == code
 end
