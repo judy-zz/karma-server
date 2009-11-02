@@ -160,13 +160,21 @@ Feature: Adjustments via XML
     And I should get an empty response body
   
   Scenario: Create an adjustment
-    Given a typical set of adjustments, buckets, and users
-    When I POST "/users/harry/buckets/animals/adjustments.xml" with body "adjustment[value]=2"
+    Given a user "Harry"
+    And a bucket "Animals"
+    When I POST "/users/harry/buckets/animals/adjustments.xml" with a body like:
+    """
+      <adjustment>
+        <value type="integer">2</value>
+      </adjustment>
+    """
     Then I should get a 201 Created response
-    Then pending: I should receive the object in XML
+    And I should get an XML response
+    And pending: I should receive the object in XML
   
   Scenario: Attempt to create an adjustment with no value
-    Given a typical set of adjustments, buckets, and users
+    Given a user "Harry"
+    And a bucket "Animals"
     When I POST "/users/harry/buckets/animals/adjustments.xml" with body ""
     Then I should get a 422 Unprocessable Entity response
     And I should get an XML response body like:
@@ -218,4 +226,3 @@ Feature: Adjustments via XML
     When I DELETE "/users/doesnt-exist/buckets/doesnt-exist/adjustments/300.xml"
     Then I should get a 404 Not Found response
     And I should get an empty response body
-  

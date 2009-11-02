@@ -141,10 +141,11 @@ Feature: Adjustments via JSON
     And I should get an empty response body
   
   Scenario: Create an adjustment
-    Given a typical set of adjustments, buckets, and users
+    Given a user "Harry"
+    And a bucket "Animals"
     When I POST "/users/harry/buckets/animals/adjustments.json" with body "adjustment[value]=2"
-    Then pending: I should get a 201 Created response
-    And pending: I should get a JSON response body like:
+    Then I should get a 201 Created response
+    And I should get a JSON response body like:
     """
       "adjustment": {
         id: 6,
@@ -158,10 +159,11 @@ Feature: Adjustments via JSON
     """
   
   Scenario: Attempt to create an adjustment with no value
-    Given a typical set of adjustments, buckets, and users
+    Given a user "Harry"
+    And a bucket "Animals"
     When I POST "/users/harry/buckets/animals/adjustments.json" with body ""
     Then I should get a 422 Unprocessable Entity response
-    And pending: I should get a JSON response body like:
+    And I should get a JSON response body like:
     """
       [
         ["value","can't be blank"]
