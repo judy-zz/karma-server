@@ -32,18 +32,18 @@ Feature: Adjustments via XML
       <?xml version="1.0" encoding="UTF-8"?>
       <adjustments type="array">
         <adjustment>
-          <id type="integer">4</id>
+          <id type="integer">104</id>
           <value type="integer">4</value>
-          <path>/users/harry/buckets/animals/adjustments/4.xml</path>
+          <path>/users/harry/buckets/animals/adjustments/104.xml</path>
           <user-permalink>harry</user-permalink>
           <bucket-permalink>animals</bucket-permalink>
           <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
           <updated-at type="datetime">2009-09-10T15:06:32Z</updated-at>
         </adjustment>
         <adjustment>
-          <id type="integer">5</id>
+          <id type="integer">105</id>
           <value type="integer">-1</value>
-          <path>/users/harry/buckets/animals/adjustments/5.xml</path>
+          <path>/users/harry/buckets/animals/adjustments/105.xml</path>
           <user-permalink>harry</user-permalink>
           <bucket-permalink>animals</bucket-permalink>
           <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
@@ -83,15 +83,15 @@ Feature: Adjustments via XML
   
   Scenario: Read adjustment
     Given a typical set of adjustments, buckets, and users
-    When I GET "/users/harry/buckets/animals/adjustments/4.xml"
+    When I GET "/users/harry/buckets/animals/adjustments/104.xml"
     Then I should get a 200 OK response
     And I should get an XML response body like:
     """
       <?xml version="1.0" encoding="UTF-8"?>
       <adjustment>
-          <id type="integer">4</id>
+          <id type="integer">104</id>
           <value type="integer">4</value>
-          <path>/users/harry/buckets/animals/adjustments/4.xml</path>
+          <path>/users/harry/buckets/animals/adjustments/104.xml</path>
           <user-permalink>harry</user-permalink>
           <bucket-permalink>animals</bucket-permalink>
           <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
@@ -160,21 +160,14 @@ Feature: Adjustments via XML
     And I should get an empty response body
   
   Scenario: Create an adjustment
-    Given a user "Harry"
-    And a bucket "Animals"
-    When I POST "/users/harry/buckets/animals/adjustments.xml" with a body like:
-    """
-      <adjustment>
-        <value type="integer">2</value>
-      </adjustment>
-    """
+    Given a typical set of adjustments, buckets, and users
+    When I POST "/users/harry/buckets/animals/adjustments.xml" with body "adjustment[value]=2"
     Then I should get a 201 Created response
     And I should get an XML response
     And pending: I should receive the object in XML
   
   Scenario: Attempt to create an adjustment with no value
-    Given a user "Harry"
-    And a bucket "Animals"
+    Given a typical set of adjustments, buckets, and users
     When I POST "/users/harry/buckets/animals/adjustments.xml" with body ""
     Then I should get a 422 Unprocessable Entity response
     And I should get an XML response body like:
@@ -187,15 +180,15 @@ Feature: Adjustments via XML
   
   Scenario: Destroy an adjustment
     Given a typical set of adjustments, buckets, and users
-    When I DELETE "/users/harry/buckets/animals/adjustments/4.xml"
+    When I DELETE "/users/harry/buckets/animals/adjustments/104.xml"
     Then I should get a 200 OK response
     And I should get an XML response body like:
     """
       <?xml version="1.0" encoding="UTF-8"?>
       <adjustment>
-          <id type="integer">4</id>
+          <id type="integer">104</id>
           <value type="integer">4</value>
-          <path>/users/harry/buckets/animals/adjustments/4.xml</path>
+          <path>/users/harry/buckets/animals/adjustments/104.xml</path>
           <user-permalink>harry</user-permalink>
           <bucket-permalink>animals</bucket-permalink>
           <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
