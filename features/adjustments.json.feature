@@ -31,9 +31,9 @@ Feature: Adjustments via JSON
       [
         {
           adjustment: {
-            id: 4,
+            id: 104,
             value: 4,
-            path: "/users/harry/buckets/animals/adjustments/4.json",
+            path: "/users/harry/buckets/animals/adjustments/104.json",
             user_permalink: harry,
             bucket_permalink: animals,
             created_at: "2009-09-10T15:06:32Z",
@@ -42,9 +42,9 @@ Feature: Adjustments via JSON
         },
         {
           adjustment: {
-            id: 5,
+            id: 105,
             value: -1,
-            path: "/users/harry/buckets/animals/adjustments/5.json",
+            path: "/users/harry/buckets/animals/adjustments/105.json",
             user_permalink: harry,
             bucket_permalink: animals,
             created_at: "2009-09-10T15:06:32Z",
@@ -66,14 +66,14 @@ Feature: Adjustments via JSON
   
   Scenario: Read adjustment
     Given a typical set of adjustments, buckets, and users
-    When I GET "/users/harry/buckets/animals/adjustments/4.json"
+    When I GET "/users/harry/buckets/animals/adjustments/104.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
     """
       adjustment: {
-        id: 4,
+        id: 104,
         value: 4,
-        path: "/users/harry/buckets/animals/adjustments/4.json",
+        path: "/users/harry/buckets/animals/adjustments/104.json",
         user_permalink: harry,
         bucket_permalink: animals,
         created_at: "2009-09-10T15:06:32Z",
@@ -172,14 +172,14 @@ Feature: Adjustments via JSON
   
   Scenario: Destroy an adjustment
     Given a typical set of adjustments, buckets, and users
-    When I DELETE "/users/harry/buckets/animals/adjustments/4.json"
+    When I DELETE "/users/harry/buckets/animals/adjustments/104.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
     """
       "adjustment": {
-        id: 4,
+        id: 104,
         value: 4,
-        path: "/users/harry/buckets/animals/adjustments/4.json",
+        path: "/users/harry/buckets/animals/adjustments/104.json",
         user_permalink: harry,
         bucket_permalink: animals,
         created_at: "2009-09-10T15:06:32Z",
