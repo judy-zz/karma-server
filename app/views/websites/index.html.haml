@@ -1,0 +1,15 @@
+= render :partial => "/shared/header", :locals => { :title => "Websites", :subtitle => "", :flash => flash }
+
+#content
+  - if ! @websites.empty?
+    %table
+      - @websites.each do |website| 
+        %tr
+          %td.name= link_to website
+          %td
+            = link_to "#{image_tag 'edit.png'} Edit", edit_website_path(website), :class => "button"
+            = link_to "#{image_tag 'delete.png'} Destroy", website, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{website_path(website)} Bucket", :class => "button"
+
+  - else
+    = link_to "There are no websites, click here to create the first one.", new_website_path
+  .button_row= link_to "#{image_tag 'add.png'} Create Website", new_website_path, :class => "positive button"
