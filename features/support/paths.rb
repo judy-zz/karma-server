@@ -14,18 +14,18 @@ module NavigationHelpers
       buckets_path
     when /^the new bucket page$/i
       new_bucket_path
-    when /^the (?:|")(.*)(?:|") bucket page$/i
-      bucket_path(Bucket.find_by_permalink($1))
-    when /^the edit (.*) bucket page$/i
+    when /^the edit "(.*)" bucket page$/i
       edit_bucket_path(Bucket.find_by_permalink($1))
+    when /^the "(.*)" bucket page$/i
+      bucket_path(Bucket.find_by_permalink($1))
     when /^the users page$/i
       users_path
     when /^the new user page$/i
       new_user_path
-    when /^the (?:|")(.*)(?:|") user page$/i
-      user_path(User.find_by_permalink!($1))
-    when /^the edit (.*) user page$/i
+    when /^the edit "(.*)" user page$/i
       edit_user_path(User.find_by_permalink($1))
+    when /^the "(.*)" user page$/i
+      user_path(User.find_by_permalink($1))
     when /^the new adjustment page for (.*)'s (.*) bucket$/
       new_adjustment_path(:user_permalink => $1, :bucket_permalink => $2)
     when /^the adjustments page for (.*)'s (.*) bucket$/
