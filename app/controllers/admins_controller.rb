@@ -1,19 +1,19 @@
-class AdministratorsController < ApplicationController
+class AdminsController < ApplicationController
   
   def index
-    @admins = Administrator.all
+    @admins = Admin.all
   end
 
   def show
-    @admin = Administrator.find(params[:id])
+    @admin = Admin.find(params[:id])
   end
 
   def new
-    @admin = Administrator.new
+    @admin = Admin.new
   end
 
   def create
-    @admin = Administrator.new(params[:admin])
+    @admin = Admin.new(params[:admin])
     if @admin.save
       flash[:success] = "Admin was successfully created."
       redirect_to @admin
@@ -24,11 +24,11 @@ class AdministratorsController < ApplicationController
   end
 
   def edit
-    @admin = Administrator.find(params[:id])
+    @admin = Admin.find(params[:id])
   end
 
   def update
-    @admin = Administrator.find(params[:id])
+    @admin = Admin.find(params[:id])
     if @admin.update_attributes(params[:admin])
       flash[:success] = "Admin was successfully saved."
       redirect_to @admin
@@ -39,10 +39,10 @@ class AdministratorsController < ApplicationController
   end
 
   def destroy
-    @admin = Administrator.find(params[:id])
+    @admin = Admin.find(params[:id])
     @admin.destroy
     flash[:success] = "Admin was successfully destroyed."
-    redirect_to administrators_path
+    redirect_to admins_path
   end
   
 end

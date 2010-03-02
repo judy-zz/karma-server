@@ -1,0 +1,15 @@
+= render :partial => "/shared/header", :locals => { :title => "Administrators.", :subtitle => "", :flash => flash }
+
+#content
+  - if ! @admins.empty?
+    %table
+      - @admins.each do |admin| 
+        %tr
+          %td.name= link_to admin
+          %td
+            = link_to "#{image_tag 'edit.png'} Edit", edit_admin_path(admin), :class => "button"
+            = link_to "#{image_tag 'delete.png'} Destroy", admin, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{admin_path(admin)} Bucket", :class => "button"
+
+  - else
+    = link_to "There are no admins, click here to create the first one.", new_admin_path
+  .button_row= link_to "#{image_tag 'add.png'} Create Admin", new_admin_path, :class => "positive button"

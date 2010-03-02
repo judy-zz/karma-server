@@ -1,3 +1,3 @@
-Given /^an administrator "([^\"]*)"$/ do |name|
-  Administrator.create!(:name => name)
+Given /^an admin "([^\"]*)"$/ do |name|
+  Admin.create!(:name => name)
 end
