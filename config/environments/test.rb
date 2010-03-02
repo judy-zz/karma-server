@@ -34,10 +34,10 @@ config.gem 'rspec',       :lib => false, :version => '1.2.8'
 config.gem 'rspec-rails', :lib => false, :version => '1.2.7.1'
 
 # Shoulda has rspec-compatible matchers for ActiveRecord.
-config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :version => '2.10.2', :source => 'http://gems.github.com'
+config.gem 'shoulda', :lib => 'shoulda', :version => '2.10.2', :source => 'http://gems.github.com'
 
 # Replacement for fixtures
-config.gem 'notahat-machinist', :lib => 'machinist', :version => '1.0.3', :source => 'http://gems.github.com'
+config.gem 'machinist', :lib => 'machinist', :version => '1.0.3', :source => 'http://gems.github.com'
 
 # Generate fake test data
 config.gem 'faker', :version => '0.3.1'
