@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
 
-  map.resources :administrators
+  map.resources :admins
   map.resources :buckets
   map.resources :websites, :except => [ :show ]
   
