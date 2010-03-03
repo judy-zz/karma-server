@@ -2,7 +2,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :admins
   map.resources :buckets
-  map.resources :websites, :except => [ :show ]
+  map.resources :websites
   
   map.with_options :controller => :adjustments do |m|
     m.new_adjustment      '/users/:user_permalink/buckets/:bucket_permalink/adjustments/new.:format', :action => :new,    :conditions => { :method => :get }
