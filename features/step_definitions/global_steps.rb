@@ -2,11 +2,11 @@ Given /^there are no ([^\"]*)$/ do |objects|
   eval(objects.classify).destroy_all
 end
 
-Given /^I have a ([^\"]*) with attribute ([^\"]*) "([^\"]*)"$/ do |klass, method, value|
+Given /^I have (a|an) ([^\"]*) with attribute ([^\"]*) "([^\"]*)"$/ do |blank, klass, method, value|
   eval("#{klass.camelize}.create(:#{method} => '#{value}')")
 end
 
-Given /^I have a ([^\"]*) with attributes ([^\"]*) "([^\"]*)" and ([^\"]*) "([^\"]*)"$/ do |klass, method, value, method2, value2|
+Given /^I have (a|an) ([^\"]*) with attributes ([^\"]*) "([^\"]*)" and ([^\"]*) "([^\"]*)"$/ do |blank, klass, method, value, method2, value2|
   eval("#{klass.camelize}.create(:#{method} => '#{value}', :#{method2} => '#{value2}')")
 end
 

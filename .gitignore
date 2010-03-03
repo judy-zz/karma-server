@@ -3,3 +3,4 @@ log/*.log
 tmp/*
 nbproject
 rerun.txt
+*/.DS_Store

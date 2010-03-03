@@ -18,6 +18,14 @@ module NavigationHelpers
       edit_bucket_path(Bucket.find_by_permalink($1))
     when /^the "(.*)" bucket page$/i
       bucket_path(Bucket.find_by_permalink($1))
+    when /^the admins page$/i
+      admins_path
+    when /^the new admin page$/i
+      new_admin_path
+    when /^the edit "(.*)" admin page$/i
+      edit_admin_path(Admin.find_by_name($1))
+    when /^the "(.*)" admin page$/i
+      admin_path(Admin.find_by_name($1))
     when /^the users page$/i
       users_path
     when /^the new user page$/i

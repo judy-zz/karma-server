@@ -8,6 +8,10 @@ Bucket.blueprint do
   permalink { Sham.permalink }
 end
 
+Admin.blueprint do
+  name { Sham.name }
+end
+
 User.blueprint do
   permalink { Sham.permalink }
 end
