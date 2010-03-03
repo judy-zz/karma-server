@@ -1,5 +1,4 @@
-= render :partial => "/shared/header", :locals => { :title => "New Website", :subtitle => "", :flash => flash }
-- form_for(@website) do |f| 
-  = render :partial => "form", :locals => { :f => f }
-  
-  %button{:type => "submit", :name => "commit", :value => "Create", :class => 'button positive'} Create Website
+= render :partial => "/shared/header", :locals => { :title => @website.name, :subtitle => @website.url, :flash => flash }
+
+.button_row
+  = link_to "Edit Website", edit_website_path(@website), :class => "button"

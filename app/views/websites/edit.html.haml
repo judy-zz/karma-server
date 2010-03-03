@@ -1,4 +1,4 @@
-= render :partial => "/shared/header", :locals => { :title => "Edit Website", :subtitle => @website.url.parameterize, :flash => flash }
+= render :partial => "/shared/header", :locals => { :title => "Edit Website", :subtitle => h(@website.name), :flash => flash }
 - form_for @website do |f| 
   = render :partial => "form", :locals => { :f => f }
   

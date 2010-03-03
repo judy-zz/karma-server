@@ -1,5 +1,9 @@
 = f.error_messages
 %p
-  = f.label :url
+  = f.label :name
+  %br
+  = f.text_field :name
+%p
+  = f.label :url, "URL"
   %br
   = f.text_field :url
