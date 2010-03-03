@@ -1,7 +1,7 @@
 #header
-  - if title
+  - unless title.blank?
     %h1= title
-  - if subtitle
+  - unless subtitle.blank?
     %h2= subtitle
   %hr
 #flash
