@@ -1,7 +1,10 @@
-= render :partial => "/shared/header", :locals => { :title => @client.hostname, :subtitle => "", :flash => flash }
-
+= render :partial => "/shared/header", :locals => { :title => "Viewing Client", :subtitle => @client.hostname, :flash => flash }
+  
 %dl
   %dt IP Address
   %dd= @client.ip_address
   %dt API Key
   %dd= @client.api_key
+
+
+
