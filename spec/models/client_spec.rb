@@ -19,7 +19,7 @@ describe Client do
       end
     end
     
-    describe "if the ip address is improperly formed" do
+    describe "when the IP address is improperly formed" do
       before(:each) do
         @client = Client.new(:ip_address => "10.0.0.500")
       end
