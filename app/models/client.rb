@@ -3,10 +3,18 @@
 class Client < ActiveRecord::Base
   belongs_to :website
   
+  HUMANIZED_ATTRIBUTES = {
+    :ip_address => "IP Address"
+  }
+  
   validates_presence_of   :hostname 
   validates_presence_of   :ip_address
   validates_uniqueness_of :hostname   
   validate                :valid_ip_address
+
+  def self.human_attribute_name(attr)
+    HUMANIZED_ATTRIBUTES[attr.to_sym] || super
+  end
 
   private
   
