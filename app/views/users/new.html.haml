@@ -4,4 +4,5 @@
   = render :partial => "form", :locals => { :f => f }
   
   %button{:type => "submit", :name => "commit", :value => "Create", :class => 'button positive'} Create User
+  = link_to "Cancel", :back, :class => "button"
   
