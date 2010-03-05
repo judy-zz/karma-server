@@ -2,6 +2,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :admins
   map.resources :buckets
+  map.resources :websites
   
   map.resources :clients
   

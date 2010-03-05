@@ -10,6 +10,10 @@ Given /^I have (a|an) ([^\"]*) with attributes ([^\"]*) "([^\"]*)" and ([^\"]*) 
   eval("#{klass.camelize}.create(:#{method} => '#{value}', :#{method2} => '#{value2}')")
 end
 
+Given /^I have (a|an) ([^\"]*) with attributes ([^\"]*) "([^\"]*)", ([^\"]*) "([^\"]*)", and ([^\"]*) "([^\"]*)"$/ do |blank, klass, method, value, method2, value2, method3, value3|
+  eval("#{klass.camelize}.create(:#{method} => '#{value}', :#{method2} => '#{value2}', :#{method3} => '#{value3}')")
+end
+
 When /^I edit the ([^\"]*) with ([^\"]*) "([^\"]*)"$/ do |klass, method, value|
   string_to_eval = "#{klass}.find(:first, :conditions => ['#{method} = ?','#{value}'])"
   class_object = eval(string_to_eval)

@@ -1,6 +1,17 @@
 require 'spec_helper'
 
 describe Website do
+<<<<<<< HEAD
+  before(:each) do
+    @valid_attributes = {
+      :url => "value for url",
+      :name => "value for name"
+    }
+  end
+
+  it "should create a new instance given valid attributes" do
+    Website.create!(@valid_attributes)
+=======
   
   before(:each) do
     # Some of shoulda's matchers want to have at least one website already in the
@@ -33,6 +44,7 @@ describe Website do
         @website.errors_on(:url).should include "needs to be a well-formed URL with protocol, eg. http://www.google.com"
       end
     end
+>>>>>>> master
   end
 end
 

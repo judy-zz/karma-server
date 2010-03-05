@@ -1,5 +1,4 @@
 = render :partial => "/shared/header", :locals => { :title => @admin.name, :subtitle => "", :flash => flash }
-- form_for(@admin) do |f| 
-  = render :partial => "form", :locals => { :f => f }
-  
-  %button{:type => "submit", :name => "commit", :value => "Create", :class => 'button positive'} Create Admin
+
+.button_row
+  = link_to "Edit #{@admin.name}", edit_admin_path(@admin), :class => "button"

@@ -26,6 +26,14 @@ module NavigationHelpers
       edit_admin_path(Admin.find_by_name($1))
     when /^the "(.*)" admin page$/i
       admin_path(Admin.find_by_name($1))
+    when /^the websites page$/i
+      websites_path
+    when /^the new website page$/i
+      new_website_path
+    when /^the edit "(.*)" website page$/i
+      edit_website_path(Website.find_by_name($1))
+    when /^the "(.*)" website page$/i
+      website_path(Website.find_by_name($1))
     when /^the users page$/i
       users_path
     when /^the new user page$/i

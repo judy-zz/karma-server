@@ -12,4 +12,5 @@
       %br
       = f.collection_select :bucket_id, Bucket.all, :id, :permalink
   %button{:type => "submit", :name => "commit", :value => "Save", :class => 'button positive'} Apply Adjustment
+  = link_to "Cancel", :back, :class => "button"
 
