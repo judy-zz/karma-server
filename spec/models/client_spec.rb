@@ -10,6 +10,12 @@ describe Client do
   it { should validate_presence_of    :ip_address }
   it { should validate_uniqueness_of  :hostname   }
   
+  it "should validate the presence of the api_key" do
+    @client.api_key = nil
+    @client.should_not be_valid
+    @client.errors.on(:api_key).should == "can't be blank"  
+  end
+
   describe "#valid_ip_address" do
     
     describe "when the IP address is properly formed" do
@@ -28,7 +34,20 @@ describe Client do
         @client.errors[:ip_address].should == "is not valid"
       end
     end
-
+  end
+  
+  describe "before creation and validation," do
+    before(:each) do
+      @client = Client.make_unsaved(:api_key => nil)
+      @client.api_key.should be_nil
+      @client.save!
+    end
+    it "the api key should be generated" do
+      @client.api_key.should_not be_nil
+    end
+    it "the api key should be a MD5 hash (32 byte)" do
+      @client.api_key.should match /^[\da-f]{32}$/
+    end
   end
   
 end

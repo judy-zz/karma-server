@@ -7,8 +7,11 @@ class Client < ActiveRecord::Base
     :ip_address => "IP Address"
   }
   
+  before_validation_on_create :generate_api_key
+  
   validates_presence_of   :hostname 
   validates_presence_of   :ip_address
+  validates_presence_of   :api_key
   validates_uniqueness_of :hostname   
   validate                :valid_ip_address
 
@@ -17,6 +20,11 @@ class Client < ActiveRecord::Base
   end
 
   private
+  
+  # we want to generate an api key for the client
+  def generate_api_key
+    self.api_key = ActiveSupport::SecureRandom.hex(16)
+  end
   
   # we want the ip address to be formatted properly
   def valid_ip_address
