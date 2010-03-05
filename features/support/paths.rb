@@ -34,6 +34,14 @@ module NavigationHelpers
       edit_website_path(Website.find_by_name($1))
     when /^the "(.*)" website page$/i
       website_path(Website.find_by_name($1))
+    when /^the clients page$/i
+      clients_path
+    when /^the new client page$/i
+      new_client_path
+    when /^the edit "(.*)" client page$/i
+      edit_client_path(Client.find_by_hostname($1))
+    when /^the "(.*)" client page$/i
+      client_path(Client.find_by_hostname($1))
     when /^the users page$/i
       users_path
     when /^the new user page$/i

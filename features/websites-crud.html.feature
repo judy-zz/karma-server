@@ -1,7 +1,7 @@
-Feature: Admin CRUD via HTML
-  In order to designate administrative privileges
-  As a superuser
-  I want to manage admins
+Feature: Websites CRUD via HTML
+  In order to control which sites can submit karma adjustments
+  As a admin
+  I want to manage websites
 
     Background:
       Given I have an website with attributes id "1", name "West Arete Computing", and url "http://www.westarete.com"
