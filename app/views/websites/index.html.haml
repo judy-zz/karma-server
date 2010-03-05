@@ -8,7 +8,7 @@
           %td.name= link_to website.name, website
           %td
             = link_to "#{image_tag 'edit.png'} Edit", edit_website_path(website), :class => "button"
-            = link_to "#{image_tag 'delete.png'} Destroy", website, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{website_path(website)} Bucket", :class => "button"
+            = link_to "#{image_tag 'delete.png'} Destroy", website, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{website.name} website", :class => "button"
 
   - else
     = link_to "There are no websites, click here to create the first one.", new_website_path
