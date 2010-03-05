@@ -3,17 +3,24 @@ require 'machinist'
 require "machinist/active_record"
 
 Sham.permalink { Faker::Name.name.gsub(/[^\w]+/, '-') }
+Sham.url { "http://" + Faker::Internet.domain_name }
+Sham.name { Faker::Name.name }
 
 Bucket.blueprint do
-  permalink { Sham.permalink }
+  permalink
 end
 
 Admin.blueprint do
-  name { Sham.name }
+  name
+end
+
+Website.blueprint do
+  name
+  url
 end
 
 User.blueprint do
-  permalink { Sham.permalink }
+  permalink
 end
 
 Adjustment.blueprint do
