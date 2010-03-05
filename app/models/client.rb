@@ -2,6 +2,25 @@
 # that exchange data with the Karma server.
 class Client < ActiveRecord::Base
   belongs_to :website
+  
+  validates_presence_of   :hostname 
+  validates_presence_of   :ip_address
+  validates_uniqueness_of :hostname   
+  validate                :valid_ip_address
+
+  private
+  
+  # we want the ip address to be formatted properly
+  def valid_ip_address
+    if ip_address
+      address_bytes = ip_address.split('.')
+      
+      if address_bytes.detect { |b| b.to_i < 0 || b.to_i > 255 } || address_bytes.size != 4
+        self.errors.add(:ip_address, "is not valid")
+      end
+    end
+  end
+
 end
 
 # == Schema Information
