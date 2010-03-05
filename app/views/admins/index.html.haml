@@ -1,5 +1,7 @@
 = render :partial => "/shared/header", :locals => { :title => "Administrators", :subtitle => "", :flash => flash }
 
+%p Admins manage users, buckets, websites, and clients.
+
 #content
   - if ! @admins.empty?
     %table

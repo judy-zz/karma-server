@@ -1,5 +1,7 @@
 = render :partial => "/shared/header", :locals => { :title => "Users", :subtitle => "", :flash => flash }
 
+%p Users have karma.
+
 #content
   - if ! @users.empty?
     %table

@@ -1,5 +1,6 @@
-= render :partial => "/shared/header", :locals => { :title => "Edit client", :subtitle => @client.hostname, :flash => flash }
+= render :partial => "/shared/header", :locals => { :title => "Edit Client", :subtitle => @client.hostname, :flash => flash }
 - form_for @client do |f| 
   = render :partial => "form", :locals => { :f => f }
   
   %button{:client => "submit", :name => "commit", :value => "Update", :class => 'button positive'} Update Client
+  = link_to "Cancel", :back, :class => "button"

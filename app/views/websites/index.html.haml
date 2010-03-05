@@ -1,5 +1,7 @@
 = render :partial => "/shared/header", :locals => { :title => "Websites", :subtitle => "", :flash => flash }
 
+%p Websites have clients that connect to the karma server.
+
 #content
   - if ! @websites.empty?
     %table

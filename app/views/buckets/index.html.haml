@@ -1,5 +1,7 @@
 = render :partial => "/shared/header", :locals => { :title => "Buckets", :subtitle => "", :flash => flash }
 
+%p Buckets collect karma.
+
 #content
   - if ! @buckets.empty?
     %table

@@ -1,18 +1,16 @@
-%p Register a new machine that will be allowed to connect to the karma server.
-
 = f.error_messages
 
 %p
   = f.label :hostname
-  %span.explanation
-    The hostname of the machine that will be connecting to the karma server.
   %br/
   = f.text_field :hostname
+  %span.explanation
+    The hostname of the machine that will be connecting to the karma server.
   
 %p
-  = f.label :ip_address
-  %span.explanation
-    This must match the machine that's connecting to the karma server.
+  = f.label :ip_address, "IP Address"
   %br/
   = f.text_field :ip_address
+  %span.explanation
+    This must match the machine that's connecting to the karma server.
 

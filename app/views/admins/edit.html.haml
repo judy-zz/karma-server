@@ -3,4 +3,4 @@
   = render :partial => "form", :locals => { :f => f }
   
   %button{:type => "submit", :name => "commit", :value => "Update", :class => 'button positive'} Update Admin
-  = link_to "Cancel", admin_path(@admin), :class => "button"
+  = link_to "Cancel", :back, :class => "button"
