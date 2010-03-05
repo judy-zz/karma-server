@@ -28,3 +28,8 @@ Adjustment.blueprint do
   bucket { Bucket.make }
   value  { (-10..10).collect.rand }
 end
+
+Website.blueprint do
+  url  { 'http://' + Faker::Internet.domain_name }
+  name { Faker::Company.catch_phrase }
+end
