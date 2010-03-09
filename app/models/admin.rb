@@ -15,4 +15,3 @@ end
 #  created_at  :datetime
 #  updated_at  :datetime
 #  super_admin :boolean         default(FALSE), not null
-#
