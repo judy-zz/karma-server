@@ -29,6 +29,7 @@ class WebsitesController < ApplicationController
   end
 
   def update
+    params[:website][:admin_ids] ||= []
     @website = Website.find(params[:id])
     if @website.update_attributes(params[:website])
       flash[:success] = "Website was successfully saved."
@@ -49,7 +50,7 @@ class WebsitesController < ApplicationController
   private
   
   def get_all_admins
-    @admins = Admin.all
+    @all_admins = Admin.all
   end
   
 end

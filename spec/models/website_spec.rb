@@ -9,7 +9,7 @@ describe Website do
   end
   
   it { should have_many(:admins_websites) }
-  it { should have_many(:admins).through(:admins_websites)          }
+  it { should have_many(:admins).through(:admins_websites) }
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:url)  }
   it { should validate_uniqueness_of(:url)}

@@ -8,9 +8,11 @@
   %br
   = f.text_field :url
   
-- f.fields_for :admin do |a|
-  %p
-    %label Admins with access
-    %ul
-    - @admins.each do |admin|
-      %li= admin.name
+%p
+  %label Admins with access
+  %ul
+  - @all_admins.each do |admin|
+    %li
+      = check_box_tag "website[admin_ids][]", admin.id, @website.admins.include?(admin)
+      = label_tag "website[admin_ids][]", admin.name
+      
