@@ -1,4 +1,12 @@
 = render :partial => "/shared/header", :locals => { :title => @admin.name, :subtitle => "", :flash => flash }
 
+- if @admin.websites.blank?
+  %h3== #{@admin.name} is not administering any websites
+- else
+  %h3 Websites this Admin can administor
+  %ul
+    %li MOCK 1
+    %li MOCK 2
+
 .button_row
   = link_to "Edit #{@admin.name}", edit_admin_path(@admin), :class => "button"

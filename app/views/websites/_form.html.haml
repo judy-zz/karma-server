@@ -7,3 +7,10 @@
   = f.label :url, "URL"
   %br
   = f.text_field :url
+  
+- f.fields_for :admin do |a|
+  %p
+    %label Admins with access
+    %ul
+    - for admin in @admins
+      %li= admin.name

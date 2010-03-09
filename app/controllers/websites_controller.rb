@@ -25,6 +25,7 @@ class WebsitesController < ApplicationController
 
   def edit
     @website = Website.find(params[:id])
+    @admins  = Admin.all
   end
 
   def update

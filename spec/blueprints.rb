@@ -40,3 +40,8 @@ Client.blueprint do
   ip_address { (1..4).collect { rand(255) }.join('.') }
   api_key    { ActiveSupport::SecureRandom.hex(16) }
 end
+
+AdminsWebsites.blueprint do
+  admin
+  website
+end
