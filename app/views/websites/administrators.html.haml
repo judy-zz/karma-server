@@ -1,0 +1,23 @@
+= render :partial => "/shared/header", :locals => { :title => "Administrator Permissions", :subtitle => "", :flash => flash }
+
+%p Check which admins should be able to modify websites.
+
+- form_tag('/websites/permissions', :method => :put) do
+  #content
+    - if ! @websites.empty?
+      %table
+        %tr
+          %td
+          - @all_admins.each do |admin|
+            %td= link_to admin.name, admin
+        - @websites.each do |website| 
+          %tr
+            %td.name= link_to website.name, website
+            - @all_admins.each do |admin|
+              %td= check_box_tag "permissions[#{website.id}][]", admin.id, website.admins.include?(admin)
+
+    - else
+      %p There are no websites.
+  .button_row
+    %button{:type => "submit", :name => "commit", :value => "Save", :class => 'button positive'} Save
+    = link_to "Cancel", :back, :class => "button"

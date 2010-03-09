@@ -8,6 +8,31 @@ class WebsitesController < ApplicationController
   def show
     @website = Website.find(params[:id])
   end
+  
+  def administrators
+    @websites = Website.all
+  end
+  
+  def permissions
+    ActiveRecord::Base.transaction do
+      AdminsWebsite.destroy_all
+      params[:permissions].each do |website_set|
+        @website = Website.find(website_set[0].to_i)
+        website_set[1].each do |admin_id|
+          @admin = Admin.find(admin_id.to_i)
+          if @website && @admin
+            @website.admins << @admin
+          end
+        end
+      end
+    end
+    
+    flash[:success] = "Permissions saved."
+  rescue
+    flash[:failure] = "Permissions did not save."
+  ensure
+    redirect_to :back
+  end
 
   def new
     @website = Website.new

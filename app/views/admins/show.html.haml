@@ -3,10 +3,10 @@
 - if @admin.websites.blank?
   %h3== #{@admin.name} is not administering any websites
 - else
-  %h3 Websites this Admin can administor
+  %h3 Websites
   %ul
-    %li MOCK 1
-    %li MOCK 2
+    - @admin.websites.each do |website|
+      %li= website.name
 
 .button_row
   = link_to "Edit #{@admin.name}", edit_admin_path(@admin), :class => "button"
