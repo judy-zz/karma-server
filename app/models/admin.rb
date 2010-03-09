@@ -1,5 +1,9 @@
 class Admin < ActiveRecord::Base
   validates_presence_of :name, :message => "can't be blank"
+  
+  def role
+    self.super_admin ? 'Super Admin' : 'Admin'
+  end
 end
 
 # == Schema Information
