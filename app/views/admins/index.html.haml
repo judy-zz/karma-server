@@ -7,7 +7,12 @@
     %table
       - @admins.each do |admin| 
         %tr
+          %th Name
+          %th Role
+          %th
+        %tr
           %td.name= link_to admin.name, admin
+          %td= admin.role
           %td
             = link_to "#{image_tag 'edit.png'} Edit", edit_admin_path(admin), :class => "button"
             = link_to "#{image_tag 'delete.png'} Destroy", admin, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{admin.name}", :class => "button"

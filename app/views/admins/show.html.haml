@@ -1,4 +1,4 @@
-= render :partial => "/shared/header", :locals => { :title => @admin.name, :subtitle => "", :flash => flash }
+= render :partial => "/shared/header", :locals => { :title => @admin.name, :subtitle => "Is a "+@admin.role, :flash => flash }
 
 .button_row
   = link_to "Edit #{@admin.name}", edit_admin_path(@admin), :class => "button"
