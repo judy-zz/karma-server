@@ -12,5 +12,5 @@
   %p
     %label Admins with access
     %ul
-    - for admin in @admins
+    - @admins.each do |admin|
       %li= admin.name

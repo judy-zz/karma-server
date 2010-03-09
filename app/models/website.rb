@@ -1,4 +1,6 @@
 class Website < ActiveRecord::Base
+  
+  has_many :admins_websites
   has_many :admins, :through => :admins_websites
   validates_presence_of :name, :url
   validates_format_of :url,

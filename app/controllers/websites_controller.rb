@@ -1,4 +1,5 @@
 class WebsitesController < ApplicationController
+  before_filter :get_all_admins
   
   def index
     @websites = Website.all
@@ -25,7 +26,6 @@ class WebsitesController < ApplicationController
 
   def edit
     @website = Website.find(params[:id])
-    @admins  = Admin.all
   end
 
   def update
@@ -44,6 +44,12 @@ class WebsitesController < ApplicationController
     @website.destroy
     flash[:success] = "Website was successfully destroyed."
     redirect_to websites_path
+  end
+  
+  private
+  
+  def get_all_admins
+    @admins = Admin.all
   end
   
 end

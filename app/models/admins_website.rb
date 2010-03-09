@@ -1,10 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-
-describe AdminsWebsite do
-  
-  it { should belong_to(:website) }
-  it { should belong_to(:admin)   }
-  
+class AdminsWebsite < ActiveRecord::Base
+  belongs_to :admin
+  belongs_to :website
 end
 
 # == Schema Information

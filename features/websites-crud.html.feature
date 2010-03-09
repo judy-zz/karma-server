@@ -6,6 +6,8 @@ Feature: Websites CRUD via HTML
     Background:
       Given I have an website with attributes id "1", name "West Arete Computing", and url "http://www.westarete.com"
       And I have an website with attributes id "2", name "Yahoo", and url "http://www.yahoo.com"
+      And I have an admin with attributes id "1" and name "Jim"
+      And I have an admin with attributes id "2" and name "Bob"
 
     Scenario: Create an website
       Given I am on the new website page

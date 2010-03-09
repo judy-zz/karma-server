@@ -41,7 +41,7 @@ Client.blueprint do
   api_key    { ActiveSupport::SecureRandom.hex(16) }
 end
 
-AdminsWebsites.blueprint do
+AdminsWebsite.blueprint do
   admin
   website
 end

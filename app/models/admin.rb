@@ -1,5 +1,6 @@
 class Admin < ActiveRecord::Base
   
+  has_many :admins_websites
   has_many :websites, :through => :admins_websites
   validates_presence_of :name, :message => "can't be blank"
   
