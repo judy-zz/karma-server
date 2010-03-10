@@ -1,5 +1,6 @@
 class WebsitesController < ApplicationController
   before_filter :get_all_admins
+  before_filter :get_all_clients, :only => [:clients]
   
   def index
     @websites = Website.all
@@ -13,10 +14,10 @@ class WebsitesController < ApplicationController
     @websites = Website.all
   end
   
-  def permissions
+  def admin_permissions
     ActiveRecord::Base.transaction do
       AdminsWebsite.destroy_all
-      params[:permissions].each do |website_set|
+      params[:admin_permissions].each do |website_set|
         @website = Website.find(website_set[0].to_i)
         website_set[1].each do |admin_id|
           @admin = Admin.find(admin_id.to_i)
@@ -35,6 +36,26 @@ class WebsitesController < ApplicationController
   
   def clients
     @websites = Website.all
+  end
+  
+  def client_permissions
+    ActiveRecord::Base.transaction do
+      ClientsWebsite.destroy_all
+      params[:client_permissions].each do |client_set|
+        @website = Website.find(client_set[0].to_i)
+        client_set[1].each do |client_id|
+          @client = Client.find(client_id.to_i)
+          if @website && @client
+            @website.clients << @client
+          end
+        end
+      end
+    end    
+      flash[:success] = "Permissions saved."
+    rescue
+      flash[:failure] = "Permissions did not save."
+    ensure
+      redirect_to :back
   end
 
   def new
@@ -78,7 +99,11 @@ class WebsitesController < ApplicationController
   private
   
   def get_all_admins
-    @all_admins = Admin.all
+    @all_admins  = Admin.all
+  end
+  
+  def get_all_clients
+    @all_clients = Client.all
   end
   
 end
