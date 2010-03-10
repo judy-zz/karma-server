@@ -5,7 +5,6 @@ describe Client do
     @client = Client.make
   end
 
-  it { should belong_to               :website    }
   it { should validate_presence_of    :hostname   }
   it { should validate_presence_of    :ip_address }
   it { should validate_uniqueness_of  :hostname   }
