@@ -1,6 +1,6 @@
 class WebsitesController < ApplicationController
   before_filter :get_all_admins,  :only => [:administrators, :edit, :new]
-  before_filter :get_all_clients, :only => [:clients]
+  before_filter :get_all_clients, :only => [:clients       , :edit, :new]
   
   def index
     @websites = Website.all
@@ -78,7 +78,8 @@ class WebsitesController < ApplicationController
   end
 
   def update
-    params[:website][:admin_ids] ||= []
+    params[:website][:admin_ids]  ||= []
+    params[:website][:client_ids] ||= []
     @website = Website.find(params[:id])
     if @website.update_attributes(params[:website])
       flash[:success] = "Website was successfully saved."

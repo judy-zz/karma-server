@@ -7,6 +7,14 @@
   %ul
   - @website.admins.each do |admin|
     %li= admin.name
+    
+%h3 Clients
+- if @website.clients.blank?
+  %p This website has no clients.
+- else
+  %ul
+  - @website.clients.each do |client|
+    %li= client.hostname
   
 
 .button_row
