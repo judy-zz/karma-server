@@ -25,13 +25,12 @@ class WebsitesController < ApplicationController
           end
         end
       end
-    end
-    
-    flash[:success] = "Permissions saved."
-  rescue
-    flash[:failure] = "Permissions did not save."
-  ensure
-    redirect_to :back
+    end    
+      flash[:success] = "Permissions saved."
+    rescue
+      flash[:failure] = "Permissions did not save."
+    ensure
+      redirect_to :back
   end
 
   def new
