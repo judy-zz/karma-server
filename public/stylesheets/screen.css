@@ -519,7 +519,11 @@ body {
 h1, h2, h3, h4 {
   font-family: "Myriad Pro","Helvetica Neue",Helvetica,Arial,sans-serif !important; }
 
-/* line 55, ../../app/stylesheets/screen.sass */
+/* line 54, ../../app/stylesheets/screen.sass */
+h3 {
+  margin-top: 20px; }
+
+/* line 57, ../../app/stylesheets/screen.sass */
 .button_row {
   margin-top: 1em; }
 
