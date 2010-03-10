@@ -5,6 +5,8 @@ Feature: Users via HTML
   
   Background:
     Given a typical set of adjustments, buckets, and users
+    And an admin "jimjim" with password "jimjim"
+    And I log in as "jimjim" with password "jimjim"
   
   Scenario: Get a list of users
     Given I am on the users page
@@ -103,10 +105,6 @@ Feature: Users via HTML
     Then I should see "New User"
     And I should see an error message
     And I should see "Permalink can't be index, new, create, edit, update or show"
-  
-  Scenario: Get a non-existent user
-    When I GET "/users/doesn't exist.html"
-    Then I should see "The page you were looking for doesn't exist."
   
   Scenario: Attempt to Create a user that already exists
     Given I am on the new user page

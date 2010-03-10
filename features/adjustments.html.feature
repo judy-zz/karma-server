@@ -2,6 +2,10 @@ Feature: Adjustments via HTML
   In order to tweak and report on changes to karma
   As an admin
   I want to be able to view and manipulate users' karma via my web browser
+  
+  Background:
+    Given an admin "jimjim" with password "jimjim"
+    And I log in as "jimjim" with password "jimjim"
 
   Scenario: Create a new adjustment
     Given a user "bob"
