@@ -1,5 +1,5 @@
 class WebsitesController < ApplicationController
-  before_filter :get_all_admins
+  before_filter :get_all_admins,  :only => [:administrators, :edit, :new]
   before_filter :get_all_clients, :only => [:clients]
   
   def index
