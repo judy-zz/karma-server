@@ -44,3 +44,8 @@ AdminsWebsite.blueprint do
   admin
   website
 end
+
+ClientsWebsite.blueprint do
+  client
+  website
+end

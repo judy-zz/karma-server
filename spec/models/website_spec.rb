@@ -8,11 +8,13 @@ describe Website do
     Website.make
   end
   
-  it { should have_many(:admins_websites) }
-  it { should have_many(:admins).through(:admins_websites) }
-  it { should validate_presence_of(:name) }
-  it { should validate_presence_of(:url)  }
-  it { should validate_uniqueness_of(:url)}
+  it { should have_many(:admins_websites)   }
+  it { should have_many(:clients_websites)  }
+  it { should have_many(:admins).through(:admins_websites)    }
+  it { should have_many(:clients).through(:clients_websites)  }
+  it { should validate_presence_of(:name)   }
+  it { should validate_presence_of(:url)    }
+  it { should validate_uniqueness_of(:url)  }
   
   describe "#url" do
     it "should be valid when url is well-formed" do
