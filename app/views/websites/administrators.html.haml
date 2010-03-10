@@ -1,6 +1,6 @@
-= render :partial => "/shared/header", :locals => { :title => "Administrator Permissions", :subtitle => "", :flash => flash }
+= render :partial => "/shared/header", :locals => { :title => "Websites", :subtitle => "Administrator Permissions", :flash => flash }
 
-%p Check which admins should be able to modify websites.
+%p Manage administrator's privileges to manage websites
 
 - form_tag('/websites/admin_permissions', :method => :put) do
   #content

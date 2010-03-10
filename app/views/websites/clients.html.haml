@@ -1,6 +1,6 @@
-= render :partial => "/shared/header", :locals => { :title => "Websites' Client list", :subtitle => "", :flash => flash }
+= render :partial => "/shared/header", :locals => { :title => "Websites", :subtitle => "Client Permissions", :flash => flash }
 
-%p Check which clients should be able to access websites.
+%p Manage client who can access websites
 
 - form_tag('/websites/client_permissions', :method => :put) do
   #content
