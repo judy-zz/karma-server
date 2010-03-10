@@ -14,7 +14,7 @@
           %tr
             %td.name= link_to website.name, website
             - @all_admins.each do |admin|
-              %td= check_box_tag "admin_permissions[#{website.id}][]", admin.id, website.admins.include?(admin)
+              %td.table_checkbox= check_box_tag "admin_permissions[#{website.id}][]", admin.id, website.admins.include?(admin)
 
     - else
       %p There are no websites.
