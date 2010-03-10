@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100310003225) do
+ActiveRecord::Schema.define(:version => 20100310200819) do
 
   create_table "adjustments", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -23,6 +23,10 @@ ActiveRecord::Schema.define(:version => 20100310003225) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "login",             :null => false
+    t.string   "crypted_password",  :null => false
+    t.string   "password_salt",     :null => false
+    t.string   "persistence_token", :null => false
   end
 
   add_index "admins", ["name"], :name => "index_admins_on_name"
