@@ -1,6 +1,6 @@
 class WebsitesController < ApplicationController
-  before_filter :get_all_admins,  :only => [:administrators, :edit, :new, :update]
-  before_filter :get_all_clients, :only => [:clients       , :edit, :new, :update]
+  before_filter :get_all_admins  , :except => [:index, :destroy]
+  before_filter :get_all_clients , :except => [:index, :destroy]
   
   def index
     @websites = Website.all
