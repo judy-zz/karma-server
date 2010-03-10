@@ -6,6 +6,9 @@ class Client < ActiveRecord::Base
     :ip_address => "IP Address"
   }
   
+  has_many :clients_websites
+  has_many :websites, :through => :clients_websites, :uniq => true
+  
   before_validation_on_create :generate_api_key
   
   validates_presence_of   :hostname 
