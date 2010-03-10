@@ -32,6 +32,10 @@ class WebsitesController < ApplicationController
     ensure
       redirect_to :back
   end
+  
+  def clients
+    @websites = Website.all
+  end
 
   def new
     @website = Website.new

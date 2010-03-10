@@ -1,0 +1,8 @@
+= render :partial => "/shared/header", :locals => { :title => "Websites' Client list", :subtitle => "", :flash => flash }
+
+%ul
+  - @websites.each do |w|
+    %li== #{h(w.name)}'s Clients:
+    %ul
+      - w.clients.each do |c|
+        %li=h c.hostname

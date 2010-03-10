@@ -2,10 +2,12 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :admins
   map.resources :buckets
-  map.resources :websites, :collection => {:administrators => :get, :permissions => :put}
-  
   map.resources :clients
-  
+  map.resources :websites, :collection => {
+    :administrators     => :get, 
+    :clients            => :get, 
+    :permissions        => :put}
+
   map.with_options :controller => :adjustments do |m|
     m.new_adjustment      '/users/:user_permalink/buckets/:bucket_permalink/adjustments/new.:format', :action => :new,    :conditions => { :method => :get }
     m.connect             '/users/:user_permalink/buckets/:bucket_permalink/adjustments.:format',     :action => :create, :conditions => { :method => :post }
