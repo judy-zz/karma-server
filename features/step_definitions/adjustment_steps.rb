@@ -9,11 +9,6 @@ Given /^a typical set of adjustments, buckets, and users$/ do
     | 101  | plants    | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
     | 102  | animals   | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
     })
-  And "the following admins:", table(%{
-    | id   | name | created_at              | updated_at              |
-    | 101  | jim  | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
-    | 102  | dan  | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
-    })
   And "the following adjustments:", table(%{
     | id   | user_id | bucket_id | value | created_at              | updated_at              |
     | 101  | 101     | 101       | 1     | 2009-09-10 15:06:25 UTC | 2009-09-10 15:06:25 UTC |

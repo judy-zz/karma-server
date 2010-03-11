@@ -6,6 +6,8 @@ Feature: Clients CRUD via HTML
     Background:
       Given I have an client with attributes id "1", hostname "West Arete Computing", and ip_address "20.30.40.50"
       And I have an client with attributes id "2", hostname "Yahoo", and ip_address "10.20.30.40"
+      And an admin "jimjim" with password "jimjim"
+      And I log in as "jimjim" with password "jimjim"
 
     Scenario: Create a client
       Given I am on the new client page

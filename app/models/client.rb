@@ -1,11 +1,13 @@
 # A Client is a web server that serves a Website. This represents the machines
 # that exchange data with the Karma server.
 class Client < ActiveRecord::Base
-  belongs_to :website
   
   HUMANIZED_ATTRIBUTES = {
     :ip_address => "IP Address"
   }
+  
+  has_many :clients_websites
+  has_many :websites, :through => :clients_websites, :uniq => true
   
   before_validation_on_create :generate_api_key
   

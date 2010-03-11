@@ -3,6 +3,7 @@
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
+  before_filter :authenticate
   
   # Turning off forgery protection for now since it was unexpectedly messing
   # with json API requests. Not sure why.
@@ -12,6 +13,7 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   
   protected
+  
   
   def rescue_action(exception)
     case exception
@@ -29,6 +31,18 @@ class ApplicationController < ActionController::Base
       format.xml  { render :nothing => true, :status => :not_found }
     end
     true
+  end
+  
+  private
+  
+  def authenticate
+    authenticate_or_request_with_http_basic do |username, password|
+      if @current_admin = Admin.find_by_login(username)
+        @current_admin.valid_password?(password)
+      else
+        false
+      end
+    end
   end
 
 end

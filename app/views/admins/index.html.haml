@@ -5,11 +5,11 @@
 #content
   - if ! @admins.empty?
     %table
+      %tr
+        %th Name
+        %th Role
+        %th
       - @admins.each do |admin| 
-        %tr
-          %th Name
-          %th Role
-          %th
         %tr
           %td.name= link_to admin.name, admin
           %td= admin.role

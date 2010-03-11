@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100309214540) do
+ActiveRecord::Schema.define(:version => 20100310200819) do
 
   create_table "adjustments", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -23,10 +23,24 @@ ActiveRecord::Schema.define(:version => 20100309214540) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "super_admin", :default => false, :null => false
+    t.string   "login",                                :null => false
+    t.string   "crypted_password",                     :null => false
+    t.string   "password_salt",                        :null => false
+    t.string   "persistence_token",                    :null => false
+    t.boolean  "super_admin",       :default => false, :null => false
   end
 
   add_index "admins", ["name"], :name => "index_admins_on_name"
+
+  create_table "admins_websites", :force => true do |t|
+    t.integer  "admin_id",   :null => false
+    t.integer  "website_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "admins_websites", ["admin_id"], :name => "index_admins_websites_on_admin_id"
+  add_index "admins_websites", ["website_id"], :name => "index_admins_websites_on_website_id"
 
   create_table "buckets", :force => true do |t|
     t.string   "permalink"
@@ -39,6 +53,13 @@ ActiveRecord::Schema.define(:version => 20100309214540) do
     t.string   "ip_address"
     t.string   "api_key"
     t.integer  "website_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "clients_websites", :force => true do |t|
+    t.integer  "client_id",  :null => false
+    t.integer  "website_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

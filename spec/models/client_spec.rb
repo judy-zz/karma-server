@@ -4,8 +4,9 @@ describe Client do
   before(:each) do
     @client = Client.make
   end
-
-  it { should belong_to               :website    }
+  
+  it { should have_many(:clients_websites)  }
+  it { should have_many(:websites).through(:clients_websites) }
   it { should validate_presence_of    :hostname   }
   it { should validate_presence_of    :ip_address }
   it { should validate_uniqueness_of  :hostname   }

@@ -6,6 +6,8 @@ Feature: Buckets via HTML
   Background:
     Given I have a bucket with attributes id "1" and permalink "Animals"
     And I have a bucket with attributes id "2" and permalink "Plants"
+    And an admin "jimjim" with password "jimjim"
+    And I log in as "jimjim" with password "jimjim"
 
 # TODO: Fix features which use the "should be on the '' bucket page" step
   Scenario: Create a bucket
@@ -14,10 +16,6 @@ Feature: Buckets via HTML
     And I press "Create Bucket"
     #Then I should be on the "Bugs" bucket page
     And I should see "Bucket was successfully created."
-  
-  Scenario: Attempt to Create a bucket via PUT with an invalid permalink
-    When I PUT "/buckets/doesnt-exist" with body "bucket[permalink]="
-    And I should see "Bucket couldn't be created."
   
   Scenario: Attempt to Create a bucket with a period
     Given I am on the new bucket page

@@ -1,0 +1,21 @@
+= render :partial => "/shared/header", :locals => { :title => "Websites", :subtitle => "Client Permissions", :flash => flash }
+
+%p Manage clients who can access websites
+
+- form_tag('/websites/client_permissions', :method => :put) do
+  #content
+    - if ! @websites.empty?
+      %table
+        %tr
+          %td
+          - @all_clients.each do |client|
+            %td= link_to client.hostname, client
+        - @websites.each do |website| 
+          %tr
+            %td.name= link_to website.name, website
+            - @all_clients.each do |client|
+              %td.table_checkbox= check_box_tag "client_permissions[#{website.id}][]", client.id, website.clients.include?(client)
+
+  .button_row
+    %button{:type => "submit", :name => "commit", :value => "Save", :class => 'button positive'} Save
+    = link_to "Cancel", websites_path, :class => "button"

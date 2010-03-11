@@ -3,6 +3,10 @@ Feature: Dashboard via HTML
   As an admin
   I want to be able to access these features
   
+  Background:
+    Given an admin "jimjim" with password "jimjim"
+    When I log in as "jimjim" with password "jimjim"
+  
   Scenario: Access the Home page
     When I go to the home page
     Then I should see "Users"
