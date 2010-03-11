@@ -52,7 +52,7 @@ private
   
   def require_super_admin
     unless current_admin && current_admin.super_admin
-      flash[:failure] = "You must have sufficient privileges"
+      flash[:failure] = "You must have insufficient privileges"
       redirect_to :back
       return false
     end
