@@ -1,4 +1,5 @@
 class AdminsController < ApplicationController
+  before_filter :require_super_admin, :only => [:new, :create, :destroy]
   
   def index
     @admins = Admin.all
@@ -14,6 +15,7 @@ class AdminsController < ApplicationController
 
   def create
     @admin = Admin.new(params[:admin])
+    
     if @admin.save
       flash[:success] = "Admin was successfully created."
       redirect_to @admin
@@ -31,14 +33,16 @@ class AdminsController < ApplicationController
     authorize = false
     @admin = Admin.find(params[:id])
     @admin.attributes = params[:admin]
-    
     if @admin.changes["super_admin"].nil? && @admin == current_admin
       authorized = true
     elsif @admin.changes.size < 2 && @admin.changes["super_admin"] && current_admin.super_admin == true
       authorized = true
     end
     
-    if authorized
+    if @admin.changes.size == 0
+      flash[:success] = "No changes were made to this admin."
+      redirect_to @admin
+    elsif authorized
       if @admin.save
         flash[:success] = "Admin was successfully saved."
         redirect_to @admin
