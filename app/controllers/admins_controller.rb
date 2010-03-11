@@ -28,14 +28,29 @@ class AdminsController < ApplicationController
   end
 
   def update
+    authorize = false
     @admin = Admin.find(params[:id])
-    if @admin.update_attributes(params[:admin])
-      flash[:success] = "Admin was successfully saved."
-      redirect_to @admin
-    else
-      flash[:failure] = "Admin couldn't be saved."
-      render :action => "edit"
+    @admin.attributes = params[:admin]
+    
+    if @admin.changes["super_admin"].nil? && @admin == current_admin
+      authorized = true
+    elsif @admin.changes.size < 2 && @admin.changes["super_admin"] && current_admin.super_admin == true
+      authorized = true
     end
+    
+    if authorized
+      if @admin.save
+        flash[:success] = "Admin was successfully saved."
+        redirect_to @admin
+      else
+        flash[:failure] = "Admin couldn't be saved."
+        render :action => "edit"
+      end
+    else
+      flash[:failure] = "You must have sufficient privileges"
+      redirect_to @admin
+    end
+    
   end
 
   def destroy
