@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   
   def authenticate
             debugger
-
+    
     authenticate_or_request_with_http_basic do |username, password|
       if username == nil
         # @current_client = Client.find_by_ip_address(USER_AGENT)
