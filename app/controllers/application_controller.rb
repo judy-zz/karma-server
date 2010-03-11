@@ -36,7 +36,12 @@ class ApplicationController < ActionController::Base
   private
   
   def authenticate
+            debugger
+
     authenticate_or_request_with_http_basic do |username, password|
+      if username == nil
+        # @current_client = Client.find_by_ip_address(USER_AGENT)
+      end
       if @current_admin = Admin.find_by_login(username)
         @current_admin.valid_password?(password)
       else

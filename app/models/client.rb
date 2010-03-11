@@ -6,6 +6,14 @@ class Client < ActiveRecord::Base
     :ip_address => "IP Address"
   }
   
+  acts_as_authentic do |config|
+    config.crypted_password_field = :crypted_api_key
+    config.password_salt_field = :api_key_salt
+    config.require_password_confimation = false
+    config.validate_login_field = false
+    # config.login_field = :ip_address
+  end
+  
   has_many :clients_websites
   has_many :websites, :through => :clients_websites, :uniq => true
   
