@@ -4,7 +4,7 @@ describe Admin do
 
   it { should have_many(:admins_websites) }
   it { should have_many(:websites).through(:admins_websites) }
-  it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:name)    }
   
   before(:each) do
     @valid_attributes = {
@@ -44,7 +44,8 @@ describe Admin do
   describe "#role" do
     describe "when super admin is false" do
       before(:each) do
-        @admin = Admin.make(:super_admin => false)
+        @admin = Admin.new(@valid_attributes)
+        @admin.super_admin = false
       end
       it "it should be 'Admin' " do
         @admin.role.should == 'Admin'
@@ -53,7 +54,8 @@ describe Admin do
     
     describe "when super_admin is true" do
       before(:each) do
-        @admin = Admin.make(:super_admin => true)
+        @admin = Admin.new(@valid_attributes)
+        @admin.super_admin = true
       end
       it "it should be 'Super Admin'" do
         @admin.role.should == 'Super Admin'
