@@ -4,7 +4,7 @@ Feature: Admin CRUD via HTML
   I want to manage admins
 
     Background:
-      Given an admin "jimjim" with password "jimjim"
+      Given a superadmin "jimjim" with password "jimjim"
       And an admin "bobbob" with password "bobbob"
       And I log in as "jimjim" with password "jimjim"
 

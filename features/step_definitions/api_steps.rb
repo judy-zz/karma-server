@@ -1,8 +1,13 @@
+Given /^a client with hostname "([^\"]*)" and api key "([^\"]*)"$/ do |hostname, api_key|
+  client = Client.create!(:hostname => hostname, :ip_address => "127.0.0.1")
+  client.update_attribute(:api_key, api_key)
+end
+
 When /^I (GET|PUT|POST|DELETE|HEAD|OPTIONS|PROPFIND|TRACE) "([^\"]*)"( with body "(.*)")?$/ do |verb, path, clause, body|
   # Perform the action at a precise time, so we can anticipate the resulting
   # ActiveRecord timestamps.
   at_time(Time.utc(2009,9,9, 12,0,0)) do
-    send verb.downcase.to_sym, path, body
+    visit path, verb.downcase.to_sym, body
   end
 end
 
@@ -10,7 +15,7 @@ When /^I (GET|PUT|POST|DELETE|HEAD|OPTIONS|PROPFIND|TRACE) "([^\"]*)" with a bod
   # Perform the action at a precise time, so we can anticipate the resulting
   # ActiveRecord timestamps.
   at_time(Time.utc(2009,9,9, 12,0,0)) do
-    send verb.downcase.to_sym, path, body
+    visit path, verb.downcase.to_sym, body
   end
 end
 
