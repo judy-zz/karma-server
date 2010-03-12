@@ -15,6 +15,7 @@ class AdminsController < ApplicationController
 
   def create
     @admin = Admin.new(params[:admin])
+    @admin.super_admin = params[:admin][:super_admin]
     
     if @admin.save
       flash[:success] = "Admin was successfully created."
