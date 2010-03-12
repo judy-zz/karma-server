@@ -9,4 +9,5 @@
       %li= website.name
 
 .button_row
-  = link_to "Edit #{@admin.name}", edit_admin_path(@admin), :class => "button"
+  - if current_admin.super_admin? || current_admin == @admin
+    = link_to "Edit #{@admin.name}", edit_admin_path(@admin), :class => "button"
