@@ -8,7 +8,7 @@ Feature: Websites CRUD via HTML
       And I have an website with attributes id "2", name "Yahoo", and url "http://www.yahoo.com"
       And I have an admin with attributes id "1" and name "Jim"
       And I have an admin with attributes id "2" and name "Bob"
-      And a superadmin "jimjim" with password "jimjim"
+      And an admin "jimjim" with password "jimjim"
       And I log in as "jimjim" with password "jimjim"
 
     Scenario: Create an website
