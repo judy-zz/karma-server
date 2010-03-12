@@ -16,7 +16,7 @@ class Admin < ActiveRecord::Base
   attr_protected :super_admin
   
   def role
-    self.super_admin ? 'Super Admin' : 'Admin'
+    self.super_admin? ? 'Super Admin' : 'Admin'
   end
 end
 
