@@ -9,4 +9,4 @@
     = link_to "#{image_tag 'client.png'} Clients", clients_path, :class => "button"
   %p
     You are logged in as
-    = current_admin.name + (current_admin.super_admin? ? ", Super Admin" : ".")
+    = current_admin.name

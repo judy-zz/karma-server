@@ -1,13 +1,7 @@
-= render :partial => "/shared/header", :locals => { :title => @admin.name, :subtitle => @admin.role, :flash => flash }
+= render :partial => "/shared/header", :locals => { :title => @admin.name, :subtitle => "", :flash => flash }
 
-- if @admin.websites.blank?
-  %h3== #{@admin.name} is not administering any websites
-- else
-  %h3 Websites Administering
-  %ul
-    - @admin.websites.each do |website|
-      %li= website.name
+%p== #{h(@admin.name)} is an admin
 
 .button_row
-  - if current_admin.super_admin? || current_admin == @admin
+  - if current_admin == @admin
     = link_to "Edit #{@admin.name}", edit_admin_path(@admin), :class => "button"

@@ -1,12 +1,4 @@
 = render :partial => "/shared/header", :locals => { :title => @website.name, :subtitle => @website.url, :flash => flash }
-
-%h3 Administrators
-- if @website.admins.blank?
-  %p This website has no administrators.
-- else
-  %ul
-  - @website.admins.each do |admin|
-    %li= admin.name
     
 %h3 Clients
 - if @website.clients.blank?
@@ -16,8 +8,6 @@
   - @website.clients.each do |client|
     %li= client.hostname
   
-
 .button_row
-  - if current_admin.super_admin? || @website.admin_authorized?(current_admin)
-    = link_to "Edit Website", edit_website_path(@website), :class => "button"
+  = link_to "Edit Website", edit_website_path(@website), :class => "button"
     
