@@ -27,12 +27,19 @@ describe Client do
     end
     
     describe "when the IP address is improperly formed" do
-      before(:each) do
-        @client = Client.new(:ip_address => "10.0.0.500")
-      end
       it "should return an ip_address error" do
-        @client.should_not be_valid
-        @client.errors[:ip_address].should == "is not valid"
+        bad_ips = [
+          'asdf',           # Nothing like an IP address
+          '10.0.0.500',     # last byte too large
+          'i.am.awe.some',  # strings. not awesome.
+          '10.1.2',         # Not enough bytes.
+          '10.1.2.3.4',     # too many bytes.
+        ]
+        bad_ips.each do |bad_ip_address|
+          @client.ip_address = bad_ip_address
+          @client.should_not be_valid
+          @client.errors[:ip_address].should include("is not valid")
+        end
       end
     end
   end

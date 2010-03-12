@@ -30,13 +30,13 @@ class Client < ActiveRecord::Base
   
   # we want the ip address to be formatted properly
   def valid_ip_address
-    if ip_address
-      address_bytes = ip_address.split('.')
-      
-      if address_bytes.detect { |b| b.to_i < 0 || b.to_i > 255 } || address_bytes.size != 4
-        self.errors.add(:ip_address, "is not valid")
-      end
-    end
+    return if self.ip_address.blank?
+    raise ArgumentError if ! self.ip_address.respond_to?(:split)
+    bytes = self.ip_address.split('.')
+    raise ArgumentError if bytes.length != 4
+    raise ArgumentError if bytes.detect { |b| Integer(b) < 0 || Integer(b) > 254 }
+  rescue ArgumentError
+    self.errors.add(:ip_address, "is not valid")
   end
 
 end
