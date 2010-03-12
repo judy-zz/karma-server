@@ -65,3 +65,17 @@ end
 #  created_at :datetime
 #  updated_at :datetime
 #
+
+# == Schema Information
+#
+# Table name: clients
+#
+#  id         :integer         not null, primary key
+#  hostname   :string(255)
+#  ip_address :string(255)
+#  api_key    :string(255)
+#  website_id :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+

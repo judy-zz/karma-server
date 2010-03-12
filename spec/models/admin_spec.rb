@@ -2,8 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Admin do
 
-  it { should have_many(:admins_websites) }
-  it { should have_many(:websites).through(:admins_websites) }
   it { should validate_presence_of(:name)    }
   
   before(:each) do
@@ -38,28 +36,6 @@ describe Admin do
     it "should not create an admin object" do
       @admin.save.should be_false
       @admin.should_not be_valid
-    end
-  end
-  
-  describe "#role" do
-    describe "when super admin is false" do
-      before(:each) do
-        @admin = Admin.new(@valid_attributes)
-        @admin.super_admin = false
-      end
-      it "it should be 'Admin' " do
-        @admin.role.should == 'Admin'
-      end
-    end
-    
-    describe "when super_admin is true" do
-      before(:each) do
-        @admin = Admin.new(@valid_attributes)
-        @admin.super_admin = true
-      end
-      it "it should be 'Super Admin'" do
-        @admin.role.should == 'Super Admin'
-      end
     end
   end
   
