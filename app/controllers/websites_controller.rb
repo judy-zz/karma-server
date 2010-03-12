@@ -80,7 +80,7 @@ class WebsitesController < ApplicationController
       #show the website
     else
       flash[:failure] = "You have insufficient privileges"
-      redirect_to :back
+      render :action => "edit"
     end
   end
 
