@@ -9,13 +9,6 @@
   = f.text_field :url
   
 %p
-  %label Admins with access
-  %ul
-  - @all_admins.each do |admin|
-    %li
-      = check_box_tag "website[admin_ids][]", admin.id, @website.admins.include?(admin)
-      = label_tag     "website[admin_ids][]", admin.name
-%p
   %label Clients with access
   %ul
   - @all_clients.each do |client|

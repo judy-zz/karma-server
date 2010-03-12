@@ -4,7 +4,9 @@
 
 - form_tag('/websites/client_permissions', :method => :put) do
   #content
-    - if ! @websites.empty?
+    - if @websites.empty? || @all_clients.empty?
+      %h3 To set permissions, we need at least 1 website and 1 client
+    - else
       %table
         %tr
           %td
@@ -15,6 +17,7 @@
             %td.name= link_to website.name, website
             - @all_clients.each do |client|
               %td.table_checkbox= check_box_tag "client_permissions[#{website.id}][]", client.id, website.clients.include?(client)
+
 
   .button_row
     %button{:type => "submit", :name => "commit", :value => "Save", :class => 'button positive'} Save

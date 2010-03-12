@@ -5,7 +5,6 @@ require "machinist/active_record"
 Sham.permalink { Faker::Name.name.gsub(/[^\w]+/, '-') }
 Sham.url { "http://" + Faker::Internet.domain_name }
 Sham.name { Faker::Name.name }
-Sham.super_admin { rand(2) == 0 ? true : false }
 
 Bucket.blueprint do
   permalink
@@ -13,7 +12,6 @@ end
 
 Admin.blueprint do
   name
-  super_admin
 end
 
 Website.blueprint do
@@ -40,11 +38,6 @@ Client.blueprint do
   hostname   { Faker::Internet.domain_name }
   ip_address { (1..4).collect { rand(255) }.join('.') }
   api_key    { ActiveSupport::SecureRandom.hex(16) }
-end
-
-AdminsWebsite.blueprint do
-  admin
-  website
 end
 
 ClientsWebsite.blueprint do

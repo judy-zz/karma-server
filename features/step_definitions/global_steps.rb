@@ -1,9 +1,3 @@
-Given /^a superadmin "([^\"]*)" with password "([^\"]*)"$/ do |name, password|
-  a = Admin.create!(:name => name, :login => name, :password => password, :password_confirmation => password)
-  a.super_admin = true
-  a.save
-end
-
 Given /^there are no ([^\"]*)$/ do |objects|
   eval(objects.classify).destroy_all
 end

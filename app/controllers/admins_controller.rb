@@ -1,5 +1,4 @@
 class AdminsController < ApplicationController
-  before_filter :require_super_admin, :only => [:new, :create, :destroy]
   
   def index
     @admins = Admin.all
@@ -15,7 +14,6 @@ class AdminsController < ApplicationController
 
   def create
     @admin = Admin.new(params[:admin])
-    @admin.super_admin = params[:admin][:super_admin]
     
     if @admin.save
       flash[:success] = "Admin was successfully created."
@@ -28,19 +26,18 @@ class AdminsController < ApplicationController
 
   def edit
     @admin = Admin.find(params[:id])
-    if current_admin.super_admin? || @admin == current_admin
+    if @admin == current_admin
       # show the profile
     else
       flash[:failure] = "You have insufficient privileges"
-      redirect_to :back
+      redirect_to admins_path
     end
   end
 
   def update
     if @admin = Admin.find(params[:id])      
-      if current_admin.super_admin? || @admin == current_admin
+      if @admin == current_admin
         @admin.attributes   = params[:admin]
-        @admin.super_admin  = params[:admin][:super_admin] if current_admin.super_admin?
         if @admin.save
           flash[:success] = "Admin was successfully saved."
           redirect_to @admin
