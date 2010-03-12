@@ -27,34 +27,34 @@ class AdminsController < ApplicationController
 
   def edit
     @admin = Admin.find(params[:id])
+    if current_admin.super_admin? || @admin == current_admin
+      # show the profile
+    else
+      flash[:failure] = "You have insufficient privileges"
+      redirect_to :back
+    end
   end
 
   def update
-    authorize = false
-    @admin = Admin.find(params[:id])
-    @admin.attributes = params[:admin]
-    if @admin.changes["super_admin"].nil? && @admin == current_admin
-      authorized = true
-    elsif @admin.changes.size < 2 && @admin.changes["super_admin"] && current_admin.super_admin == true
-      authorized = true
-    end
-    
-    if @admin.changes.size == 0
-      flash[:success] = "No changes were made to this admin."
-      redirect_to @admin
-    elsif authorized
-      if @admin.save
-        flash[:success] = "Admin was successfully saved."
-        redirect_to @admin
+    if @admin = Admin.find(params[:id])      
+      if current_admin.super_admin? || @admin == current_admin
+        @admin.attributes   = params[:admin]
+        @admin.super_admin  = params[:admin][:super_admin] if current_admin.super_admin?
+        if @admin.save
+          flash[:success] = "Admin was successfully saved."
+          redirect_to @admin
+        else
+          flash[:failure] = "Updating the admin failed."
+          render :edit
+        end
       else
-        flash[:failure] = "Admin couldn't be saved."
-        render :action => "edit"
+        flash[:failure] = "You have insufficient privileges"
+        redirect_to @admin
       end
     else
-      flash[:failure] = "You must have sufficient privileges"
+      flash[:failure] = "Could not find the admin."
       redirect_to @admin
     end
-    
   end
 
   def destroy
