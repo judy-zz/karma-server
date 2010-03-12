@@ -1,5 +1,7 @@
 class AddAuthorizationParamsToAdmin < ActiveRecord::Migration
+  class Admin < ActiveRecord::Base ; end
   def self.up
+    Admin.destroy_all
     add_column :admins, :login, :string, :null => false
     add_column :admins, :crypted_password, :string, :null => false
     add_column :admins, :password_salt, :string, :null => false
