@@ -4,7 +4,9 @@ Feature: Buckets via JSON
   I want to be able to read and modify bucket resources via JSON.
   
   Background:
-    Given the following buckets:
+    Given a client with hostname "jimjim" and api key "123456789ABCDEFG"
+    And I log in as "" with password "123456789ABCDEFG"
+    And the following buckets:
       | id | permalink | created_at          | updated_at          |
       | 1  | Animals   | 2009-10-01 12:00:00 | 2009-10-01 12:00:00 | 
       | 2  | Plants    | 2009-10-02 12:00:00 | 2009-10-02 12:00:00 | 

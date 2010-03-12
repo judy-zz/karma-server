@@ -3,6 +3,10 @@ Feature: Users via XML
   As a client
   I want to be able to create, read, update, and delete User objects via XML.
 
+  Background: 
+    Given a client with hostname "jimjim" and api key "123456789ABCDEFG"
+    And I log in as "" with password "123456789ABCDEFG"
+
   Scenario: Get a list of users
     Given the following users:
       | id | permalink | created_at          | updated_at          |
