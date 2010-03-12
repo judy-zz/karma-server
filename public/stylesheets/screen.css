@@ -269,22 +269,26 @@ body {
   body #main #content table td.permalink, body #main #content table td.name {
     font-weight: 600;
     font-size: 1.5em; }
+  /* line 13, ../../app/stylesheets/modules/_typography.sass */
+  body #main #footer p {
+    margin-top: 1em;
+    font-size: 0.75em; }
 
-/* line 15, ../../app/stylesheets/modules/_typography.sass */
+/* line 18, ../../app/stylesheets/modules/_typography.sass */
 h1, h2, h3, h4 {
   font-family: "Myriad Pro","Helvetica Neue",Helvetica,Arial,sans-serif !important; }
 
-/* line 18, ../../app/stylesheets/modules/_typography.sass */
+/* line 21, ../../app/stylesheets/modules/_typography.sass */
 span.explanation {
   display: block;
   font-size: .8em; }
 
-/* line 22, ../../app/stylesheets/modules/_typography.sass */
+/* line 25, ../../app/stylesheets/modules/_typography.sass */
 dd {
   font-weight: 400;
   padding-bottom: .5em; }
 
-/* line 25, ../../app/stylesheets/modules/_typography.sass */
+/* line 28, ../../app/stylesheets/modules/_typography.sass */
 dt {
   font-weight: 600;
   padding-bottom: .5em; }

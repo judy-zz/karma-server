@@ -1,8 +1,12 @@
 %hr
-#footer.button_row
-  = link_to "#{image_tag 'home.png'} Home", home_path, :class => "button"
-  = link_to "#{image_tag 'admin.png'} Admins", admins_path, :class => "button"
-  = link_to "#{image_tag 'user.png'} Users", users_path, :class => "button"
-  = link_to "#{image_tag 'bucket.png'} Buckets", buckets_path, :class => "button"
-  = link_to "#{image_tag 'website.png'} Websites", websites_path, :class => "button"
-  = link_to "#{image_tag 'client.png'} Clients", clients_path, :class => "button"
+#footer
+  .button_row
+    = link_to "#{image_tag 'home.png'} Home", home_path, :class => "button"
+    = link_to "#{image_tag 'admin.png'} Admins", admins_path, :class => "button"
+    = link_to "#{image_tag 'user.png'} Users", users_path, :class => "button"
+    = link_to "#{image_tag 'bucket.png'} Buckets", buckets_path, :class => "button"
+    = link_to "#{image_tag 'website.png'} Websites", websites_path, :class => "button"
+    = link_to "#{image_tag 'client.png'} Clients", clients_path, :class => "button"
+  %p
+    You are logged in as
+    = current_admin.name + (current_admin.super_admin? ? ", Super Admin" : ".")
