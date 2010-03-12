@@ -36,16 +36,25 @@ protected
 private
 
   def authenticate
-            debugger
-    
     authenticate_or_request_with_http_basic do |username, password|
-      if username == nil
-        # @current_client = Client.find_by_ip_address(USER_AGENT)
-      end
-      if @current_admin = Admin.find_by_login(username)
-        @current_admin.valid_password?(password)
+      # Start off by making sure nobody is logged in.
+      @current_admin  = nil
+      @current_client = nil
+
+      # Determine what kind of account we're authenticating.
+      if username.blank? 
+        # We're authenticating a client.
+        if params["format"] && (params["format"] == "xml" || params["format"] == "json")
+          @current_client = Client.find(:first, :conditions => {
+            :ip_address => request.remote_ip, 
+            :api_key    => password})
+        end
       else
-        false
+        # We're authenticating an admin.
+        admin = Admin.find_by_login(username)
+        if admin && admin.valid_password?(password)
+          @current_admin = admin
+        end
       end
     end
   end
@@ -57,7 +66,8 @@ private
   
   def require_super_admin
     unless current_admin && current_admin.super_admin
-      flash[:failure] = "You must have insufficient privileges"
+      flash[:failure] = "You have insufficient privileges"
+      request.env["HTTP_REFERER"] ||= '/'
       redirect_to :back
       return false
     end
