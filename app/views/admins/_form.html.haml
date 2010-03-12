@@ -15,6 +15,7 @@
   = f.label :password_confirmation
   %br
   = f.password_field :password_confirmation, :value => ""
-%p
-  = f.check_box :super_admin
-  = f.label     :super_admin
+- if current_admin.super_admin?
+  %p
+    = f.check_box :super_admin
+    = f.label     :super_admin

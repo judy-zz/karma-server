@@ -1,4 +1,4 @@
-= render :partial => "/shared/header", :locals => { :title => @admin.name, :subtitle => "Is a "+@admin.role, :flash => flash }
+= render :partial => "/shared/header", :locals => { :title => @admin.name, :subtitle => @admin.role, :flash => flash }
 
 - if @admin.websites.blank?
   %h3== #{@admin.name} is not administering any websites
