@@ -3,5 +3,4 @@
 %p== #{h(@admin.name)} is an admin
 
 .button_row
-  - if current_admin == @admin
-    = link_to "Edit #{@admin.name}", edit_admin_path(@admin), :class => "button"
+  = link_to "Edit #{@admin.name}", edit_admin_path(@admin), :class => "button"
