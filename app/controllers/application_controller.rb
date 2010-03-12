@@ -63,14 +63,5 @@ private
     return @current_admin if defined?(@current_admin)
     authenticate
   end
-  
-  def require_super_admin
-    unless current_admin && current_admin.super_admin
-      flash[:failure] = "You have insufficient privileges"
-      request.env["HTTP_REFERER"] ||= '/'
-      redirect_to :back
-      return false
-    end
-  end
 
 end

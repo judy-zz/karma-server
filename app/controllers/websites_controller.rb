@@ -1,7 +1,6 @@
 class WebsitesController < ApplicationController
   before_filter :get_all_admins     , :except => [:index, :destroy]
   before_filter :get_all_clients    , :except => [:index, :destroy]
-  before_filter :require_super_admin, :except => [:index, :show, :edit, :update]
   
   def index
     @websites = Website.all
@@ -9,30 +8,6 @@ class WebsitesController < ApplicationController
 
   def show
     @website = Website.find(params[:id])
-  end
-  
-  def administrators
-    @websites = Website.all
-  end
-  
-  def admin_permissions
-    ActiveRecord::Base.transaction do
-      AdminsWebsite.destroy_all
-      params[:admin_permissions].each do |website_set|
-        @website = Website.find(website_set[0].to_i)
-        website_set[1].each do |admin_id|
-          @admin = Admin.find(admin_id.to_i)
-          if @website && @admin
-            @website.admins << @admin
-          end
-        end
-      end
-    end    
-      flash[:success] = "Permissions saved."
-    rescue
-      flash[:failure] = "Permissions did not save."
-    ensure
-      redirect_to :back
   end
   
   def clients
@@ -76,30 +51,20 @@ class WebsitesController < ApplicationController
 
   def edit
     @website = Website.find(params[:id])
-    if @website.admin_authorized?(current_admin) || current_admin.super_admin?
-      #show the website
-    else
-      flash[:failure] = "You have insufficient privileges"
-      render :action => "edit"
-    end
   end
 
   def update
-    params[:website][:admin_ids]  ||= []
     params[:website][:client_ids] ||= []
     if @website = Website.find(params[:id])
-      if @website.admin_authorized?(current_admin) || current_admin.super_admin?
-        if @website.update_attributes(params[:website])
-          flash[:success] = "Website was successfully saved."
-          redirect_to @website
-        else
-          flash[:failure] = "Website couldn't be saved."
-          render :action => "edit"
-        end
-      else
-        flash[:failure] = "You have insufficient privileges"
+
+      if @website.update_attributes(params[:website])
+        flash[:success] = "Website was successfully saved."
         redirect_to @website
+      else
+        flash[:failure] = "Website couldn't be saved."
+        render :action => "edit"
       end
+
     else 
       flash[:failure] = "Cound not find the website."
     end
