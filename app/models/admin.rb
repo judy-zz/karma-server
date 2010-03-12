@@ -8,17 +8,10 @@ class Admin < ActiveRecord::Base
 
   acts_as_authentic
     
-  has_many :admins_websites
-  has_many :websites, :through => :admins_websites, :uniq => true
   validates_presence_of :name, :message => "can't be blank"
-  
-  # prevent this attribute from being set during mass assignment
-  attr_protected :super_admin
-  
-  def role
-    self.super_admin? ? 'Super Admin' : 'Admin'
-  end
+
 end
+
 
 
 
@@ -34,6 +27,5 @@ end
 #  crypted_password  :string(255)     not null
 #  password_salt     :string(255)     not null
 #  persistence_token :string(255)     not null
-#  super_admin       :boolean         default(FALSE), not null
 #
 
