@@ -12,6 +12,14 @@ class Website < ActiveRecord::Base
   
   accepts_nested_attributes_for :admins
   
+  
+  # return true or false if the admin passed in belongs to the website's
+  # permission list
+  def admin_authorized?(admin)
+    self.admins.include?(admin)
+  end
+   
+  
 end
 # == Schema Information
 #

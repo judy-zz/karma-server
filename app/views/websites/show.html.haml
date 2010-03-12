@@ -18,4 +18,6 @@
   
 
 .button_row
-  = link_to "Edit Website", edit_website_path(@website), :class => "button"
+  - if current_admin.super_admin? || @website.admin_authorized?(current_admin)
+    = link_to "Edit Website", edit_website_path(@website), :class => "button"
+    

@@ -1,6 +1,7 @@
 class WebsitesController < ApplicationController
-  before_filter :get_all_admins  , :except => [:index, :destroy]
-  before_filter :get_all_clients , :except => [:index, :destroy]
+  before_filter :get_all_admins     , :except => [:index, :destroy]
+  before_filter :get_all_clients    , :except => [:index, :destroy]
+  before_filter :require_super_admin, :except => [:index, :show, :edit, :update]
   
   def index
     @websites = Website.all
@@ -75,18 +76,32 @@ class WebsitesController < ApplicationController
 
   def edit
     @website = Website.find(params[:id])
+    if @website.admin_authorized?(current_admin) || current_admin.super_admin?
+      #show the website
+    else
+      flash[:failure] = "You have insufficient privileges"
+      redirect_to :back
+    end
   end
 
   def update
     params[:website][:admin_ids]  ||= []
     params[:website][:client_ids] ||= []
-    @website = Website.find(params[:id])
-    if @website.update_attributes(params[:website])
-      flash[:success] = "Website was successfully saved."
-      redirect_to @website
-    else
-      flash[:failure] = "Website couldn't be saved."
-      render :action => "edit"
+    if @website = Website.find(params[:id])
+      if @website.admin_authorized?(current_admin) || current_admin.super_admin?
+        if @website.update_attributes(params[:website])
+          flash[:success] = "Website was successfully saved."
+          redirect_to @website
+        else
+          flash[:failure] = "Website couldn't be saved."
+          render :action => "edit"
+        end
+      else
+        flash[:failure] = "You have insufficient privileges"
+        redirect_to @website
+      end
+    else 
+      flash[:failure] = "Cound not find the website."
     end
   end
 
@@ -97,7 +112,7 @@ class WebsitesController < ApplicationController
     redirect_to websites_path
   end
   
-  private
+private
   
   def get_all_admins
     @all_admins  = Admin.all
