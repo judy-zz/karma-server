@@ -10,7 +10,7 @@ Feature: Dashboard via HTML
   Scenario: Access the Home page
     When I go to the home page
     Then I should see "Users"
-    And I should see "Buckets"
+    And I should see "Tags"
   
   Scenario: Access a bad url
     When I GET "/bad_path"

@@ -6,11 +6,11 @@
     = f.label :value
     %br
     = f.text_field :value
-  - unless @bucket
+  - unless @tag
     %p
-      = f.label :bucket_id, "Bucket"
+      = f.label :tag_id, "Tag"
       %br
-      = f.collection_select :bucket_id, Bucket.all, :id, :permalink
+      = f.collection_select :tag_id, Tag.all, :id, :permalink
   %button{:type => "submit", :name => "commit", :value => "Save", :class => 'button positive'} Apply Adjustment
   = link_to "Cancel", :back, :class => "button"
 

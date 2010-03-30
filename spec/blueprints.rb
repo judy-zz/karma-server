@@ -6,7 +6,7 @@ Sham.permalink { Faker::Name.name.gsub(/[^\w]+/, '-') }
 Sham.url { "http://" + Faker::Internet.domain_name }
 Sham.name { Faker::Name.name }
 
-Bucket.blueprint do
+Tag.blueprint do
   permalink
 end
 
@@ -25,7 +25,7 @@ end
 
 Adjustment.blueprint do
   user   { User.make }
-  bucket { Bucket.make }
+  tag { Tag.make }
   value  { (-10..10).collect.rand }
 end
 

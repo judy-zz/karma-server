@@ -47,7 +47,7 @@ affect any actual data.
 ==== Create a New User
 
 Create a new user "bob". You will automatically be able to access the value
-of bob's buckets -- you do not need to create the buckets individually. If
+of bob's tags -- you do not need to create the tags individually. If
 the user already exists, then this request will have no effect.
 
   PUT /users/bob
@@ -62,7 +62,7 @@ karma score, latest activity, related URI's, etc.
 ==== Update a User
   
 Rename the "bob" user to "bobby". The resource will now only be accessible as
-+/users/bobby+ (and likewise for any other place that this bucket is
++/users/bobby+ (and likewise for any other place that this tag is
 referenced). All data associated with the user is still intact.
 
   PUT /users/bob?permalink=bobby
@@ -82,96 +82,96 @@ negative points that have been accumulated.
 
   GET /users/bob/karma
 
-== Buckets
+== Tags
 
-Buckets are the containers that are used to hold karma points. The client 
-defines one or more unique buckets, and these buckets are then available to
+Tags are the containers that are used to hold karma points. The client 
+defines one or more unique tags, and these tags are then available to
 all users for storing points. 
 
-Like users, buckets only have one real attribute: their permalink. This is the
-last path segment of the URI that identifies the bucket. The permalink is set
+Like users, tags only have one real attribute: their permalink. This is the
+last path segment of the URI that identifies the tag. The permalink is set
 and chosen by the client.
 
-==== Get list of all Buckets
+==== Get list of all Tags
   
-Get a list of all buckets currently in the karma server database.  Will return
-the same information as the /buckets/plants action, mentioned below, but for
-all buckets.
+Get a list of all tags currently in the karma server database.  Will return
+the same information as the /tags/plants action, mentioned below, but for
+all tags.
 
-  GET /buckets
+  GET /tags
 
-==== Get a New Bucket
+==== Get a New Tag
   
-Get a new bucket object.  This method allows you to see what the user object 
+Get a new tag object.  This method allows you to see what the user object 
 looks like and allows you to manipulate and change it without any chance to 
 affect any actual data.
 
-  GET /buckets/new
+  GET /tags/new
 
-==== Create a Bucket
+==== Create a Tag
   
-Create a new bucket "plants". Each user in the system will automatically get
-"plants" bucket. If the bucket already exists, then this request will have
+Create a new tag "plants". Each user in the system will automatically get
+"plants" tag. If the tag already exists, then this request will have
 no effect.
 
-  PUT /buckets/plants
+  PUT /tags/plants
 
-==== Get Information on a Bucket
+==== Get Information on a Tag
   
-Get information about the bucket "plants".
+Get information about the tag "plants".
 
-  GET /buckets/plants
+  GET /tags/plants
 
-==== Update a Bucket
+==== Update a Tag
   
-Change the name of the plants bucket to "flowers". The resource will now only
-be accessible as +/buckets/flowers+ (and likewise for any other place that 
-this bucket is referenced). All data associated with the bucket is
+Change the name of the plants tag to "flowers". The resource will now only
+be accessible as +/tags/flowers+ (and likewise for any other place that 
+this tag is referenced). All data associated with the tag is
 still intact.
 
-  PUT /buckets/plants?permalink=flowers
+  PUT /tags/plants?permalink=flowers
 
-==== Delete a bucket
+==== Delete a tag
   
-Destroy the plants bucket. This will remove the plants bucket for each 
-user in the system, along with all karma associated with that bucket.
+Destroy the plants tag. This will remove the plants tag for each 
+user in the system, along with all karma associated with that tag.
 
-  DELETE /buckets/plants
+  DELETE /tags/plants
 
 == Adjustments
 
-Adjustments represent a change in karma for a given user, for a given bucket.
+Adjustments represent a change in karma for a given user, for a given tag.
 
-They differ from buckets and users in the way that they're created and
+They differ from tags and users in the way that they're created and
 referenced; they're not named explicitly by the client. Instead, they're 
 assigned an integer identifier by the karma server when they're created.
 
 ==== Increment Karma
 
-Increment the karma in bob's plant bucket by three points. The "Location"
+Increment the karma in bob's plant tag by three points. The "Location"
 header of the response redirects the client to the new adjustment.  
 
-  POST /users/bob/buckets/plants/adjustments?adjustment[value]=3
+  POST /users/bob/tags/plants/adjustments?adjustment[value]=3
 
 ==== Decrement Karma
   
-Decrement the karma in bob's plant bucket by one point. The "Location"
+Decrement the karma in bob's plant tag by one point. The "Location"
 header of the response redirects the client to the new adjustment.
 
-  POST /users/bob/buckets/plants/adjustments?adjustment[value]=-1
+  POST /users/bob/tags/plants/adjustments?adjustment[value]=-1
 
 ==== View an Adjustment
   
 Get the details for one particular adjustment from user Bob.
 
-  GET /users/bob/buckets/plants/adjustments/245
+  GET /users/bob/tags/plants/adjustments/245
 
 ==== View a new adjustment
   
 Get a new adjustment object to see what fields it consists of and to have a 
 sandbox adjustment object to play around with.
 
-  GET /users/bob/buckets/plants/adjustments/new
+  GET /users/bob/tags/plants/adjustments/new
 
 ==== View the History of All Adjustments for a User
 
@@ -180,14 +180,14 @@ Returns a history of all karma adjustments for user "bob".
 
   GET /users/bob/adjustments
 
-==== View the History of All Adjustments for a User's Bucket
+==== View the History of All Adjustments for a User's Tag
   
-Returns a history of all karma adjustments for bob's "plants" bucket.
+Returns a history of all karma adjustments for bob's "plants" tag.
 
-  GET /users/bob/buckets/plants/adjustments
+  GET /users/bob/tags/plants/adjustments
 
 ==== Delete an adjustment
   
 Remove (undo) one particular adjustment for user Bob.
 
-  DELETE /users/bob/buckets/plants/adjustments/245
+  DELETE /users/bob/tags/plants/adjustments/245

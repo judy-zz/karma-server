@@ -1,0 +1,6 @@
+= render :partial => "/shared/header", :locals => { :title => "New Tag", :subtitle => "", :flash => flash }
+- form_for(@tag) do |f| 
+  = render :partial => "form", :locals => { :f => f }
+  
+  %button{:type => "submit", :name => "commit", :value => "Create", :class => 'button positive'} Create Tag
+  = link_to "Cancel", :back, :class => "button"

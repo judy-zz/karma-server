@@ -1,3 +1,3 @@
-Given /^a bucket "([^\"]*)"$/ do |permalink|
-  Bucket.create!(:permalink => permalink)
+Given /^a tag "([^\"]*)"$/ do |permalink|
+  Tag.create!(:permalink => permalink)
 end

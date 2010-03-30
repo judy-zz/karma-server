@@ -4,7 +4,7 @@ Feature: Users via HTML
   I want to be able to create, read, update, and delete User objects via HTML.
   
   Background:
-    Given a typical set of adjustments, buckets, and users
+    Given a typical set of adjustments, tags, and users
     And an admin "jimjim" with password "jimjim"
     And I log in as "jimjim" with password "jimjim"
   
@@ -125,8 +125,8 @@ Feature: Users via HTML
     And I should see "Total:" in "tr[id=total] > th"
     And I should see "3" in "tr[id=total] > td"
   
-  Scenario: View a user when there are no buckets
-    Given there are no buckets
+  Scenario: View a user when there are no tags
+    Given there are no tags
     When I am on the "bob" user page
     Then I should see "bob"
     And I should not see "harry"

@@ -13,8 +13,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe User do
   before(:each) do
     @user = User.make
-    @plants =  Bucket.create! :permalink => "plants"
-    @animals = Bucket.create! :permalink => "animals"
+    @plants =  Tag.create! :permalink => "plants"
+    @animals = Tag.create! :permalink => "animals"
   end
   
   it { should validate_presence_of(:permalink) }
@@ -36,22 +36,22 @@ describe User do
   
   describe "when there are some adjustments" do
     before(:each) do
-      [[-1, @plants], [3, @plants], [2, @plants], [3, @animals]].each do |value,bucket|
+      [[-1, @plants], [3, @plants], [2, @plants], [3, @animals]].each do |value,tag|
         a = Adjustment.new :value => value
         a.user = @user
-        a.bucket = bucket
+        a.tag = tag
         a.save!
       end
     end
     
     describe "#karma_for" do    
-      it "should return the sum the user's adjustments for the given bucket" do
+      it "should return the sum the user's adjustments for the given tag" do
         @user.karma_for(@plants).should == 4
       end
     end
     
     describe "#karma" do
-      it "should return the sum of the user's adjustments for all buckets" do
+      it "should return the sum of the user's adjustments for all tags" do
         @user.karma.should == 7
       end
     end

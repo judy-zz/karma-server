@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
 
   map.resources :admins
-  map.resources :buckets
+  map.resources :tags
   map.resources :clients
   map.resources :websites, :collection => {
     :administrators       => :get, 
@@ -10,12 +10,12 @@ ActionController::Routing::Routes.draw do |map|
     :client_permissions   => :put}
 
   map.with_options :controller => :adjustments do |m|
-    m.new_adjustment      '/users/:user_permalink/buckets/:bucket_permalink/adjustments/new.:format', :action => :new,    :conditions => { :method => :get }
-    m.connect             '/users/:user_permalink/buckets/:bucket_permalink/adjustments.:format',     :action => :create, :conditions => { :method => :post }
-    m.adjustments         '/users/:user_permalink/buckets/:bucket_permalink/adjustments.:format',     :action => :index,  :conditions => { :method => :get }
-    m.adjustment          '/users/:user_permalink/buckets/:bucket_permalink/adjustments/:id.:format', :action => :show,   :conditions => { :method => :get }
-    m.connect             '/users/:user_permalink/buckets/:bucket_permalink/adjustments/:id.:format', :action => :update, :conditions => { :method => :put }
-    m.connect             '/users/:user_permalink/buckets/:bucket_permalink/adjustments/:id.:format', :action => :destroy,:conditions => { :method => :delete }
+    m.new_adjustment      '/users/:user_permalink/tags/:tag_permalink/adjustments/new.:format', :action => :new,    :conditions => { :method => :get }
+    m.connect             '/users/:user_permalink/tags/:tag_permalink/adjustments.:format',     :action => :create, :conditions => { :method => :post }
+    m.adjustments         '/users/:user_permalink/tags/:tag_permalink/adjustments.:format',     :action => :index,  :conditions => { :method => :get }
+    m.adjustment          '/users/:user_permalink/tags/:tag_permalink/adjustments/:id.:format', :action => :show,   :conditions => { :method => :get }
+    m.connect             '/users/:user_permalink/tags/:tag_permalink/adjustments/:id.:format', :action => :update, :conditions => { :method => :put }
+    m.connect             '/users/:user_permalink/tags/:tag_permalink/adjustments/:id.:format', :action => :destroy,:conditions => { :method => :delete }
     m.new_user_adjustment '/users/:user_permalink/adjustments/new',                                   :action => :new,    :conditions => { :method => :get }
     m.connect             '/users/:user_permalink/adjustments',                                       :action => :create, :conditions => { :method => :post }
     m.user_adjustments    '/users/:user_permalink/adjustments.:format',                               :action => :index,  :conditions => { :method => :get }

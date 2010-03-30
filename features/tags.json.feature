@@ -1,73 +1,73 @@
-Feature: Buckets via JSON
-  In order to query and manage buckets,
+Feature: Tags via JSON
+  In order to query and manage tags,
   As a client
-  I want to be able to read and modify bucket resources via JSON.
+  I want to be able to read and modify tag resources via JSON.
   
   Background:
     Given a client with hostname "jimjim" and api key "123456789ABCDEFG"
     And I log in as "" with password "123456789ABCDEFG"
-    And the following buckets:
+    And the following tags:
       | id | permalink | created_at          | updated_at          |
       | 1  | Animals   | 2009-10-01 12:00:00 | 2009-10-01 12:00:00 | 
       | 2  | Plants    | 2009-10-02 12:00:00 | 2009-10-02 12:00:00 | 
     And I have a user with attributes permalink "bob" and id "1"
   
-  Scenario: Read list of buckets
-    When I GET "/buckets.json"
+  Scenario: Read list of tags
+    When I GET "/tags.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
     """
       [{
-        bucket: {
+        tag: {
           permalink: Animals,
-          path: "/buckets/Animals.json",
+          path: "/tags/Animals.json",
           created_at: "2009-10-01T12:00:00Z",
           updated_at: "2009-10-01T12:00:00Z"
         }},
-        {bucket: {
+        {tag: {
           permalink: Plants,
-          path: "/buckets/Plants.json",
+          path: "/tags/Plants.json",
           created_at: "2009-10-02T12:00:00Z",
           updated_at: "2009-10-02T12:00:00Z"
         }
       }]
     """
   
-  Scenario: Read list of buckets when there are no buckets
-    Given there are no buckets
-    When I GET "/buckets.json"
+  Scenario: Read list of tags when there are no tags
+    Given there are no tags
+    When I GET "/tags.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
     """
       []
     """
   
-  Scenario: Read a bucket
-    When I GET "/buckets/Plants.json"
+  Scenario: Read a tag
+    When I GET "/tags/Plants.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
     """
       {
-        bucket: {
+        tag: {
           permalink: Plants,
-          path: "/buckets/Plants.json",
+          path: "/tags/Plants.json",
           created_at: "2009-10-02T12:00:00Z",
           updated_at: "2009-10-02T12:00:00Z"
         }
       }
     """
   
-  Scenario: Read a non-existing bucket
-    When I GET "/buckets/not-there.json"
+  Scenario: Read a non-existing tag
+    When I GET "/tags/not-there.json"
     Then I should get a 404 Not Found response
   
-  Scenario: Request a new bucket
-    When I GET "/buckets/new.json"
+  Scenario: Request a new tag
+    When I GET "/tags/new.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
     """
       {
-        "bucket":{
+        "tag":{
           "permalink":null,
           "path":null,
           "updated_at":null,
@@ -76,16 +76,16 @@ Feature: Buckets via JSON
       }
     """
   
-  Scenario: Create a bucket
-    When I PUT "/buckets/dinosaurs.json" with body ""
+  Scenario: Create a tag
+    When I PUT "/tags/dinosaurs.json" with body ""
     Then I should get a 201 Created response
   
-  Scenario: Attempt to create a bucket with a blank permalink
-    When I PUT "/buckets/doesnt-exist.json" with body "bucket[permalink]="
+  Scenario: Attempt to create a tag with a blank permalink
+    When I PUT "/tags/doesnt-exist.json" with body "tag[permalink]="
     Then I should get a 422 Unprocessible Entity response
   
-  Scenario: Attempt to Create a bucket with a period in the permalink
-    When I PUT "/buckets/animals.json" with body "bucket[permalink]='matt.simpson'"
+  Scenario: Attempt to Create a tag with a period in the permalink
+    When I PUT "/tags/animals.json" with body "tag[permalink]='matt.simpson'"
     Then I should get a 422 Unprocessible Entity response
     And I should get a JSON response body like:
     """
@@ -94,8 +94,8 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Attempt to Create a bucket with a backslash in the permalink
-    When I PUT "/buckets/animals.json" with body "bucket[permalink]='matt/simpson'"
+  Scenario: Attempt to Create a tag with a backslash in the permalink
+    When I PUT "/tags/animals.json" with body "tag[permalink]='matt/simpson'"
     Then I should get a 422 Unprocessible Entity response
     And I should get a JSON response body like:
     """
@@ -104,8 +104,8 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Attempt to Create a bucket with a period and a slash
-    When I PUT "/buckets/animals.json" with body "bucket[permalink]='matt.simp/son'"
+  Scenario: Attempt to Create a tag with a period and a slash
+    When I PUT "/tags/animals.json" with body "tag[permalink]='matt.simp/son'"
     Then I should get a 422 Unprocessible Entity response
     And I should get a JSON response body like:
     """
@@ -115,8 +115,8 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Attempt to Create a bucket with "index" as the permalink
-    When I PUT "/buckets/index.json"
+  Scenario: Attempt to Create a tag with "index" as the permalink
+    When I PUT "/tags/index.json"
     Then I should get a 422 Unprocessable Entity response
     And I should get a JSON response body like:
     """
@@ -125,8 +125,8 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Attempt to Create a bucket with "new" as the permalink
-    When I PUT "/buckets/new.json"
+  Scenario: Attempt to Create a tag with "new" as the permalink
+    When I PUT "/tags/new.json"
     Then I should get a 422 Unprocessable Entity response
     And I should get a JSON response body like:
     """
@@ -135,8 +135,8 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Attempt to Create a bucket with "create" as the permalink
-    When I PUT "/buckets/create.json"
+  Scenario: Attempt to Create a tag with "create" as the permalink
+    When I PUT "/tags/create.json"
     Then I should get a 422 Unprocessable Entity response
     And I should get a JSON response body like:
     """
@@ -145,8 +145,8 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Attempt to Create a bucket with "show" as the permalink
-    When I PUT "/buckets/show.json"
+  Scenario: Attempt to Create a tag with "show" as the permalink
+    When I PUT "/tags/show.json"
     Then I should get a 422 Unprocessable Entity response
     And I should get a JSON response body like:
     """
@@ -155,8 +155,8 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Attempt to Create a bucket with "edit" as the permalink
-    When I PUT "/buckets/edit.json"
+  Scenario: Attempt to Create a tag with "edit" as the permalink
+    When I PUT "/tags/edit.json"
     Then I should get a 422 Unprocessable Entity response
     And I should get a JSON response body like:
     """
@@ -165,8 +165,8 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Attempt to Create a bucket with "update" as the permalink
-    When I PUT "/buckets/update.json"
+  Scenario: Attempt to Create a tag with "update" as the permalink
+    When I PUT "/tags/update.json"
     Then I should get a 422 Unprocessable Entity response
     And I should get a JSON response body like:
     """
@@ -175,24 +175,24 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Update a bucket
-    When I PUT "/buckets/Animals.json" with body "bucket[permalink]=Nice Animals"
+  Scenario: Update a tag
+    When I PUT "/tags/Animals.json" with body "tag[permalink]=Nice Animals"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
     """
       {
-        bucket:{
+        tag:{
           permalink: "Nice Animals",
-          path: "/buckets/Nice%20Animals.json",
+          path: "/tags/Nice%20Animals.json",
           created_at: "2009-10-01T12:00:00Z",
           updated_at: "2009-09-09T12:00:00Z"
         }
       }
     """
   
-  Scenario: Attempt to Update a bucket with a period
-    Given a bucket "animals"
-    When I PUT "/buckets/animals.json" with body "bucket[permalink]=animals.insects"
+  Scenario: Attempt to Update a tag with a period
+    Given a tag "animals"
+    When I PUT "/tags/animals.json" with body "tag[permalink]=animals.insects"
     Then I should get a 422 Unprocessable Entity response
     And I should get a JSON response body like:
     """
@@ -201,9 +201,9 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Attempt to Update a bucket with a slash
-    Given a bucket "animals"
-    When I PUT "/buckets/animals.json" with body "bucket[permalink]=animals/tigers/bears/ohmy"
+  Scenario: Attempt to Update a tag with a slash
+    Given a tag "animals"
+    When I PUT "/tags/animals.json" with body "tag[permalink]=animals/tigers/bears/ohmy"
     Then I should get a 422 Unprocessable Entity response
     And I should get a JSON response body like:
     """
@@ -212,9 +212,9 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Attempt to Update a bucket with a period and a slash
-    Given a bucket "animals"
-    When I PUT "/buckets/animals.json" with body "bucket[permalink]=animals.inse/cts"
+  Scenario: Attempt to Update a tag with a period and a slash
+    Given a tag "animals"
+    When I PUT "/tags/animals.json" with body "tag[permalink]=animals.inse/cts"
     Then I should get a 422 Unprocessable Entity response
     And I should get a JSON response body like:
     """
@@ -224,9 +224,9 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Attempt to Update a bucket with "index" as the permalink
-    Given a bucket "animals"
-    When I PUT "/buckets/animals.json" with body "bucket[permalink]=index"
+  Scenario: Attempt to Update a tag with "index" as the permalink
+    Given a tag "animals"
+    When I PUT "/tags/animals.json" with body "tag[permalink]=index"
     Then I should get a 422 Unprocessable Entity response
     And I should get a JSON response body like:
     """
@@ -235,9 +235,9 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Attempt to Update a bucket with "new" as the permalink
-    Given a bucket "animals"
-    When I PUT "/buckets/animals.json" with body "bucket[permalink]=new"
+  Scenario: Attempt to Update a tag with "new" as the permalink
+    Given a tag "animals"
+    When I PUT "/tags/animals.json" with body "tag[permalink]=new"
     Then I should get a 422 Unprocessable Entity response
     And I should get a JSON response body like:
     """
@@ -246,9 +246,9 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Attempt to Update a bucket with "create" as the permalink
-    Given a bucket "animals"
-    When I PUT "/buckets/animals.json" with body "bucket[permalink]=create"
+  Scenario: Attempt to Update a tag with "create" as the permalink
+    Given a tag "animals"
+    When I PUT "/tags/animals.json" with body "tag[permalink]=create"
     Then I should get a 422 Unprocessable Entity response
     And I should get a JSON response body like:
     """
@@ -257,9 +257,9 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Attempt to Update a bucket with "show" as the permalink
-    Given a bucket "animals"
-    When I PUT "/buckets/animals.json" with body "bucket[permalink]=show"
+  Scenario: Attempt to Update a tag with "show" as the permalink
+    Given a tag "animals"
+    When I PUT "/tags/animals.json" with body "tag[permalink]=show"
     Then I should get a 422 Unprocessable Entity response
     And I should get a JSON response body like:
     """
@@ -268,9 +268,9 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Attempt to Update a bucket with "edit" as the permalink
-    Given a bucket "animals"
-    When I PUT "/buckets/animals.json" with body "bucket[permalink]=edit"
+  Scenario: Attempt to Update a tag with "edit" as the permalink
+    Given a tag "animals"
+    When I PUT "/tags/animals.json" with body "tag[permalink]=edit"
     Then I should get a 422 Unprocessable Entity response
     And I should get a JSON response body like:
     """
@@ -279,9 +279,9 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Attempt to Update a bucket with "update" as the permalink
-    Given a bucket "animals"
-    When I PUT "/buckets/animals.json" with body "bucket[permalink]=update"
+  Scenario: Attempt to Update a tag with "update" as the permalink
+    Given a tag "animals"
+    When I PUT "/tags/animals.json" with body "tag[permalink]=update"
     Then I should get a 422 Unprocessable Entity response
     And I should get a JSON response body like:
     """
@@ -290,14 +290,14 @@ Feature: Buckets via JSON
       ]
     """
   
-  Scenario: Destroy a bucket
-    When I DELETE "/buckets/Animals.json"
+  Scenario: Destroy a tag
+    When I DELETE "/tags/Animals.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
     """
-      bucket: {
+      tag: {
         permalink: Animals,
-        path: "/buckets/Animals.json",
+        path: "/tags/Animals.json",
         created_at: "2009-10-01T12:00:00Z",
         updated_at: "2009-10-01T12:00:00Z"
       }

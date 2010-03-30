@@ -1,11 +1,11 @@
 module AdjustmentsHelper
   def new_adjustment_url
-    @bucket ? adjustments_path(@user, @bucket) : user_adjustments_path(@user)
+    @tag ? adjustments_path(@user, @tag) : user_adjustments_path(@user)
   end
   
   def subtitle
-    if @user && @bucket
-      "#{@user.permalink}: #{@bucket.permalink}"
+    if @user && @tag
+      "#{@user.permalink}: #{@tag.permalink}"
     elsif @user
       @user.permalink
     else
@@ -17,9 +17,9 @@ module AdjustmentsHelper
     adjustment_hash = {
       'id' => adjustment.id,
       'value' => adjustment.value,
-      'path' => (adjustment.id ? adjustment_path(adjustment.user, adjustment.bucket, adjustment, :format => format) : nil),
+      'path' => (adjustment.id ? adjustment_path(adjustment.user, adjustment.tag, adjustment, :format => format) : nil),
       'user_permalink' => adjustment.user.permalink,
-      'bucket_permalink' => adjustment.bucket.permalink,
+      'tag_permalink' => adjustment.tag.permalink,
       'created_at' => adjustment.created_at,
       'updated_at' => adjustment.updated_at
     }

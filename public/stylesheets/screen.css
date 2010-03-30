@@ -508,15 +508,15 @@ body {
   body #home #buttons {
     padding-left: 40px; }
     /* line 43, ../../app/stylesheets/screen.sass */
-    body #home #buttons #users, body #home #buttons #buckets, body #home #buttons #admins, body #home #buttons #websites, body #home #buttons #clients {
+    body #home #buttons #users, body #home #buttons #tags, body #home #buttons #admins, body #home #buttons #websites, body #home #buttons #clients {
       width: 128;
       text-align: center;
       margin: 1em 10px; }
       /* line 47, ../../app/stylesheets/screen.sass */
-      body #home #buttons #users img, body #home #buttons #buckets img, body #home #buttons #admins img, body #home #buttons #websites img, body #home #buttons #clients img {
+      body #home #buttons #users img, body #home #buttons #tags img, body #home #buttons #admins img, body #home #buttons #websites img, body #home #buttons #clients img {
         padding: 1.5em 0 0.5em; }
       /* line 49, ../../app/stylesheets/screen.sass */
-      body #home #buttons #users h3, body #home #buttons #buckets h3, body #home #buttons #admins h3, body #home #buttons #websites h3, body #home #buttons #clients h3 {
+      body #home #buttons #users h3, body #home #buttons #tags h3, body #home #buttons #admins h3, body #home #buttons #websites h3, body #home #buttons #clients h3 {
         margin-bottom: 0.5em; }
 
 /* line 52, ../../app/stylesheets/screen.sass */

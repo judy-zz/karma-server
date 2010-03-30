@@ -60,7 +60,7 @@ class UsersController < ApplicationController
   #   GET /users/:permalink.json
   #   GET /users/:permalink.xml
   def show
-    @buckets = Bucket.all
+    @tags = Tag.all
     @user = User.find_by_permalink!(params[:id])
     respond_to do |format|
       format.html
@@ -69,7 +69,7 @@ class UsersController < ApplicationController
     end 
   end
   
-  # Show the karma summary for a user and the user's buckets
+  # Show the karma summary for a user and the user's tags
   #
   #   GET /users/:permalink/karma.json
   def karma

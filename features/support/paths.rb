@@ -10,14 +10,14 @@ module NavigationHelpers
     
     when /the home page/
       root_path
-    when /^the buckets page$/i
-      buckets_path
-    when /^the new bucket page$/i
-      new_bucket_path
-    when /^the edit "(.*)" bucket page$/i
-      edit_bucket_path(Bucket.find_by_permalink($1))
-    when /^the "(.*)" bucket page$/i
-      bucket_path(Bucket.find_by_permalink($1))
+    when /^the tags page$/i
+      tags_path
+    when /^the new tag page$/i
+      new_tag_path
+    when /^the edit "(.*)" tag page$/i
+      edit_tag_path(Tag.find_by_permalink($1))
+    when /^the "(.*)" tag page$/i
+      tag_path(Tag.find_by_permalink($1))
     when /^the admins page$/i
       admins_path
     when /^the new admin page$/i
@@ -50,10 +50,10 @@ module NavigationHelpers
       edit_user_path(User.find_by_permalink($1))
     when /^the "(.*)" user page$/i
       user_path(User.find_by_permalink($1))
-    when /^the new adjustment page for (.*)'s (.*) bucket$/
-      new_adjustment_path(:user_permalink => $1, :bucket_permalink => $2)
-    when /^the adjustments page for (.*)'s (.*) bucket$/
-      adjustments_path(:user_permalink => $1, :bucket_permalink => $2)
+    when /^the new adjustment page for (.*)'s (.*) tag$/
+      new_adjustment_path(:user_permalink => $1, :tag_permalink => $2)
+    when /^the adjustments page for (.*)'s (.*) tag$/
+      adjustments_path(:user_permalink => $1, :tag_permalink => $2)
     when /^the new adjustment page for user (.*)$/
       new_user_adjustment_path(:user_permalink => $1)
     

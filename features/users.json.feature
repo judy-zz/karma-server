@@ -343,12 +343,12 @@ Feature: Users via JSON
     Given the following users:
       | id  | permalink      | created_at              | updated_at              |
       | 1   | bob            | 2009-09-10 19:55:35 UTC | 2009-09-10 19:55:35 UTC |
-    And the following buckets:
+    And the following tags:
       | id | permalink  | created_at              | updated_at              |
       | 1  | plants     | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
       | 2  | animals    | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
     And the following adjustments:
-      | id | user_id | bucket_id | value | created_at              | updated_at              |
+      | id | user_id | tag_id | value | created_at              | updated_at              |
       | 1  | 1       | 1         | 1     | 2009-09-10 15:06:25 UTC | 2009-09-10 15:06:25 UTC |
       | 2  | 1       | 1         | 2     | 2009-09-10 15:06:32 UTC | 2009-09-10 15:06:32 UTC |
       | 3  | 1       | 2         | 3     | 2009-09-10 15:06:25 UTC | 2009-09-10 15:06:25 UTC |
@@ -360,10 +360,10 @@ Feature: Users via JSON
         {
           adjustment: {
             value: 1,
-            path: "/users/bob/buckets/plants/adjustments/1.json",
+            path: "/users/bob/tags/plants/adjustments/1.json",
             user_permalink: bob,
             id: 1,
-            bucket_permalink: plants,
+            tag_permalink: plants,
             created_at: "2009-09-10T15:06:25Z",
             updated_at: "2009-09-10T15:06:25Z"
           }
@@ -371,10 +371,10 @@ Feature: Users via JSON
         {
           adjustment: {
             value: 3,
-            path: "/users/bob/buckets/animals/adjustments/3.json",
+            path: "/users/bob/tags/animals/adjustments/3.json",
             user_permalink: bob,
             id: 3,
-            bucket_permalink: animals,
+            tag_permalink: animals,
             created_at: "2009-09-10T15:06:25Z",
             updated_at: "2009-09-10T15:06:25Z"
           }
@@ -382,10 +382,10 @@ Feature: Users via JSON
         {
           adjustment: {
             value: 2,
-            path: "/users/bob/buckets/plants/adjustments/2.json",
+            path: "/users/bob/tags/plants/adjustments/2.json",
             user_permalink: bob,
             id: 2,
-            bucket_permalink: plants,
+            tag_permalink: plants,
             created_at: "2009-09-10T15:06:32Z",
             updated_at: "2009-09-10T15:06:32Z"
           }
@@ -400,8 +400,8 @@ Feature: Users via JSON
   
   Scenario: Get a user's karma
     Given a user "bob"
-    And a bucket "plants"
-    And a bucket "animals"
+    And a tag "plants"
+    And a tag "animals"
     When I GET "/users/bob/karma.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
@@ -410,16 +410,16 @@ Feature: Users via JSON
         user: bob,
         user_path: /users/bob.json,
         total: 0,
-        buckets: {
+        tags: {
           plants: {
             total: 0,
-            bucket_path: /buckets/plants.json,
-            adjustments_path: /users/bob/buckets/plants/adjustments.json
+            tag_path: /tags/plants.json,
+            adjustments_path: /users/bob/tags/plants/adjustments.json
           },
           animals: {
             total: 0,
-            bucket_path: /buckets/animals.json,
-            adjustments_path: /users/bob/buckets/animals/adjustments.json
+            tag_path: /tags/animals.json,
+            adjustments_path: /users/bob/tags/animals/adjustments.json
           }
         }
       }

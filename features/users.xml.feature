@@ -359,12 +359,12 @@ Feature: Users via XML
     Given the following users:
       | id  | permalink      | created_at              | updated_at              |
       | 1   | bob            | 2009-09-10 19:55:35 UTC | 2009-09-10 19:55:35 UTC |
-    And the following buckets:
+    And the following tags:
       | id | permalink  | created_at              | updated_at              |
       | 1  | plants     | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
       | 2  | animals    | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
     And the following adjustments:
-      | id | user_id | bucket_id | value | created_at              | updated_at              |
+      | id | user_id | tag_id | value | created_at              | updated_at              |
       | 1  | 1       | 1         | 1     | 2009-09-10 15:06:25 UTC | 2009-09-10 15:06:25 UTC |
       | 2  | 1       | 1         | 2     | 2009-09-10 15:06:32 UTC | 2009-09-10 15:06:32 UTC |
       | 3  | 1       | 2         | 3     | 2009-09-10 15:06:25 UTC | 2009-09-10 15:06:25 UTC |
@@ -376,30 +376,30 @@ Feature: Users via XML
       <adjustments type="array">
         <adjustment>
           <created-at type="datetime">2009-09-10T15:06:25Z</created-at>
-          <bucket-permalink>plants</bucket-permalink>
+          <tag-permalink>plants</tag-permalink>
           <updated-at type="datetime">2009-09-10T15:06:25Z</updated-at>
           <user-permalink>bob</user-permalink>
           <id type="integer">1</id>
           <value type="integer">1</value>
-          <path>/users/bob/buckets/plants/adjustments/1.xml</path>
+          <path>/users/bob/tags/plants/adjustments/1.xml</path>
         </adjustment>
         <adjustment>
           <created-at type="datetime">2009-09-10T15:06:25Z</created-at>
-          <bucket-permalink>animals</bucket-permalink>
+          <tag-permalink>animals</tag-permalink>
           <updated-at type="datetime">2009-09-10T15:06:25Z</updated-at>
           <user-permalink>bob</user-permalink>
           <id type="integer">3</id>
           <value type="integer">3</value>
-          <path>/users/bob/buckets/animals/adjustments/3.xml</path>
+          <path>/users/bob/tags/animals/adjustments/3.xml</path>
         </adjustment>
         <adjustment>
           <created-at type="datetime">2009-09-10T15:06:32Z</created-at>
-          <bucket-permalink>plants</bucket-permalink>
+          <tag-permalink>plants</tag-permalink>
           <updated-at type="datetime">2009-09-10T15:06:32Z</updated-at>
           <user-permalink>bob</user-permalink>
           <id type="integer">2</id>
           <value type="integer">2</value>
-          <path>/users/bob/buckets/plants/adjustments/2.xml</path>
+          <path>/users/bob/tags/plants/adjustments/2.xml</path>
         </adjustment>
       </adjustments>
     """
@@ -411,8 +411,8 @@ Feature: Users via XML
   
   Scenario: Get a user's karma
     Given a user "bob"
-    And a bucket "plants"
-    And a bucket "animals"
+    And a tag "plants"
+    And a tag "animals"
     When I GET "/users/bob/karma.xml"
     Then I should get a 200 OK response
     And I should get an XML response body like:
@@ -421,18 +421,18 @@ Feature: Users via XML
       <karma>
         <total type="integer">0</total>
         <user-path>/users/bob.xml</user-path>
-        <buckets>
+        <tags>
           <animals>
-            <adjustments-path>/users/bob/buckets/animals/adjustments.xml</adjustments-path>
-            <bucket-path>/buckets/animals.xml</bucket-path>
+            <adjustments-path>/users/bob/tags/animals/adjustments.xml</adjustments-path>
+            <tag-path>/tags/animals.xml</tag-path>
             <total type="integer">0</total>
           </animals>
           <plants>
-            <adjustments-path>/users/bob/buckets/plants/adjustments.xml</adjustments-path>
-            <bucket-path>/buckets/plants.xml</bucket-path>
+            <adjustments-path>/users/bob/tags/plants/adjustments.xml</adjustments-path>
+            <tag-path>/tags/plants.xml</tag-path>
             <total type="integer">0</total>
           </plants>
-        </buckets>
+        </tags>
         <user>bob</user>
       </karma>
     """

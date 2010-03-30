@@ -22,9 +22,9 @@ class User < ActiveRecord::Base
     permalink
   end
   
-  # Return the total karma value for a given bucket for this user
-  def karma_for(bucket)
-    Adjustment.sum('value', :conditions => ["user_id = ? and bucket_id = ?", id, bucket.id])
+  # Return the total karma value for a given tag for this user
+  def karma_for(tag)
+    Adjustment.sum('value', :conditions => ["user_id = ? and tag_id = ?", id, tag.id])
   end
   
   # Return the total adjustment value for this user

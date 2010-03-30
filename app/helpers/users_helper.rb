@@ -4,13 +4,13 @@ module UsersHelper
   # given user. This data structure is suitable for calling #to_json or
   # #to_xml.
   def karma_for(user, format = :json)
-    # Assemble the stanza that describes the per-bucket karma
-    buckets_karma = {}
-    Bucket.all.each do |bucket|
-      buckets_karma[bucket.permalink] = {
-        :bucket_path => bucket_path(bucket, :format => format),
-        :adjustments_path => adjustments_path(user, bucket, :format => format),
-        :total => user.karma_for(bucket)
+    # Assemble the stanza that describes the per-tag karma
+    tags_karma = {}
+    Tag.all.each do |tag|
+      tags_karma[tag.permalink] = {
+        :tag_path => tag_path(tag, :format => format),
+        :adjustments_path => adjustments_path(user, tag, :format => format),
+        :total => user.karma_for(tag)
       }
     end
     # Assemble the stanza for user-level karma.
@@ -18,7 +18,7 @@ module UsersHelper
       :user => user.permalink,
       :user_path => user_path(user, :format => format),
       :total => user.karma,
-      :buckets => buckets_karma
+      :tags => tags_karma
     }
     
     eval("karma.to_#{format}(:root => 'karma')")

@@ -1,0 +1,4 @@
+= render :partial => "/shared/header", :locals => { :title => @tag.permalink, :subtitle => "", :flash => flash }
+
+.button_row
+  = link_to "Edit Tag", edit_tag_path(@tag), :class => "button"
