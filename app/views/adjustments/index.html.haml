@@ -3,12 +3,27 @@
 #content
   %table
     %tr
-      %th Date &amp; Time
+      %th Recorded At
       %th Karma &#177;
+      %th Object UUID
+      %th Action Timestamp
+      %th Website
     - for adjustment in @adjustments
       %tr
         %td= adjustment.created_at.to_s :date_time12
         %td= adjustment.value
+        - if adjustment.object_uuid
+          %td= adjustment.object_uuid
+        - else
+          %td N/A
+        - if adjustment.action_timestamp
+          %td= adjustment.action_timestamp
+        - else
+          %td N/A  
+        - if adjustment.website
+          %td= adjustment.website.name
+        - else
+          %td N/A
   .button_row
     = link_to "Adjust Karma", new_adjustment_path(@user, @tag), :class => "button"
     = link_to "Go Back to #{@user.permalink}", user_path(@user), :class => "button"
