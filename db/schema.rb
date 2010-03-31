@@ -9,14 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100331142017) do
+ActiveRecord::Schema.define(:version => 20100331213602) do
 
   create_table "adjustments", :force => true do |t|
-    t.integer  "user_id",    :null => false
-    t.integer  "tag_id",     :null => false
-    t.integer  "value",      :null => false
+    t.integer  "user_id",          :null => false
+    t.integer  "tag_id",           :null => false
+    t.integer  "value",            :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "website_id"
+    t.string   "action_timestamp"
+    t.string   "object_uuid"
   end
 
   create_table "admins", :force => true do |t|
