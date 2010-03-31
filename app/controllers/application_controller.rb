@@ -3,7 +3,7 @@
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  helper_method :current_admin, :require_super_admin
+  helper_method :current_admin, :current_admin_or_client, :require_super_admin
   before_filter :authenticate
   
   # Turning off forgery protection for now since it was unexpectedly messing
@@ -36,11 +36,11 @@ protected
 private
 
   def authenticate
+
     authenticate_or_request_with_http_basic do |username, password|
       # Start off by making sure nobody is logged in.
       @current_admin  = nil
       @current_client = nil
-
       # Determine what kind of account we're authenticating.
       if username.blank? 
         # We're authenticating a client.
@@ -62,6 +62,11 @@ private
   def current_admin
     return @current_admin if defined?(@current_admin)
     authenticate
+  end
+  
+  def current_client
+    return @current_client if defined?(@current_client)
+    return nil
   end
 
 end
