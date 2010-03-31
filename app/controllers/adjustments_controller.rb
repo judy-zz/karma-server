@@ -55,7 +55,15 @@ class AdjustmentsController < ApplicationController
     end
     @adjustment = Adjustment.new(params[:adjustment])
     @adjustment.user = @user
-    @adjustment.tag = @tag
+    @adjustment.tag  = @tag
+    # A timestamp of the action a user took to trigger the adjustment. Optional and semantically
+    # unbiased
+    @adjustment.action_timestamp = params[:action_timestamp] if params[:action_timestamp]
+    # An identifier to an object that relates to the adjustment request. Optional and semantically
+    # unbiased
+    @adjustment.object_uuid      = params[:object_uuid]      if params[:object_uuid]
+    # Client adjustments have their websites saved, Admins do not
+    @adjustment.website_id       = current_client.website.id if current_client
     if @adjustment.save
       flash[:success] = "Karma was successfully adjusted"
       respond_to do |format|
@@ -115,7 +123,11 @@ class AdjustmentsController < ApplicationController
   
   def find_user_and_tag
     @user = User.find_by_permalink!(params[:user_permalink])
-    @tag = Tag.find_by_permalink(params[:tag_permalink])
+    @tag  = Tag.find_by_permalink(params[:tag_permalink])
+  end
+
+  def find_website_if_client
+    @website = current_client.websites.first if current_client
   end
 
 end
