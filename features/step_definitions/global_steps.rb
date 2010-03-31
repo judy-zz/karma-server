@@ -3,15 +3,19 @@ Given /^there are no ([^\"]*)$/ do |objects|
 end
 
 Given /^I have (a|an) ([^\"]*) with attribute ([^\"]*) "([^\"]*)"$/ do |blank, klass, method, value|
-  eval("#{klass.camelize}.create(:#{method} => '#{value}')")
+  eval("#{klass.camelize}.create!(:#{method} => '#{value}')")
 end
 
 Given /^I have (a|an) ([^\"]*) with attributes ([^\"]*) "([^\"]*)" and ([^\"]*) "([^\"]*)"$/ do |blank, klass, method, value, method2, value2|
-  eval("#{klass.camelize}.create(:#{method} => '#{value}', :#{method2} => '#{value2}')")
+  eval("#{klass.camelize}.create!(:#{method} => '#{value}', :#{method2} => '#{value2}')")
 end
 
 Given /^I have (a|an) ([^\"]*) with attributes ([^\"]*) "([^\"]*)", ([^\"]*) "([^\"]*)", and ([^\"]*) "([^\"]*)"$/ do |blank, klass, method, value, method2, value2, method3, value3|
-  eval("#{klass.camelize}.create(:#{method} => '#{value}', :#{method2} => '#{value2}', :#{method3} => '#{value3}')")
+  eval("#{klass.camelize}.create!(:#{method} => '#{value}', :#{method2} => '#{value2}', :#{method3} => '#{value3}')")
+end
+
+Given /^I have (a|an) ([^\"]*) with attributes ([^\"]*) "([^\"]*)", ([^\"]*) "([^\"]*)", ([^\"]*) "([^\"]*)", and ([^\"]*) "([^\"]*)"$/ do |blank, klass, method, value, method2, value2, method3, value3, method4, value4|
+  eval("#{klass.camelize}.create!(:#{method} => '#{value}', :#{method2} => '#{value2}', :#{method3} => '#{value3}', :#{method4} => '#{value4}')")
 end
 
 When /^I edit the ([^\"]*) with ([^\"]*) "([^\"]*)"$/ do |klass, method, value|

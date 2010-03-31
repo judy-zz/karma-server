@@ -4,8 +4,9 @@ Feature: Clients CRUD via HTML
   I want to manage clients
 
     Background:
-      Given I have an client with attributes id "1", hostname "West Arete Computing", and ip_address "20.30.40.50"
-      And I have an client with attributes id "2", hostname "Yahoo", and ip_address "10.20.30.40"
+      Given I have a website with attributes id "1", name "westarete", and url "http://www.westarete.com"
+      And a client with hostname "West Arete Computing", api key "1", and website "westarete"
+      And a client with hostname "Yahoo", api key "1", and website "westarete"
       And an admin "jimjim" with password "jimjim"
       And I log in as "jimjim" with password "jimjim"
 
@@ -13,6 +14,7 @@ Feature: Clients CRUD via HTML
       Given I am on the new client page
       When I fill in "Hostname" with "Reddit"
       And I fill in "IP Address" with "55.55.55.55"
+      And I select "westarete" from "Website"
       And I press "Create Client"
       Then I should be on the "Reddit" client page
       And I should see "Client was successfully created."

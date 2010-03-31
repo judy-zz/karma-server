@@ -1,15 +1,12 @@
 = render :partial => "/shared/header", :locals => { :title => "Viewing Client", :subtitle => @client.hostname, :flash => flash }
   
 %dl
+  %dt Website
+  %dd= @client.website.name
   %dt IP Address
   %dd= @client.ip_address
   %dt API Key
   %dd= @client.api_key
   
-- if @client.websites.blank?
-  %h3== #{@client.hostname} has access to no websites
-- else
-  %h3 Has Access to
-  %ul
-    - @client.websites.each do |website|
-      %li= website.url
+.button_row
+  = link_to "Edit Client", edit_client_path(@client), :class => "button"

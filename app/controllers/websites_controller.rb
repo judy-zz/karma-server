@@ -13,31 +13,6 @@ class WebsitesController < ApplicationController
   def clients
     @websites = Website.all
   end
-  
-  def client_permissions
-    ActiveRecord::Base.transaction do
-      ClientsWebsite.destroy_all
-      # Here's what we're expecting in the params:
-      #   'client_permissions' => {
-      #     13 => [7, 8]      # a website id that points to an array of client ids
-      #     14 => [5, 8]      # a website id that points to an array of client ids
-      #   }
-      #
-      if params[:client_permissions] && params[:client_permissions].respond_to?(:each)
-        params[:client_permissions].each do |website_id, client_ids|
-          @website = Website.find(website_id)
-          client_ids.each do |client_id|
-            @client = Client.find(client_id)
-            if @website && @client
-              @website.clients << @client
-            end
-          end
-        end
-      end    
-    end
-    flash[:success] = "Permissions saved."
-    redirect_to :back
-  end
 
   def new
     @website = Website.new

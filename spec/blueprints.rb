@@ -38,9 +38,5 @@ Client.blueprint do
   hostname   { Faker::Internet.domain_name }
   ip_address { (1..4).collect { rand(255) }.join('.') }
   api_key    { ActiveSupport::SecureRandom.hex(16) }
-end
-
-ClientsWebsite.blueprint do
-  client
   website
 end

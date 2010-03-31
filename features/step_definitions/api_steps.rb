@@ -1,6 +1,20 @@
 Given /^a client with hostname "([^\"]*)" and api key "([^\"]*)"$/ do |hostname, api_key|
-  client = Client.create!(:hostname => hostname, :ip_address => "127.0.0.1")
+  website = Website.create!(:name => "westarete", :url => "http://www.westarete.com")
+  client = Client.create!(:hostname => hostname, :ip_address => "127.0.0.1", :website => website)
   client.update_attribute(:api_key, api_key)
+end
+
+Given /^a website with name "([^\"]*)" and url "([^\"]*)"$/ do |name, url|
+  Website.create!(:name => name, :url => url)
+end
+
+Given /^a client with hostname "([^\"]*)", api key "([^\"]*)", and website "([^\"]*)"$/ do |hostname, api_key, website|
+  client = Client.create!(:hostname => hostname, :ip_address => "127.0.0.1", :website => Website.find_by_name(website))
+  client.update_attribute(:api_key, api_key)
+end
+
+Given /^an admin with name "([^\"]*)" and password "([^\"]*)"$/ do |name, url|
+  Admin.create!(:name => name, :password => password, :password_confirmation => password)
 end
 
 When /^I (GET|PUT|POST|DELETE|HEAD|OPTIONS|PROPFIND|TRACE) "([^\"]*)"( with body "(.*)")?$/ do |verb, path, clause, body|

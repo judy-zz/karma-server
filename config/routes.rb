@@ -5,9 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :clients
   map.resources :websites, :collection => {
     :administrators       => :get, 
-    :admin_permissions    => :put,
-    :clients              => :get, 
-    :client_permissions   => :put}
+    :admin_permissions    => :put}
 
   map.with_options :controller => :adjustments do |m|
     m.new_adjustment      '/users/:user_permalink/tags/:tag_permalink/adjustments/new.:format', :action => :new,    :conditions => { :method => :get }

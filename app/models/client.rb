@@ -6,15 +6,15 @@ class Client < ActiveRecord::Base
     :ip_address => "IP Address"
   }
   
-  has_many :clients_websites
-  has_many :websites, :through => :clients_websites, :uniq => true
+  belongs_to :website
   
   before_validation_on_create :generate_api_key
   
   validates_presence_of   :hostname 
   validates_presence_of   :ip_address
   validates_presence_of   :api_key
-  validates_uniqueness_of :hostname   
+  validates_presence_of   :website
+  validates_uniqueness_of :hostname
   validate                :valid_ip_address
 
   def self.human_attribute_name(attr)

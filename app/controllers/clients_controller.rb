@@ -1,5 +1,7 @@
 class ClientsController < ApplicationController
   
+  before_filter :load_websites
+  
   def index
     @clients = Client.all
   end
@@ -43,6 +45,12 @@ class ClientsController < ApplicationController
     @client.destroy
     flash[:success] = "Client was successfully destroyed."
     redirect_to clients_path
+  end
+  
+  private
+  
+  def load_websites
+    @websites = Website.all
   end
   
 end

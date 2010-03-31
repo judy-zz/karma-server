@@ -4,7 +4,8 @@ Feature: Adjustments via JSON
   I want to be able to read and manipulate user's karma via the JSON API
 
   Background:
-    Given a client with hostname "jimjim" and api key "123456789ABCDEFG"
+    Given a website with name "westarete" and url "http://www.westarete.com"
+    Given a client with hostname "jimjim", api key "123456789ABCDEFG", and website "westarete"
     And I log in as "" with password "123456789ABCDEFG"
     
   Scenario: Read list of adjustments

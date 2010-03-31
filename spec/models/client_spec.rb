@@ -5,11 +5,11 @@ describe Client do
     @client = Client.make
   end
   
-  it { should have_many(:clients_websites)  }
-  it { should have_many(:websites).through(:clients_websites) }
-  it { should validate_presence_of    :hostname   }
-  it { should validate_presence_of    :ip_address }
-  it { should validate_uniqueness_of  :hostname   }
+  it { should belong_to(:website) }
+  it { should validate_presence_of   :hostname   }
+  it { should validate_presence_of   :ip_address }
+  it { should validate_presence_of   :website    }
+  it { should validate_uniqueness_of :hostname   }
   
   it "should validate the presence of the api_key" do
     @client.api_key = nil

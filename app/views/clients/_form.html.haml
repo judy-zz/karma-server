@@ -14,3 +14,9 @@
   %span.explanation
     This must match the machine that's connecting to the karma server.
 
+%p
+  = f.label :website_id, "Website"
+  %br/
+  = f.collection_select :website_id, @websites, :id, :name, {:prompt => "Please select a website."}
+  %span.explanation
+    This must match the machine that's connecting to the karma server.

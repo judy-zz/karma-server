@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100330193536) do
+ActiveRecord::Schema.define(:version => 20100331142017) do
 
   create_table "adjustments", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -36,13 +36,6 @@ ActiveRecord::Schema.define(:version => 20100330193536) do
     t.string   "ip_address"
     t.string   "api_key"
     t.integer  "website_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "clients_websites", :force => true do |t|
-    t.integer  "client_id",  :null => false
-    t.integer  "website_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
