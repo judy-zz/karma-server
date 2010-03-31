@@ -38,8 +38,9 @@ describe User do
     before(:each) do
       [[-1, @plants], [3, @plants], [2, @plants], [3, @animals]].each do |value,tag|
         a = Adjustment.new :value => value
-        a.user = @user
-        a.tag = tag
+        a.user    = @user
+        a.tag     = tag
+        a.website = Website.make
         a.save!
       end
     end

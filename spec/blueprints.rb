@@ -24,9 +24,10 @@ User.blueprint do
 end
 
 Adjustment.blueprint do
-  user   { User.make }
-  tag { Tag.make }
-  value  { (-10..10).collect.rand }
+  user    { User.make }
+  tag     { Tag.make }
+  value   { (-10..10).collect.rand }
+  website { Website.make}
 end
 
 Website.blueprint do

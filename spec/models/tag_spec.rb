@@ -12,8 +12,9 @@ describe Tag do
     before(:each) do
       [-1, 3, 2, 3].each do |value|
         a = Adjustment.new :value => value
-        a.user = User.make
-        a.tag = @tag
+        a.user    = User.make
+        a.tag     = @tag
+        a.website = Website.make
         a.save!
       end
     end
