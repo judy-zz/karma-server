@@ -11,9 +11,11 @@ class Adjustment < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :tag
+  belongs_to :website
   
   attr_accessible :value
 end
+
 
 
 # == Schema Information
@@ -26,5 +28,7 @@ end
 #  value      :integer         not null
 #  created_at :datetime
 #  updated_at :datetime
+#  website_id :integer
 #
+
 
