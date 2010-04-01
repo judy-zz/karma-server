@@ -1,9 +1,12 @@
 class Tag < ActiveRecord::Base
-  has_many :adjustments, :dependent => :destroy
+  belongs_to :website
+  has_many  :adjustments, :dependent => :destroy
+  
   validates_presence_of   :permalink
   validates_uniqueness_of :permalink
-  default_scope :order => :permalink
   validate :valid_permalink
+  
+  default_scope :order => :permalink
   
   attr_protected :created_at, :updated_at
   
