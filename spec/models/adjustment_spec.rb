@@ -2,9 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Adjustment do
 
-  it { should validate_presence_of  (:user_id     )}
-  it { should validate_presence_of  (:tag_id      )}  
-  it { should validate_presence_of  (:value       )}
+  it { should validate_presence_of(:user_id )}
+  it { should validate_presence_of(:tag_id  )}  
+  it { should validate_presence_of(:value   )}
   it { should belong_to(:user     )}
   it { should belong_to(:tag      )}
   it { should belong_to(:website  )}
