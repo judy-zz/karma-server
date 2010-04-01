@@ -124,8 +124,8 @@ class AdjustmentsController < ApplicationController
   def find_user_and_tag
     @user = User.find_by_permalink!(params[:user_permalink])
     @tag = Tag.find_by_permalink(params[:tag_permalink])
-    if @tag.nil? && params[:tag_permalink]
-      @tag = Tag.create!(:permalink => params[:tag_permalink])
+    if @tag.nil? && params[:tag_permalink] && current_client
+      @tag = Tag.create!(:permalink => params[:tag_permalink], :website_id => current_client.website.id)
     end
   end
 
