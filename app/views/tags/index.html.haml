@@ -10,7 +10,7 @@
           %td.permalink= link_to tag.permalink, tag
           %td
             = link_to "#{image_tag 'edit.png'} Edit", edit_tag_path(tag), :class => "button"
-            = link_to "#{image_tag 'delete.png'} Destroy", tag, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{tag.permalink} Tag", :class => "button"
+            = link_to "#{image_tag 'delete.png'} Destroy", tag, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{tag.permalink} Tag", :class => "negative button"
   - else
     = link_to "There are no tags, click here to create the first one.", new_tag_path
   .button_row= link_to "#{image_tag 'add.png'} Create Tag", new_tag_path, :class => "positive button"

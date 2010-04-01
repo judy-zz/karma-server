@@ -12,6 +12,6 @@
           %td.name= link_to client.hostname, client
           %td
             = link_to "#{image_tag 'edit.png'} Edit", edit_client_path(client), :class => "button"
-            = link_to "#{image_tag 'delete.png'} Destroy", client, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{client.hostname} client", :class => "button"
+            = link_to "#{image_tag 'delete.png'} Destroy", client, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{client.hostname} client", :class => "negative button"
 
 .button_row= link_to "#{image_tag 'add.png'} Create Client", new_client_path, :class => "positive button"
