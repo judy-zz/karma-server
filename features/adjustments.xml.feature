@@ -143,12 +143,23 @@ Feature: Adjustments via XML
     Then I should get a 404 Not Found response
     And I should get an empty response body
   
-  # Scenario: Create an adjustment
-  #   Given a typical set of adjustments, tags, and users
-  #   When I POST "/users/harry/tags/animals/adjustments.xml" with body "adjustment[value]=2"
-  #   Then I should get a 201 Created response
-  #   And I should get an XML response
-  #   And pending: I should receive the object in XML
+  Scenario: Create an adjustment
+    Given a typical set of adjustments, tags, and users
+    When I POST "/users/harry/tags/animals/adjustments.xml" with body "adjustment[value]=2"
+    Then I should get a 201 Created response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <adjustment>
+          <id type="integer">2</id>
+          <value type="integer">2</value>
+          <path>/users/harry/tags/animals/adjustments/2.xml</path>
+          <user-permalink>harry</user-permalink>
+          <tag-permalink>animals</tag-permalink>
+          <created-at type="datetime">2009-09-09T12:00:00Z</created-at>
+          <updated-at type="datetime">2009-09-09T12:00:00Z</updated-at>
+      </adjustment>
+    """
   
   Scenario: Attempt to create an adjustment with no value
     Given a typical set of adjustments, tags, and users

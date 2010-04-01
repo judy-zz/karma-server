@@ -1,4 +1,11 @@
 Given /^a typical set of adjustments, tags, and users$/ do
+  User.destroy_all
+  Tag.destroy_all
+  Adjustment.destroy_all
+  # Reset all autoincrementors
+  ActiveRecord::Base.connection.execute "SELECT setval('users_id_seq', 1);"
+  ActiveRecord::Base.connection.execute "SELECT setval('tags_id_seq', 1);"
+  ActiveRecord::Base.connection.execute "SELECT setval('adjustments_id_seq', 1);"
   Given "the following users:", table(%{
     | id  | permalink | created_at              | updated_at              |
     | 101 | bob       | 2009-09-10 19:55:35 UTC | 2009-09-10 19:55:35 UTC |
