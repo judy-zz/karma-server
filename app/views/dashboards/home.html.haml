@@ -2,8 +2,9 @@
   #logo= image_tag "karma.png"
 
   #buttons
-    = link_to "#{image_tag 'admin-large.png'}<h3>Admins</h3>", admins_path, :class => "large button", :id => "admins"
-    = link_to "#{image_tag 'user-large.png'}<h3>Users</h3>", users_path, :class => "large button", :id => "users"
-    = link_to "#{image_tag 'tag-large.png'}<h3>Tags</h3>", tags_path, :class => "large button", :id => "tags"
-    = link_to "#{image_tag 'website-large.png'}<h3>Websites</h3>", websites_path, :class => "large button", :id => "websites"
-    = link_to "#{image_tag 'client-large.png'}<h3>Clients</h3>", clients_path, :class => "large button", :id => "clients"
+    %h4
+      = link_to "#{image_tag 'admin-large.png'}Admins", admins_path, :class => "large button", :id => "admins"
+      = link_to "#{image_tag 'user-large.png'}Users", users_path, :class => "large button", :id => "users"
+      = link_to "#{image_tag 'tag-large.png'}Tags", tags_path, :class => "large button", :id => "tags"
+      = link_to "#{image_tag 'website-large.png'}Websites", websites_path, :class => "large button", :id => "websites"
+      = link_to "#{image_tag 'client-large.png'}Clients", clients_path, :class => "large button", :id => "clients"
