@@ -8,7 +8,8 @@ describe Website do
     Website.make
   end
   
-  it { should have_many(:clients)  }
+  it { should have_many(:clients)   }
+  it { should have_many(:tags)      }
   it { should validate_presence_of(:name)   }
   it { should validate_presence_of(:url)    }
   it { should validate_uniqueness_of(:url)  }

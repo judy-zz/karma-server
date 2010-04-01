@@ -5,6 +5,7 @@ describe Tag do
     @tag = Tag.make
   end
 
+  it { should belong_to(:website) }
   it { should validate_presence_of(:permalink) }
   it { should validate_uniqueness_of(:permalink) }
 
