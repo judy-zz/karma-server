@@ -13,16 +13,20 @@ end
 
 
 
+
+
 # == Schema Information
 #
 # Table name: adjustments
 #
-#  id         :integer         not null, primary key
-#  user_id    :integer         not null
-#  tag_id     :integer         not null
-#  value      :integer         not null
-#  created_at :datetime
-#  updated_at :datetime
-#  website_id :integer
+#  id               :integer         not null, primary key
+#  user_id          :integer         not null
+#  tag_id           :integer         not null
+#  value            :integer         not null
+#  created_at       :datetime
+#  updated_at       :datetime
+#  website_id       :integer
+#  action_timestamp :string(255)
+#  object_uuid      :string(255)
 #
 
