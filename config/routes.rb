@@ -3,10 +3,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :admins
   map.resources :tags
   map.resources :clients
-  map.resources :websites, :collection => {
+  map.resources :websites, :has_many => :tags, :collection => {
     :administrators       => :get, 
-    :admin_permissions    => :put}
-
+    :admin_permissions    => :put }
+  
   map.with_options :controller => :adjustments do |m|
     m.new_adjustment      '/users/:user_permalink/tags/:tag_permalink/adjustments/new.:format', :action => :new,    :conditions => { :method => :get }
     m.connect             '/users/:user_permalink/tags/:tag_permalink/adjustments.:format',     :action => :create, :conditions => { :method => :post }
