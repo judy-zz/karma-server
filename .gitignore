@@ -4,3 +4,4 @@ tmp/*
 nbproject
 rerun.txt
 */.DS_Store
+config/campfire.yml
