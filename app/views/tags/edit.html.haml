@@ -1,5 +1,7 @@
 = render :partial => "/shared/header", :locals => { :title => "Edit Tag", :subtitle => changed_permalink(@tag), :flash => flash }
 - form_for(@tag, :url => tag_path(:permalink => changed_permalink(@tag))) do |f| 
+  - if params[:website_id]
+    = hidden_field_tag 'website_id', params[:website_id]
   = render :partial => "form", :locals => { :f => f }
   
   %button{:type => "submit", :name => "commit", :value => "Update", :class => 'button positive'} Update Tag
