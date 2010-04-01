@@ -34,6 +34,8 @@ module NavigationHelpers
       edit_website_path(Website.find_by_name($1))
     when /^the "(.*)" website page$/i
       website_path(Website.find_by_name($1))
+    when /^the edit tag page for "(.*)" "(.*)" tag$/i
+      edit_website_tag_path(:website_id => Website.find_by_name($1).id, :id => $2)
     when /^the clients page$/i
       clients_path
     when /^the new client page$/i
