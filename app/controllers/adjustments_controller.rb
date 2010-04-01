@@ -78,7 +78,7 @@ class AdjustmentsController < ApplicationController
         format.json{ render :json => @adjustment.errors, :status => :unprocessable_entity }
         format.xml{  render :xml  => @adjustment.errors, :status => :unprocessable_entity }
       end
-    end      
+    end
   end
   
   # Show a particular user.
@@ -123,7 +123,10 @@ class AdjustmentsController < ApplicationController
   
   def find_user_and_tag
     @user = User.find_by_permalink!(params[:user_permalink])
-    @tag  = Tag.find_by_permalink(params[:tag_permalink])
+    @tag = Tag.find_by_permalink(params[:tag_permalink])
+    if @tag.nil? && params[:tag_permalink]
+      @tag = Tag.create!(:permalink => params[:tag_permalink])
+    end
   end
 
   def find_website_if_client

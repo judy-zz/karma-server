@@ -39,8 +39,12 @@ Feature: Adjustments via XML
   Scenario: Read a list of adjustments with a non-existing tag
     Given a typical set of adjustments, tags, and users
     When I GET "/users/harry/tags/doesnt-exist/adjustments.xml"
-    Then I should get a 404 Not Found response
-    And I should get an empty response body
+    Then I should get a 200 OK response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <adjustments type="array"/>
+    """
   
   Scenario: Read a list of adjustments with a non-existing user
     Given a typical set of adjustments, tags, and users
@@ -159,6 +163,36 @@ Feature: Adjustments via XML
           <created-at type="datetime">2009-09-09T12:00:00Z</created-at>
           <updated-at type="datetime">2009-09-09T12:00:00Z</updated-at>
       </adjustment>
+    """
+    
+  Scenario: Attempt to create an adjustment with a new tag
+    Given a typical set of adjustments, tags, and users
+    When I POST "/users/harry/tags/new-tag/adjustments.xml" with body "adjustment[value]=2"
+    Then I should get a 201 Created response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <adjustment>
+          <id type="integer">2</id>
+          <value type="integer">2</value>
+          <path>/users/harry/tags/new-tag/adjustments/2.xml</path>
+          <user-permalink>harry</user-permalink>
+          <tag-permalink>new-tag</tag-permalink>
+          <created-at type="datetime">2009-09-09T12:00:00Z</created-at>
+          <updated-at type="datetime">2009-09-09T12:00:00Z</updated-at>
+      </adjustment>
+    """
+    Then I GET "/tags/new-tag.xml"
+    And I should get a 200 OK response
+    And I should get an XML response body like:
+    """
+      <?xml version="1.0" encoding="UTF-8"?>
+      <tag>
+        <created-at type="datetime">2009-09-09T12:00:00Z</created-at>
+        <path>/tags/new-tag.xml</path>
+        <permalink>new-tag</permalink>
+        <updated-at type="datetime">2009-09-09T12:00:00Z</updated-at>
+      </tag>
     """
   
   Scenario: Attempt to create an adjustment with no value
