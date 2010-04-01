@@ -39,12 +39,21 @@ class TagsController < ApplicationController
   # (since those forms can't PUT to a permalink that's a form field).
   def create
     @tag = Tag.new params[:tag]
+    @tag.website_id = params[:website_id] if params[:website_id]
     if @tag.save
       flash[:success] = "Tag was successfully created."
-      redirect_to @tag
+      if params[:website_id]
+        redirect_to website_path(params[:website_id])
+      else
+        redirect_to @tag
+      end
     else
       flash[:failure] = "Tag couldn't be created."
-      render :action => :new
+      if params[:website_id]
+        redirect_to website_path(params[:website_id])
+      else
+        render :action => :new
+      end
     end
   end
   
@@ -93,7 +102,11 @@ class TagsController < ApplicationController
         if success
           saved = new_record ? 'created' : 'updated'
           flash[:success] = "Tag was successfully #{saved}."
-          redirect_to @tag
+          if params[:website_id]
+            redirect_to website_path(params[:website_id])
+          else
+            redirect_to @tag
+          end
         else
           flash[:failure] = "Tag couldn't be #{saved}."
           if new_record
@@ -144,9 +157,15 @@ class TagsController < ApplicationController
     @tag.destroy
     flash[:success] = "Tag was successfully destroyed."
     respond_to do |format|
-      format.html { redirect_to tags_path }
+      format.html { 
+        if params[:website_id] 
+          redirect_to website_path(params[:website_id])
+        else
+          redirect_to tags_path 
+        end
+      }
       format.json { render :json => tag_to_json(@tag) }
-      format.xml  { render :xml  => tag_to_xml(@tag) }
+      format.xml  { render :xml  => tag_to_xml(@tag)  }
     end    
   end
   
