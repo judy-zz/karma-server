@@ -12,9 +12,9 @@ Given /^a typical set of adjustments, tags, and users$/ do
     | 102 | harry     | 2009-09-10 13:57:01 UTC | 2009-09-10 13:57:01 UTC |
     })
   And "the following tags:", table(%{
-    | id   | permalink | created_at              | updated_at              |
-    | 101  | plants    | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
-    | 102  | animals   | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
+    | id   | permalink | website_id | created_at              | updated_at              |
+    | 101  | plants    | 1          | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
+    | 102  | animals   | 1          | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
     })
   And "the following adjustments:", table(%{
     | id   | user_id | tag_id | value | created_at              | updated_at              |
@@ -24,4 +24,5 @@ Given /^a typical set of adjustments, tags, and users$/ do
     | 104  | 102     | 102       | 4     | 2009-09-10 15:06:32 UTC | 2009-09-10 15:06:32 UTC |
     | 105  | 102     | 102       | -1    | 2009-09-10 15:06:32 UTC | 2009-09-10 15:06:32 UTC |
     })
+  And 'a website "plants"'
 end

@@ -3,7 +3,7 @@ module TagsHelper
   def tag_to_hash(tag, format = nil)
     tag_hash = {
       'permalink' => tag.permalink,
-      'path' => (tag.permalink ? tag_path(tag, :format => format) : nil),
+      'path' => (tag.permalink.blank? ? nil : tag_path(tag, :format => format)),
       'created_at' => tag.created_at,
       'updated_at' => tag.updated_at
     }

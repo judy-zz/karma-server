@@ -7,9 +7,10 @@ Feature: Tags via XML
     Given a client with hostname "jimjim" and api key "123456789ABCDEFG"
     And I log in as "" with password "123456789ABCDEFG"
     And the following tags:
-      | id | permalink | created_at          | updated_at          |
-      | 1  | Animals   | 2009-10-01 12:00:00 | 2009-10-01 12:00:00 | 
-      | 2  | Plants    | 2009-10-02 12:00:00 | 2009-10-02 12:00:00 | 
+      | id | permalink | website_id | created_at          | updated_at          |
+      | 1  | Animals   | 1          | 2009-10-01 12:00:00 | 2009-10-01 12:00:00 | 
+      | 2  | Plants    | 1          | 2009-10-02 12:00:00 | 2009-10-02 12:00:00 | 
+    And a website "plants"
     And I have a user with attributes permalink "bob" and id "1"
 
   Scenario: Read list of tags

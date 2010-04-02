@@ -360,14 +360,15 @@ Feature: Users via XML
       | id  | permalink      | created_at              | updated_at              |
       | 1   | bob            | 2009-09-10 19:55:35 UTC | 2009-09-10 19:55:35 UTC |
     And the following tags:
-      | id | permalink  | created_at              | updated_at              |
-      | 1  | plants     | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
-      | 2  | animals    | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
+      | id | permalink  | website_id | created_at              | updated_at              |
+      | 1  | plants     | 1          | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
+      | 2  | animals    | 1          | 2009-09-10 13:57:14 UTC | 2009-09-10 13:57:14 UTC |
     And the following adjustments:
       | id | user_id | tag_id | value | created_at              | updated_at              |
       | 1  | 1       | 1         | 1     | 2009-09-10 15:06:25 UTC | 2009-09-10 15:06:25 UTC |
       | 2  | 1       | 1         | 2     | 2009-09-10 15:06:32 UTC | 2009-09-10 15:06:32 UTC |
       | 3  | 1       | 2         | 3     | 2009-09-10 15:06:25 UTC | 2009-09-10 15:06:25 UTC |
+    And a website "plants"
     When I GET "/users/bob/adjustments.xml"
     Then I should get a 200 OK response
     And I should get an XML response body like:

@@ -1,5 +1,5 @@
 Given /^a tag "([^\"]*)"$/ do |permalink|
-  Tag.create!(:permalink => permalink)
+  Tag.create!(:permalink => permalink, :website_id => 1)
 end
 
 Given /^a tag "([^\"]*)" for "([^\"]*)"$/ do |permalink, website|

@@ -10,6 +10,7 @@ Feature: Adjustments via HTML
   Scenario: Create a new adjustment
     Given a user "bob"
     And a tag "plants"
+    And a website "plants"
     When I go to the new adjustment page for bob's plants tag
     And I fill in "value" with "5"
     And I press "Apply Adjustment"
