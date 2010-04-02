@@ -1,4 +1,4 @@
-= render :partial => "/shared/header", :locals => { :title => @admin.name, :subtitle => "", :flash => flash }
+= render :partial => "/shared/header", :locals => { :title => "Viewing Admin", :subtitle => h(@admin.name), :flash => flash }
 
 %p== #{h(@admin.name)} is an admin
 
