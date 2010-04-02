@@ -1,13 +1,29 @@
 = render :partial => "/shared/header", :locals => { :title => @website.name, :subtitle => @website.url, :flash => flash }
-    
+
 %h3 Clients
 - if @website.clients.blank?
   %p This website has no clients.
 - else
-  %ul
-  - @website.clients.each do |client|
-    %li= client.hostname
+  %table
+    - @website.clients.each do |client|
+      %tr
+        %td= client.hostname
+= link_to 'Manage Clients', clients_path, :class => 'button'
+%h3 Tags
+- if @website.tags.blank?
+  %p This website has no tags.
+- else
+  %table
+    - @website.tags.each do |tag|
+      %tr
+        %td.permalnk= tag.permalink
+        %td
+          = link_to "#{image_tag 'edit.png'} Edit", edit_website_tag_path(@website.id, tag), :class => "button"
+          = link_to "#{image_tag 'delete.png'} Destroy", website_tag_path(@website.id, tag.permalink), :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{tag.permalink} Tag", :class => 'button'
+      
+- form_tag website_tags_path(@website.id), :method => :post do
+  = text_field_tag 'tag[permalink]'
+  %button{:type => "submit", :name => "Add a Tag", :value => "Create", :class => 'button positive'} Add a Tag
   
 .button_row
   = link_to "Edit Website", edit_website_path(@website), :class => "button"
-    

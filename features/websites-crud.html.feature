@@ -5,12 +5,13 @@ Feature: Websites CRUD via HTML
 
     Background:
       Given I have an website with attributes id "1", name "West Arete Computing", and url "http://www.westarete.com"
+      And a tag "animal" for "West Arete Computing"
       And I have an website with attributes id "2", name "Yahoo", and url "http://www.yahoo.com"
       And an admin "jimjim" with password "jimjim"
       And an admin "bobbob" with password "bobbob"
       And I log in as "jimjim" with password "jimjim"
 
-    Scenario: Create an website
+    Scenario: Create a website
       Given I am on the new website page
       When I fill in "Name" with "Reddit"
       And I fill in "URL" with "http://www.reddit.com"
@@ -18,7 +19,7 @@ Feature: Websites CRUD via HTML
       Then I should be on the "Reddit" website page
       And I should see "Website was successfully created."
 
-    Scenario: Edit an website
+    Scenario: Edit a website
       Given I am on the edit "West Arete Computing" website page
       When I fill in "Name" with "West Arete Pizza Delivery"
       And I press "Update Website"
@@ -57,3 +58,38 @@ Feature: Websites CRUD via HTML
       Then I should be on the websites page
       And I should see "Website was successfully destroyed."
       And I should not see "West Arete Computing"
+    
+    Scenario: Create a tag for a website
+      Given I am on the "West Arete Computing" website page
+      When I fill in "tag_permalink" with "animals"
+      And I press "Add a Tag"
+      Then I should be on the "West Arete Computing" website page
+      And I should see "Tag was successfully created."
+      And I should see "animals"
+      
+    Scenario: Edit a website's tag
+      Given I am on the "West Arete Computing" website page
+      Then I should see "animal"
+      When I click "Edit"
+      Then I should be on the edit tag page for "West Arete Computing" "animal" tag
+      When I fill in "tag_permalink" with "animalia"
+      And I press "Update Tag"
+      Then I should be on the "West Arete Computing" website page
+      And I should see "Tag was successfully updated."
+      And I should see "animalia"
+      
+    Scenario: Delete a website's tag
+      Given I am on the "West Arete Computing" website page
+      And I should see "animal"
+      When I click "Destroy"
+      Then I should be on the "West Arete Computing" website page
+      And I should see "Tag was successfully destroyed."
+      And I should not see "animal"
+      
+      
+    
+    
+    
+    
+    
+    
