@@ -14,29 +14,53 @@ class Tag < ActiveRecord::Base
     permalink
   end
   
-  # when tags are created, we check for a karma: in it's name, if so, the 
-  # website id is allowed to be nil and is considered shared
+  def permalink
+    shared? ? "karma:" + self[:permalink].to_s : self[:permalink].to_s
+  end
+  
   def shared?
-    self.website_id == nil ? false : true
+    website_id.nil? && ! new_record?
+  end
+  
+  def self.find_by_permalink(p)
+    if ! p.nil? && p.split(':')[0] == 'karma'
+      tag = find_by_permalink(p.split(':')[1])
+    else
+      tag = find(:first, :conditions => {:permalink => p})
+    end
+  end
+  
+  def self.find_by_permalink!(p)
+    if ! p.nil? && p.split(':')[0] == 'karma'
+      tag = find_by_permalink(p.split(':')[1])
+    else
+      tag = find(:first, :conditions => {:permalink => p})
+    end
+    
+    if tag == nil
+      raise ActiveRecord::RecordNotFound
+    else
+      tag
+    end
   end
   
   private
   
   def valid_permalink
-    unless self.permalink.nil?
-      if self.permalink.include?(".")
+    unless self[:permalink].nil?
+      if self[:permalink].include?(".")
         errors.add(:permalink, "can't have a period")
       end
-      if self.permalink.include?(" ")
+      if self[:permalink].include?(" ")
         errors.add(:permalink, "can only submit 1 tag per adjustment")
       end
-      if self.permalink.include?("/")
+      if self[:permalink].include?("/")
         errors.add(:permalink, "can't have a slash")
       end
-      if self.permalink.split(':')[0] == 'karma'
+      if self[:permalink].split(':')[0] == 'karma'
         errors.add(:permalink, "karma namespace is reserved")
       end
-      case self.permalink
+      case self[:permalink]
       when "index", "new", "create", "edit", "update", "show"
         errors.add(:permalink, "can't be index, new, create, edit, update or show")
       end

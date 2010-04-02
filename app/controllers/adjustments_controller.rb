@@ -93,7 +93,7 @@ class AdjustmentsController < ApplicationController
         format.xml  { render :xml  => adjustment_to_xml(@adjustment)  }
       end
     else
-      render :nothing => true, :status => :not_found
+      render "404.html", :status => :not_found
     end
   end
   

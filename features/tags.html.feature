@@ -4,8 +4,8 @@ Feature: Tags via HTML
   I want to be able to create, read, update, and delete Tag objects via HTML.
   
   Background:
-    Given I have a tag with attributes id "1" and permalink "Animals"
-    And I have a tag with attributes id "2" and permalink "Plants"
+    Given I have a tag with attributes id "1", permalink "Animals", and website_id "1"
+    And I have a tag with attributes id "2", permalink "Plants", and website_id "1"
     And an admin "jimjim" with password "jimjim"
     And I log in as "jimjim" with password "jimjim"
 

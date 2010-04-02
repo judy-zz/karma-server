@@ -7,9 +7,10 @@ Feature: Tags via XML
     Given a client with hostname "jimjim" and api key "123456789ABCDEFG"
     And I log in as "" with password "123456789ABCDEFG"
     And the following tags:
-      | id | permalink | created_at          | updated_at          |
-      | 1  | Animals   | 2009-10-01 12:00:00 | 2009-10-01 12:00:00 | 
-      | 2  | Plants    | 2009-10-02 12:00:00 | 2009-10-02 12:00:00 | 
+      | id | permalink | website_id | created_at          | updated_at          |
+      | 1  | Animals   | 1          | 2009-10-01 12:00:00 | 2009-10-01 12:00:00 | 
+      | 2  | Plants    | 1          | 2009-10-02 12:00:00 | 2009-10-02 12:00:00 | 
+    And a website "plants"
     And I have a user with attributes permalink "bob" and id "1"
 
   Scenario: Read list of tags
@@ -306,15 +307,15 @@ Feature: Tags via XML
     Then I should get a 200 OK response
   
   Scenario: Update a tag
-    When I PUT "/tags/Animals.xml" with body "tag[permalink]=Nice Animals"
+    When I PUT "/tags/Animals.xml" with body "tag[permalink]=NiceAnimals"
     Then I should get a 200 OK response
     And I should get an XML response body like:
     """
       <?xml version="1.0" encoding="UTF-8"?>
       <tag>
         <created-at type="datetime">2009-10-01T12:00:00Z</created-at>
-        <path>/tags/Nice%20Animals.xml</path>
-        <permalink>Nice Animals</permalink>
+        <path>/tags/NiceAnimals.xml</path>
+        <permalink>NiceAnimals</permalink>
         <updated-at type="datetime">2009-09-09T12:00:00Z</updated-at>
       </tag>
     """

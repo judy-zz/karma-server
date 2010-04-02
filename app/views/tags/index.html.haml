@@ -1,6 +1,9 @@
-= render :partial => "/shared/header", :locals => { :title => "Tags", :subtitle => "", :flash => flash }
+= render :partial => "/shared/header", :locals => { :title => "Shared Tags", :subtitle => "", :flash => flash }
 
-%p Tags collect karma.
+%p
+  Shared tags collect karma across all websites. To view website-specific tags, click on a website in the
+  = link_to "websites page.", websites_path
+
 
 #content
   - if ! @tags.empty?
