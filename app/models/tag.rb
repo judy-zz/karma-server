@@ -47,20 +47,25 @@ class Tag < ActiveRecord::Base
   private
   
   def valid_permalink
-    unless self.permalink.nil?
-      if self.permalink.include?(".")
+    unless self[:permalink].nil?
+      if self[:permalink].include?(".")
         errors.add(:permalink, "can't have a period")
       end
-      if self.permalink.include?("/")
+      if self[:permalink].include?(" ")
+        errors.add(:permalink, "can only submit 1 tag per adjustment")
+      end
+      if self[:permalink].include?("/")
         errors.add(:permalink, "can't have a slash")
       end
-      case self.permalink
+      if self[:permalink].split(':')[0] == 'karma'
+        errors.add(:permalink, "karma namespace is reserved")
+      end
+      case self[:permalink]
       when "index", "new", "create", "edit", "update", "show"
         errors.add(:permalink, "can't be index, new, create, edit, update or show")
       end
     end
   end
-
 end
 # == Schema Information
 #
