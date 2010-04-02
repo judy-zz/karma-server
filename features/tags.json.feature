@@ -4,34 +4,42 @@ Feature: Tags via JSON
   I want to be able to read and modify tag resources via JSON.
   
   Background:
-    Given a client with hostname "jimjim" and api key "123456789ABCDEFG"
+    Given the following websites:
+      | id | name      | url                   | created_at          | updated_at          |
+      | 1  | plants    | http://www.plants.com | 2009-10-01 12:00:00 | 2009-10-01 12:00:00 |
+    And a client with hostname "jimjim", api key "123456789ABCDEFG", and website "plants"
     And I log in as "" with password "123456789ABCDEFG"
     And the following tags:
       | id | permalink | website_id | created_at          | updated_at          |
       | 1  | Animals   | 1          | 2009-10-01 12:00:00 | 2009-10-01 12:00:00 | 
       | 2  | Plants    | 1          | 2009-10-02 12:00:00 | 2009-10-02 12:00:00 | 
+      | 3  | Comments  | nil        | 2009-10-02 12:00:00 | 2009-10-02 12:00:00 | 
     And I have a user with attributes permalink "bob" and id "1"
-    And a website "plants"
   
   Scenario: Read list of tags
     When I GET "/tags.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
     """
-      [{
-        tag: {
+      [{tag: {
           permalink: Animals,
           path: "/tags/Animals.json",
           created_at: "2009-10-01T12:00:00Z",
           updated_at: "2009-10-01T12:00:00Z"
         }},
         {tag: {
+          permalink: "karma:Comments",
+          path: "/tags/karma:Comments.json",
+          created_at: "2009-10-02T12:00:00Z",
+          updated_at: "2009-10-02T12:00:00Z"
+        }},
+        {tag: {
           permalink: Plants,
           path: "/tags/Plants.json",
           created_at: "2009-10-02T12:00:00Z",
           updated_at: "2009-10-02T12:00:00Z"
-        }
-      }]
+        }}
+      ]
     """
   
   Scenario: Read list of tags when there are no tags

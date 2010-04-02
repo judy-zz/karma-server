@@ -8,7 +8,12 @@ class TagsController < ApplicationController
   #   GET /tags.json
   #   GET /tags.xml
   def index
-    @tags = Tag.all
+    if current_client
+      @tags = Tag.by_website(current_client.website)
+    else
+      @tags = Tag.shared
+    end
+    
     respond_to do |format|
       format.html
       format.json{  render :json => tags_to_json(@tags)  }
@@ -91,7 +96,11 @@ class TagsController < ApplicationController
   # updated, the URI of the resource will have changed, and a Location: header
   # will be returned with the location of the new resource.
   def update
-    @tag = Tag.find_or_initialize_by_permalink(params[:id])
+    
+    unless @tag = Tag.find_by_permalink(params[:id])
+      @tag = Tag.new(:permalink => params[:id])
+    end
+    
     @tag.attributes = params[:tag]
     new_record = @tag.new_record?
     saved = new_record ? "created" : "updated"
