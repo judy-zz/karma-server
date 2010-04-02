@@ -27,6 +27,9 @@ class Tag < ActiveRecord::Base
       if self.permalink.include?(".")
         errors.add(:permalink, "can't have a period")
       end
+      if self.permalink.include?(" ")
+        errors.add(:permalink, "can only submit 1 tag per adjustment")
+      end
       if self.permalink.include?("/")
         errors.add(:permalink, "can't have a slash")
       end
