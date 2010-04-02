@@ -29,6 +29,28 @@ describe Tag do
     end
   end
 
+  describe "when a new tag is about to be saved" do
+    describe "if a 'karma:' is present at the head of the permalink" do
+      it "should return a permalink error" do
+        bad_permalinks = [
+          'karma',        # karma is reserved
+          'karma:',       # karma is reserved
+          'karma:new-tag' # karma is reserved
+        ]
+        bad_permalinks.each do |p|
+          @tag.permalink = p
+          @tag.should_not be_valid
+          @tag.errors[:permalink].should include("karma namespace is reserved")
+        end
+      end
+    end
+    describe "if there isn't a karma: at the head of the permalink" do
+      it "should return no permalink error" do
+        @tag.should be_valid
+      end
+    end
+  end
+
 end
 
 # == Schema Information
