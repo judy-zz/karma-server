@@ -307,15 +307,15 @@ Feature: Tags via XML
     Then I should get a 200 OK response
   
   Scenario: Update a tag
-    When I PUT "/tags/Animals.xml" with body "tag[permalink]=Nice Animals"
+    When I PUT "/tags/Animals.xml" with body "tag[permalink]=NiceAnimals"
     Then I should get a 200 OK response
     And I should get an XML response body like:
     """
       <?xml version="1.0" encoding="UTF-8"?>
       <tag>
         <created-at type="datetime">2009-10-01T12:00:00Z</created-at>
-        <path>/tags/Nice%20Animals.xml</path>
-        <permalink>Nice Animals</permalink>
+        <path>/tags/NiceAnimals.xml</path>
+        <permalink>NiceAnimals</permalink>
         <updated-at type="datetime">2009-09-09T12:00:00Z</updated-at>
       </tag>
     """

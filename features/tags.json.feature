@@ -177,14 +177,14 @@ Feature: Tags via JSON
     """
   
   Scenario: Update a tag
-    When I PUT "/tags/Animals.json" with body "tag[permalink]=Nice Animals"
+    When I PUT "/tags/Animals.json" with body "tag[permalink]=NiceAnimals"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
     """
       {
         tag:{
-          permalink: "Nice Animals",
-          path: "/tags/Nice%20Animals.json",
+          permalink: "NiceAnimals",
+          path: "/tags/NiceAnimals.json",
           created_at: "2009-10-01T12:00:00Z",
           updated_at: "2009-09-09T12:00:00Z"
         }
