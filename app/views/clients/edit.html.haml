@@ -1,4 +1,4 @@
-= render :partial => "/shared/header", :locals => { :title => "Edit Client", :subtitle => @client.hostname, :flash => flash }
+= render :partial => "/shared/header", :locals => { :title => "Edit Client", :subtitle => h(@client.hostname), :flash => flash }
 - form_for @client do |f| 
   = render :partial => "form", :locals => { :f => f }
   

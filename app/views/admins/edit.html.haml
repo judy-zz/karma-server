@@ -1,4 +1,4 @@
-= render :partial => "/shared/header", :locals => { :title => "Edit Admin", :subtitle => @admin.name, :flash => flash }
+= render :partial => "/shared/header", :locals => { :title => "Edit Admin", :subtitle => h(@admin.name), :flash => flash }
 - form_for @admin do |f| 
   = render :partial => "form", :locals => { :f => f }
   

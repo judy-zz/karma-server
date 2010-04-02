@@ -1,4 +1,4 @@
-= render :partial => "/shared/header", :locals => { :title => @user.permalink, :subtitle => "", :flash => flash }
+= render :partial => "/shared/header", :locals => { :title => "Viewing User", :subtitle => h(@user.permalink), :flash => flash }
 
 #content
   %h3 Karma

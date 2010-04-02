@@ -1,4 +1,4 @@
-= render :partial => "/shared/header", :locals => { :title => @website.name, :subtitle => @website.url, :flash => flash }
+= render :partial => "/shared/header", :locals => { :title => "Viewing Website", :subtitle => h(@website.url), :flash => flash }
 
 %h3 Clients
 - if @website.clients.blank?
