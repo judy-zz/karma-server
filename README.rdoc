@@ -189,9 +189,9 @@ timestamp of 'April 2nd at 3pm' to be saved with the adjustment.
   
 ==== Save an optional Object UUID and Time of Action with a Karma Adjustment
 
-  Save an object identifier of 'plant_id_3' and a action timestamp of 'April 2nd at 3pm' 
-  to be saved with a Karma adjustment. Append the following to a Karma Increment or 
-  Karma Decrement Adjustment.
+Save an object identifier of 'plant_id_3' and a action timestamp of 'April 2nd at 3pm' 
+to be saved with a Karma adjustment. Append the following to a Karma Increment or 
+Karma Decrement Adjustment.
   
   &object_uuid='plant_id_3'&action_timestamp='April 2nd at 3pm'
 
