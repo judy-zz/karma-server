@@ -86,7 +86,11 @@ negative points that have been accumulated.
 
 Tags are the containers that are used to hold karma points. The client 
 defines one or more unique tags, and these tags are then available to
-all users for storing points. 
+all users for storing points within the scope of the client's website.
+
+Shared Tags are tags prefixed by a 'karma:'. An admin defines one or more 
+unique shared tags, and these tags are then available to all users for 
+storing points within the scope of all websites with access to the server.
 
 Like users, tags only have one real attribute: their permalink. This is the
 last path segment of the URI that identifies the tag. The permalink is set
@@ -146,6 +150,15 @@ They differ from tags and users in the way that they're created and
 referenced; they're not named explicitly by the client. Instead, they're 
 assigned an integer identifier by the karma server when they're created.
 
+Adjustments also have two optional attributes: object_uuid and 
+action_timestamp. These attributes are only meaningful to a client, the 
+Karma Server only stores them. 
+
+The Object UUID is intended to store an identifier the client uses to 
+reference an object that relates to an adjustment. The Action Timestamp is
+intended to store a timestamp of the moment a user earned karma, before the
+karma was requested to or issued from the Karma Server.
+
 ==== Increment Karma
 
 Increment the karma in bob's plant tag by three points. The "Location"
@@ -159,6 +172,28 @@ Decrement the karma in bob's plant tag by one point. The "Location"
 header of the response redirects the client to the new adjustment.
 
   POST /users/bob/tags/plants/adjustments?adjustment[value]=-1
+  
+==== Save an optional Object UUID with a Karma Adjustment
+
+Increment the karma in bob's plant tag by three points and save an object 
+identifier of 'plant_id_3'.
+
+  POST /users/bob/tags/plants/adjustments?adjustment[value]=3&object_uuid='plant_id_3'
+
+==== Save an optional Time of Action with a Karma Adjustment
+
+Increment the karma in bob's plant tag by three points and save an action 
+timestamp of 'April 2nd at 3pm' to be saved with the adjustment.
+
+  POST /users/bob/tags/plants/adjustments?adjustment[value]=3&action_timestamp='April 2nd at 3pm'
+  
+==== Save an optional Object UUID and Time of Action with a Karma Adjustment
+
+  Save an object identifier of 'plant_id_3' and a action timestamp of 'April 2nd at 3pm' 
+  to be saved with a Karma adjustment. Append the following to a Karma Increment or 
+  Karma Decrement Adjustment.
+  
+  &object_uuid='plant_id_3'&action_timestamp='April 2nd at 3pm'
 
 ==== View an Adjustment
   
