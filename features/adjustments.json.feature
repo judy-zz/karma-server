@@ -4,12 +4,11 @@ Feature: Adjustments via JSON
   I want to be able to read and manipulate user's karma via the JSON API
 
   Background:
-    Given a website with name "westarete" and url "http://www.westarete.com"
-    Given a client with hostname "jimjim", api key "123456789ABCDEFG", and website "westarete"
+    Given a typical set of adjustments, tags, and users
+    And a client with hostname "jimjim", api key "123456789ABCDEFG", and website "plants"
     And I log in as "" with password "123456789ABCDEFG"
     
   Scenario: Read list of adjustments
-    Given a typical set of adjustments, tags, and users
     When I GET "/users/harry/tags/animals/adjustments.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
@@ -41,7 +40,6 @@ Feature: Adjustments via JSON
     """
   
   Scenario: Read list of adjustments when there are none
-    Given a typical set of adjustments, tags, and users
     And there are no adjustments
     When I GET "/users/harry/tags/animals/adjustments.json"
     Then I should get a 200 OK response
@@ -51,7 +49,6 @@ Feature: Adjustments via JSON
     """
   
   Scenario: Read adjustment
-    Given a typical set of adjustments, tags, and users
     When I GET "/users/harry/tags/animals/adjustments/104.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
@@ -93,7 +90,6 @@ Feature: Adjustments via JSON
     And I should get an empty response body
   
   Scenario: Request a new adjustment
-    Given a typical set of adjustments, tags, and users
     When I GET "/users/harry/tags/animals/adjustments/new.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:
@@ -127,7 +123,6 @@ Feature: Adjustments via JSON
     And I should get an empty response body
     
   Scenario: Create an adjustment
-    Given a typical set of adjustments, tags, and users
     When I POST "/users/harry/tags/animals/adjustments.json" with body "adjustment[value]=2"
     Then I should get a 201 Created response
     And I should get a JSON response body like:
@@ -144,7 +139,6 @@ Feature: Adjustments via JSON
     """
     
   Scenario: Attempt to create an adjustment with a new tag
-    Given a typical set of adjustments, tags, and users
     When I POST "/users/harry/tags/new-tag/adjustments.json" with body "adjustment[value]=2"
     Then I should get a 201 Created response
     And I should get a JSON response body like:
@@ -174,7 +168,6 @@ Feature: Adjustments via JSON
     """
     
   Scenario: Attempt to create an adjustment with no value
-    Given a typical set of adjustments, tags, and users
     When I POST "/users/harry/tags/animals/adjustments.json" with body ""
     Then I should get a 422 Unprocessable Entity response
     And I should get a JSON response body like:
@@ -186,7 +179,6 @@ Feature: Adjustments via JSON
     """
   
   Scenario: Destroy an adjustment
-    Given a typical set of adjustments, tags, and users
     When I DELETE "/users/harry/tags/animals/adjustments/104.json"
     Then I should get a 200 OK response
     And I should get a JSON response body like:

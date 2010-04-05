@@ -6,6 +6,7 @@ Feature: Tags via HTML
   Background:
     Given I have a tag with attributes id "1", permalink "Animals", and website_id "1"
     And I have a tag with attributes id "2", permalink "Plants", and website_id "1"
+    And I have a tag with attributes id "3" and permalink "Comments"
     And an admin "jimjim" with password "jimjim"
     And I log in as "jimjim" with password "jimjim"
 
@@ -192,8 +193,9 @@ Feature: Tags via HTML
   
   Scenario: View list of tags
     Given I am on the tags page
-    Then I should see "Animals"
-    And I should see "Plants"
+    Then I should not see "Animals"
+    And I should not see "Plants"
+    And I should see "karma:Comments"
   
   Scenario: View a tag
     Given I am on the "Animals" tag page
@@ -202,8 +204,8 @@ Feature: Tags via HTML
   
   Scenario: Destroy a tag
     Given I am on the tags page
-    When I follow "Destroy Animals Tag"
+    When I follow "Destroy karma:Comments Tag"
     Then I should be on the tags page
     And I should see "Tag was successfully destroyed."
-    And I should not see "Animals"
+    And I should not see "karma:Comments"
   

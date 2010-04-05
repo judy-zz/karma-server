@@ -4,13 +4,16 @@ Feature: Tags via XML
   I want to be able to read and modify tag resources via XML.
   
   Background:
-    Given a client with hostname "jimjim" and api key "123456789ABCDEFG"
+    Given the following websites:
+      | id | name      | url                   | created_at          | updated_at          |
+      | 1  | plants    | http://www.plants.com | 2009-10-01 12:00:00 | 2009-10-01 12:00:00 |
+    And a client with hostname "jimjim", api key "123456789ABCDEFG", and website "plants"
     And I log in as "" with password "123456789ABCDEFG"
     And the following tags:
       | id | permalink | website_id | created_at          | updated_at          |
       | 1  | Animals   | 1          | 2009-10-01 12:00:00 | 2009-10-01 12:00:00 | 
       | 2  | Plants    | 1          | 2009-10-02 12:00:00 | 2009-10-02 12:00:00 | 
-    And a website "plants"
+      | 3  | Comments  | nil        | 2009-10-02 12:00:00 | 2009-10-02 12:00:00 | 
     And I have a user with attributes permalink "bob" and id "1"
 
   Scenario: Read list of tags
@@ -25,6 +28,12 @@ Feature: Tags via XML
           <path>/tags/Animals.xml</path>
           <permalink>Animals</permalink>
           <updated-at type="datetime">2009-10-01T12:00:00Z</updated-at>
+        </tag>
+        <tag>
+          <created-at type="datetime">2009-10-02T12:00:00Z</created-at>
+          <path>/tags/karma:Comments.xml</path>
+          <permalink>karma:Comments</permalink>
+          <updated-at type="datetime">2009-10-02T12:00:00Z</updated-at>
         </tag>
         <tag>
           <created-at type="datetime">2009-10-02T12:00:00Z</created-at>

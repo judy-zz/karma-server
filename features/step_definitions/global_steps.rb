@@ -30,6 +30,7 @@ Given /^the following (\w+):$/ do |table_name, table|
     object = klass.new
     hash.each do |key, value|
       object[key] = value   # Must explicitly set the id to override it.
+      object[key] = nil if value == "nil"
     end
     object.save!
   end

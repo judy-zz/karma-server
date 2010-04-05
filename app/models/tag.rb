@@ -8,6 +8,9 @@ class Tag < ActiveRecord::Base
   
   default_scope :order => :permalink
   
+  named_scope :shared   , :conditions => {:website_id => nil}
+  named_scope :by_website, lambda { |website_id| {:conditions => ["website_id = ? OR website_id IS NULL", website_id]}}
+  
   attr_protected :created_at, :updated_at
   
   def to_param
