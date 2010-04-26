@@ -1,6 +1,6 @@
 class CreateUsersWebsitesTable < ActiveRecord::Migration
   def self.up
-    create_table :users_websites, :force => true do |t|
+    create_table :users_websites, :id => false, :force => true do |t|
       t.integer :user_id, :website_id
       t.timestamps
     end

@@ -9,6 +9,26 @@ describe Adjustment do
   it { should belong_to(:tag      )}
   it { should belong_to(:website  )}
 
+  describe "#after_save" do
+    before do
+      @user = User.make
+      @website = Website.make
+    end
+    describe "when a user does not already belong to a website" do
+      before do
+        @website.users.any?{|user| user == @user }.should be_false
+      end
+      describe "and an adjustment is made" do
+        before do
+          @adjustment = Adjustment.make(:user => @user, :website => @website)
+        end
+        it "should create the user-website relationship" do
+          @website.users.any?{|user| user == @user }.should be_true
+        end
+      end
+    end
+  end
+
 end
 
 

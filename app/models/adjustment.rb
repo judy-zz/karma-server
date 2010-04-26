@@ -14,6 +14,12 @@ class Adjustment < ActiveRecord::Base
   belongs_to :website
   
   attr_accessible :value
+  
+  def after_save
+    if website && website.users.none? {|website_user| website_user == user}
+      website.users << user
+    end
+  end
 end
 
 
