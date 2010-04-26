@@ -8,11 +8,12 @@ describe Website do
     Website.make
   end
   
-  it { should have_many(:clients)   }
-  it { should have_many(:tags)      }
-  it { should validate_presence_of(:name)   }
-  it { should validate_presence_of(:url)    }
-  it { should validate_uniqueness_of(:url)  }
+  it { should have_many(:clients)            }
+  it { should have_many(:tags)               }
+  it { should have_and_belong_to_many(:users)}
+  it { should validate_presence_of(:name)    }
+  it { should validate_presence_of(:url)     }
+  it { should validate_uniqueness_of(:url)   }
   
   describe "#url" do
     it "should be valid when url is well-formed" do

@@ -17,7 +17,8 @@ describe User do
     @animals = Tag.create! :permalink => "animals"
   end
   
-  it { should validate_presence_of(:permalink) }
+  it { should have_and_belong_to_many(:websites) }
+  it { should validate_presence_of(:permalink)   }
   it { should validate_uniqueness_of(:permalink) }
 
   describe "when there are no adjustments" do

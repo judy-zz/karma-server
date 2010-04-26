@@ -10,6 +10,7 @@
 
 class User < ActiveRecord::Base
   has_many :adjustments, :dependent => :destroy
+  has_and_belongs_to_many :websites
   validates_presence_of   :permalink
   validates_uniqueness_of :permalink
   validate :valid_permalink
