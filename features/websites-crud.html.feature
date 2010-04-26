@@ -49,7 +49,7 @@ Feature: Websites CRUD via HTML
 
     Scenario: View an website
       Given I am on the "West Arete Computing" website page
-      Then I should see "West Arete Computing"
+      Then I should see "http://www.westarete.com"
       And I should not see "Yahoo"
 
     Scenario: Destroy an website
