@@ -21,6 +21,9 @@ Rails::Initializer.run do |config|
   
   # Authorization.
   config.gem 'authlogic', :version => '2.1.3'
+  
+  # Pagination.
+  config.gem 'will_paginate', :version => '2.3.12'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -45,3 +48,6 @@ end
 # set additional date formats
 Time::DATE_FORMATS[:date_time12] = "%Y-%m-%d %I:%M %p"
 Time::DATE_FORMATS[:short_date] = "%Y-%m-%d"
+
+# Custom pagination.
+WillPaginate::ViewHelpers.pagination_options[:renderer] = 'CustomLinkRenderer'

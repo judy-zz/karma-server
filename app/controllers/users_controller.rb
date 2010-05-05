@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   #   GET /users.json
   #   GET /users.xml
   def index
-    @users = User.all
+    @users = User.paginate(:page => params[:page])
     respond_to do |format|
       format.html
       format.json { render :json => users_to_json(@users) }
