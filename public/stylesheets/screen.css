@@ -293,6 +293,15 @@ dt {
   font-weight: 600;
   padding-bottom: .5em; }
 
+/* line 32, ../../app/stylesheets/modules/_typography.sass */
+a.hidden_link {
+  text-decoration: none;
+  color: black; }
+  /* line 35, ../../app/stylesheets/modules/_typography.sass */
+  a.hidden_link:hover {
+    color: blue;
+    text-decoration: underline; }
+
 /* line 1, ../../app/stylesheets/modules/_button.sass */
 a {
   color: blue;

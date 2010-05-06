@@ -8,6 +8,7 @@ class WebsitesController < ApplicationController
 
   def show
     @website = Website.find(params[:id])
+    @users = @website.users.paginate(:page => params[:user_page], :per_page => 100)
   end
   
   def clients

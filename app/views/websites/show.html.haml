@@ -26,11 +26,15 @@
   %button{:type => "submit", :name => "Add a Tag", :value => "Create", :class => 'button positive'} Add a Tag
   
 %h3 Users
-- if @website.users.blank?
+- if @users.blank?
   %p This website has no users.
 - else
-  - @website.users.each do |user|
-    = user.permalink << " "
+  %table
+    - @users.in_groups_of(4).each do |users_group|
+      %tr
+        - users_group.each do |user|
+          %td= link_to user.permalink, user, :class => 'hidden_link' if user
+  = will_paginate @users, :inner_window => 2, :param_name => :user_page
 
 .button_row
   = link_to "Edit Website", edit_website_path(@website), :class => "button"
