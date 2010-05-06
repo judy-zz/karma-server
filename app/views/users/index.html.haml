@@ -12,7 +12,7 @@
             = link_to "Adjust Karma", new_user_adjustment_path(user), :class => "button"
             = link_to "#{image_tag 'edit.png'} Edit", edit_user_path(user), :class => "button"
             = link_to "#{image_tag 'delete.png'} Destroy", user, :confirm => "Are you sure?", :method => :delete, :title => "Destroy #{user.permalink} User", :class => "negative button"
-    = will_paginate
+    = will_paginate @users, :inner_window => 2
   - else
     = link_to "There are no users, click here to create the first one.", new_user_path
   

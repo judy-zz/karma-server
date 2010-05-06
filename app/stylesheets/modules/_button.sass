@@ -41,8 +41,41 @@ a.button, button.button
   :-webkit-border-radius 11px
   :-moz-border-radius 11px
 
+span.button
+  :font-family "Lucida Grande",Tahoma,Arial,sans-serif
+  :float none
+  :display inline
+  :display inline-block
+  :margin 0 .7em 0 0
+  :text-decoration none
+  :border 1px solid #dedede 
+  :background white
+  :padding 5px 10px 6px 10px
+  :font-size 100%
+  :line-height 130%
+  :color #666 !important
+  :-webkit-box-shadow rgba(0,0,0,.15) 0px 1px 3px
+  :-moz-box-shadow rgba(0,0,0,.15) 0px 1px 3px
+  :-webkit-border-radius 11px
+  :-moz-border-radius 11px
+  
+span.gap
+  :margin 0 .2em 0 0
+  
+.pagination a.button, .pagination span.button
+  :margin 0 .2em 0 0
 
-a.button
+/* 1.5 em of additional room + .7 already on next button */
+.pagination a.prev_page, .pagination span.prev_page
+  :margin-right 1.7em !important
+  
+.pagination a.next_page, .pagination span.next_page
+  :margin-left 1.5em !important
+  
+
+  
+
+a.button    
   :float none
   :display inline
   :display inline-block
