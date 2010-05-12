@@ -44,10 +44,3 @@ Rails::Initializer.run do |config|
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
 end
-
-# set additional date formats
-Time::DATE_FORMATS[:date_time12] = "%Y-%m-%d %I:%M %p"
-Time::DATE_FORMATS[:short_date] = "%Y-%m-%d"
-
-# Custom pagination.
-WillPaginate::ViewHelpers.pagination_options[:renderer] = 'CustomLinkRenderer'
