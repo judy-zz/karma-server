@@ -18,3 +18,10 @@ set :privates, %w{
   config/database.yml 
   config/initializers/session_store.rb
 }
+
+
+Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|
+  $: << File.join(vendored_notifier, 'lib')
+end
+
+require 'hoptoad_notifier/capistrano'

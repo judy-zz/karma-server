@@ -21,8 +21,5 @@ config.action_mailer.raise_delivery_errors = false
 # Annotate model comments with database table descriptions.
 config.gem 'annotate', :version => '2.0.2'
 
-# Performance analysis. Visit http://localhost:3000/newrelic
-config.gem "newrelic_rpm", :version => '2.9.4'
-
 # Capistrano deployment helpers to keep our recipe simple.
 config.gem 'capistrano-helpers', :lib => false, :version => '0.3.2'

@@ -17,13 +17,20 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on and have them installed with rake gems:install
 
   # Haml view templates are an alternative to erb.
-  config.gem 'haml', :version => '2.2.15'
+  config.gem 'compass', :version => '0.10.2'
+  config.gem 'haml', :version => '3.0.15'
   
   # Authorization.
   config.gem 'authlogic', :version => '2.1.3'
   
   # Pagination.
   config.gem 'will_paginate', :version => '2.3.12'
+
+  # Performance analysis. Visit http://localhost:3000/newrelic
+  config.gem "newrelic_rpm", :version => '2.12.3'
+  
+  # Hoptoad notifier for exception logging.
+  config.gem "hoptoad_notifier", :version => "2.3.2"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
