@@ -2,7 +2,11 @@
   
 %dl
   %dt Website
-  %dd= @client.website.name
+  %dd
+    - if @client.website
+      = @client.website.name
+    - else
+      %span{:style => "color:red;font-weight:600"} No Website Selected
   %dt IP Address
   %dd= @client.ip_address
   %dt API Key
