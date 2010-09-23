@@ -2,8 +2,8 @@ require 'capistrano/ext/multistage'     # Support for multiple deploy targets
 require 'capistrano-helpers/branch'     # Ask user what tag to deploy
 require 'capistrano-helpers/passenger'  # Support for Apache passenger
 require 'capistrano-helpers/git'        # Support for git
-require 'capistrano-helpers/bundler'    # Install all required rubygems
 require 'capistrano-helpers/privates'   # Symlink private files after deploying
+require 'capistrano-helpers/bundler'    # Install all required rubygems
 require 'capistrano-helpers/migrations' # Run all migrations automatically
 require 'capistrano-helpers/campfire'   # Post deploy info to campfire
 require 'hoptoad_notifier/capistrano'

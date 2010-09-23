@@ -39,8 +39,7 @@ end
 
 group :development do
   gem 'annotate', '2.0.2'
-  gem 'capistrano', '2.5.19'
   gem 'capistrano-ext', '1.2.1'
-  gem 'capistrano-helpers', '0.5.0'
+  gem 'capistrano-helpers', '0.5.2'
   gem 'hitch', '0.6.0'
 end
