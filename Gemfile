@@ -22,6 +22,21 @@ gem 'tinder', '1.4.0'
 gem 'twitter-stream', '0.1.8'
 gem 'will_paginate', '2.3.12'
 
+group :test, :cucumber do
+  gem 'rspec', '1.3.0'
+  gem 'rspec-rails', '1.3.2'
+  
+  gem 'shoulda', '2.10.2'
+  
+  gem 'machinist', '1.0.6'
+  
+  gem 'faker', '0.3.1'
+  
+  gem 'cucumber-rails',   '0.2.4'
+  gem 'database_cleaner', '0.4.3'
+  gem 'webrat',           '0.6.0'
+end
+
 group :development do
   gem 'annotate', '2.0.2'
   gem 'capistrano', '2.5.19'

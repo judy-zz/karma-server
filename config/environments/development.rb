@@ -18,8 +18,3 @@ config.action_mailer.raise_delivery_errors = false
 
 # Specify gems that this application depends on and have them installed with rake gems:install
 
-# Annotate model comments with database table descriptions.
-config.gem 'annotate', :version => '2.0.2'
-
-# Capistrano deployment helpers to keep our recipe simple.
-config.gem 'capistrano-helpers', :lib => false, :version => '0.3.2'

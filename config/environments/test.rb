@@ -27,17 +27,3 @@ config.action_mailer.delivery_method = :test
 # like if you have constraints or database-specific column types
 # config.active_record.schema_format = :sql
 
-# Specify gems that this application depends on and have them installed with rake gems:install
-
-# Rspec testing framework.
-config.gem 'rspec',       :lib => false, :version => '>=1.3.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec'))
-config.gem 'rspec-rails', :lib => false, :version => '>=1.3.2' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
-
-# Shoulda has rspec-compatible matchers for ActiveRecord.
-config.gem 'shoulda', :lib => 'shoulda', :version => '2.10.2'
-
-# Replacement for fixtures
-config.gem 'machinist', :lib => 'machinist', :version => '1.0.6'
-
-# Generate fake test data
-config.gem 'faker', :version => '0.3.1'
