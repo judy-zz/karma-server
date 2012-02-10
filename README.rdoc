@@ -2,8 +2,6 @@
 
 Customer: Marine Biological Laboratory / Encyclopedia of Life
 
-Basecamp: http://westarete.basecamphq.com/projects/3622221
-
 A web service provider for tracking "karma" points of users who are
 distributed across several separate web applications.
 
